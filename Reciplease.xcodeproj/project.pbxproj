@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC7A8C7A24A7D1BD00DB48B9 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7A8C7924A7D1BD00DB48B9 /* RoundedView.swift */; };
 		ACAF6A8524A0CF6700F7E7A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF6A8424A0CF6700F7E7A9 /* AppDelegate.swift */; };
 		ACAF6A8C24A0CF6700F7E7A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACAF6A8A24A0CF6700F7E7A9 /* Main.storyboard */; };
 		ACAF6A8F24A0CF6700F7E7A9 /* Reciplease.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ACAF6A8D24A0CF6700F7E7A9 /* Reciplease.xcdatamodeld */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC7A8C7924A7D1BD00DB48B9 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		ACAF6A8124A0CF6700F7E7A9 /* Reciplease.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reciplease.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACAF6A8424A0CF6700F7E7A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ACAF6A8B24A0CF6700F7E7A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				ACAF6A8A24A0CF6700F7E7A9 /* Main.storyboard */,
 				ACAF6A9224A0CF6A00F7E7A9 /* LaunchScreen.storyboard */,
 				ACB5F83624A5413B00E28502 /* RoundedButton.swift */,
+				AC7A8C7924A7D1BD00DB48B9 /* RoundedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				ACAF6ABA24A0E6E000F7E7A9 /* RecipeTableViewCell.swift in Sources */,
 				ACB5F83324A504C800E28502 /* RecipeResult.swift in Sources */,
 				ACAF6AB024A0D71800F7E7A9 /* FavoriteViewController.swift in Sources */,
+				AC7A8C7A24A7D1BD00DB48B9 /* RoundedView.swift in Sources */,
 				ACAF6AB424A0E3B800F7E7A9 /* RecipeDetailViewController.swift in Sources */,
 				ACAF6A8524A0CF6700F7E7A9 /* AppDelegate.swift in Sources */,
 				ACB5F83924A548FA00E28502 /* Food.swift in Sources */,

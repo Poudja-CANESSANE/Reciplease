@@ -21,6 +21,8 @@ extension RecipeListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "recipeCell", for: indexPath) as? RecipeTableViewCell else { return UITableViewCell() }
 
+//        cell.updateCell(withRecipe: recipe)
+
         return cell
     }
 }

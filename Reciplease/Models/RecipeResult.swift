@@ -12,6 +12,12 @@
 
 import Foundation
 
+struct RecipeObject {
+    let bookmarked, imageUrl, name: String
+    let ingredientLines: [String]
+    let time: Int
+}
+
 // MARK: - RecipeResult
 struct RecipeResult: Codable {
     let q: String
