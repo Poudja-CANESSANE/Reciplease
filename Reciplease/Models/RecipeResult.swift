@@ -13,9 +13,9 @@
 import Foundation
 
 struct RecipeObject {
-    let bookmarked, imageUrl, name: String
+    let bookmarked: Bool
+    let imageUrl, name, time, calories: String
     let ingredientLines: [String]
-    let time: Int
 }
 
 // MARK: - RecipeResult
@@ -35,59 +35,77 @@ struct Hit: Codable {
 
 // MARK: - Recipe
 struct Recipe: Codable {
-    let uri: String
     let label: String
     let image: String
     let source: String
     let url: String
-    let shareAs: String
-    let yield: Int
-    let dietLabels: [String]
-    let healthLabels: [HealthLabel]
-    let cautions, ingredientLines: [String]
+    let yield: Double
+//    let dietLabels: [DietLabel]
+//    let healthLabels: [HealthLabel]
+//    let cautions: [Caution]
+    let ingredientLines: [String]
     let ingredients: [Ingredient]
-    let calories, totalWeight: Double
-    let totalTime: Int
-    let totalNutrients, totalDaily: [String: Total]
-    let digest: [Digest]
+    let calories, totalWeight, totalTime: Double
 }
 
-// MARK: - Digest
-struct Digest: Codable {
-    let label, tag: String
-    let schemaOrgTag: String?
-    let total: Double
-    let hasRDI: Bool
-    let daily: Double
-    let unit: Unit
-    let sub: [Digest]?
-}
+//enum Caution: String, Codable {
+//    case fodmap = "FODMAP"
+//    case gluten = "Gluten"
+//    case soy = "Soy"
+//    case sulfites = "Sulfites"
+//    case wheat = "Wheat"
+//}
 
-enum Unit: String, Codable {
-    case empty = "%"
-    case g = "g"
-    case kcal = "kcal"
-    case mg = "mg"
-    case µg = "µg"
-}
+//enum DietLabel: String, Codable {
+//    case balanced = "Balanced"
+//    case highFiber = "High-Fiber"
+//    case highProtein = "High-Protein"
+//    case lowCarb = "Low-Carb"
+//    case lowFat = "Low-Fat"
+//    case lowSoduim = "Low-Sodium"
+//}
 
-enum HealthLabel: String, Codable {
-    case alcoholFree = "Alcohol-Free"
-    case peanutFree = "Peanut-Free"
-    case sugarConscious = "Sugar-Conscious"
-    case treeNutFree = "Tree-Nut-Free"
-    case vegetarian = "Vegetarian"
-}
+//enum HealthLabel: String, Codable {
+//    case alcoholFree = "Alcohol-Free"
+//    case immunoSupportive = "Immuno-Supportive"
+//    case celeryFree
+//    case crustaceanFree
+//    case dairyFree
+//    case eggFree
+//    case fishFree
+//    case fodmapFree
+//    case glutenFree
+//    case ketoFriendly
+//    case kidneyFriendly
+//    case kosher
+//    case lowPatassium
+//    case lupineFree
+//    case mustardFree
+//    case lowFatAbs
+//    case noOilAdded
+//    case lowSugar
+//    case paleo
+//    case peanutFree = "Peanut-Free"
+//    case pecatarian
+//    case porkFree
+//    case redMeatFree
+//    case sesameFree
+//    case shellfishFree
+//    case soyFree
+//    case sugarConscious = "Sugar-Conscious"
+//    case treeNutFree = "Tree-Nut-Free"
+//    case vegan
+//    case vegetarian
+//    case wheatFree
+//
+//    enum CodingKeys: String, CodingKey {
+//        case hightFiber = "hight-fiber"
+//        case hightProtein = "hight-protein"
+//    }
+//}
 
 // MARK: - Ingredient
 struct Ingredient: Codable {
     let text: String
     let weight: Double
-}
-
-// MARK: - Total
-struct Total: Codable {
-    let label: String
-    let quantity: Double
-    let unit: Unit
 }

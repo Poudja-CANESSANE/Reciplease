@@ -23,9 +23,13 @@ class SearchViewController: UIViewController {
     // MARK: - PRIVATE
 
     // MARK: Properties
+
     private var foods: [Food] {
-        Food.all
+        setSearchButtonState()
+        return Food.all
     }
+
+    private let alertManager = AlertManager()
 
 
 
@@ -47,9 +51,6 @@ class SearchViewController: UIViewController {
 
     @IBAction private func didTapClearButton(_ sender: RoundedButton) {
         clearFoods()
-    }
-    @IBAction private func didTapSearchButton(_ sender: RoundedButton) {
-        performSegue(withIdentifier: "recipeListSegue", sender: self)
     }
 
 
@@ -73,16 +74,34 @@ class SearchViewController: UIViewController {
         textView.text = foodList
     }
 
-    private func presentErrorAlert(message: String) {
-        let alertController = UIAlertController(
-            title: "Error",
-            message: message,
-            preferredStyle: .alert)
+    private func addFood() {
+        print(foods)
 
-        let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        guard
+            let foodName = textField.text,
+            foodName != "",
+            var foods = textView.text
+            else { return }
 
-        alertController.addAction(action)
-        present(alertController, animated: true)
+        foods += "- " + foodName + "\n"
+        textView.text = foods
+        textField.text = ""
+
+        Food.saveFood(named: foodName)
+        setSearchButtonState()
+    }
+
+    private func setSearchButtonState() {
+        toggleSearchButtonEnableState(to: !Food.all.isEmpty)
+    }
+
+    private func toggleSearchButtonEnableState(to bool: Bool) {
+        searchButton.isEnabled = bool
+        searchButton.alpha = bool ? 1 : 0.5
+    }
+
+    private func presentAlert(message: String) {
+        alertManager.presentErrorAlert(with: message, presentingViewController: self)
     }
 }
 
@@ -95,21 +114,5 @@ extension SearchViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         addFood()
         return true
-    }
-
-
-
-    // MARK: - PRIVATE
-
-    // MARK: Methods
-
-    private func addFood() {
-        print(foods)
-        guard let foodName = textField.text, var foods = textView.text else { return }
-        foods += "- " + foodName + "\n"
-        textView.text = foods
-        textField.text = ""
-
-        Food.saveFood(named: foodName)
     }
 }

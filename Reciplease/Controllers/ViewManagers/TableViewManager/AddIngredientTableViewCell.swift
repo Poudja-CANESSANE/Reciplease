@@ -10,10 +10,10 @@ import UIKit
 
 class AddIngredientTableViewCell: UITableViewCell {
     var ingredient = ""
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet private weak var textField: UITextField!
+    @IBOutlet private weak var addButton: UIButton!
 
-    @IBAction func didTapAddButton(_ sender: UIButton) {
+    @IBAction private func didTapAddButton(_ sender: UIButton) {
         guard let ingredient = textField.text else { return }
         self.ingredient = ingredient
     }
