@@ -11,11 +11,11 @@ import UIKit
 class RecipeTableViewCell: UITableViewCell {
     // MARK: - INTERNAL
 
-    // MARK: Lyfecycle
+    // MARK: Lifecycle
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addBottomShadow()
+//        addBottomShadow()
     }
 
     // MARK: Methods
@@ -23,14 +23,9 @@ class RecipeTableViewCell: UITableViewCell {
     func updateCell(withRecipe recipe: RecipeObject, image: UIImage) {
         recipeImageView.image = image
         recipeNameLabel.text = recipe.name
-        var ingredientPreview = ""
-        let upperBound = recipe.ingredientLines.count - 1 < 3 ? recipe.ingredientLines.count - 1 : 3
-        for index in 0...upperBound {
-            ingredientPreview += recipe.ingredientLines[index] + ", "
-        }
-        ingredientPreview.removeLast(2)
-        ingredientsLabel.text = ingredientPreview
-        caloriesLabel.text = "\(recipe.calories)kcal"
+        let ingredientsPreview = getIngredientsPreview(fromRecipe: recipe)
+        ingredientsLabel.text = ingredientsPreview
+        caloriesLabel.text = recipe.calories + "kcal"
         timeLabel.text = recipe.time
     }
 
@@ -50,10 +45,20 @@ class RecipeTableViewCell: UITableViewCell {
 
     // MARK: Methods
 
-    private func addBottomShadow() {
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 0.5
-        self.layer.shadowOffset = CGSize(width: self.bounds.width, height: 10.0)
-        self.layer.shadowRadius = 5.0
+    private func getIngredientsPreview(fromRecipe recipe: RecipeObject) -> String {
+        var ingredientsPreview = ""
+        let upperBound = recipe.ingredientLines.count - 1 < 3 ? recipe.ingredientLines.count - 1 : 3
+        for index in 0...upperBound {
+            ingredientsPreview += recipe.ingredientLines[index] + ", "
+        }
+        ingredientsPreview.removeLast(2)
+        return ingredientsPreview
     }
+
+//    private func addBottomShadow() {
+//        self.layer.shadowColor = UIColor.black.cgColor
+//        self.layer.shadowOpacity = 0.5
+//        self.layer.shadowOffset = CGSize(width: self.bounds.width, height: 10.0)
+//        self.layer.shadowRadius = 5.0
+//    }
 }

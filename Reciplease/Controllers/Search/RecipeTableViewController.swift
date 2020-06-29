@@ -114,6 +114,12 @@ class RecipeTableViewController: UIViewController {
         tableView.reloadData()
     }
 
+    private func getDataFromArrays(at indexPath: IndexPath) -> (recipe: RecipeObject, image: UIImage) {
+        let recipe = recipes[indexPath.row]
+        guard let image = images[recipe.name] else { return (recipe: recipe, image: UIImage()) }
+        return (recipe: recipe, image: image)
+    }
+
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)
     }
@@ -129,19 +135,27 @@ extension RecipeTableViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: "recipeCell", for: indexPath) as? RecipeTableViewCell else { return UITableViewCell() }
 
-        let recipe = recipes[indexPath.row]
+        let data = getDataFromArrays(at: indexPath)
 
-//        guard let recipe = recipes[indexPath.row] else { return RecipeTableViewCell() }
-
-        guard let image = images[recipe.name] else { return RecipeTableViewCell() }
-
-        cell.updateCell(withRecipe: recipe, image: image)
+        cell.updateCell(withRecipe: data.recipe, image: data.image)
 
 //        if indexPath.row == self.recipes.count - 1 {
 //            self.loadMore()
 //        }
 
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "RecipeDetailViewController")
+            as? RecipeDetailViewController else { return }
+
+        let data = getDataFromArrays(at: indexPath)
+
+        detailVC.recipe = data.recipe
+        detailVC.image = data.image
+
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

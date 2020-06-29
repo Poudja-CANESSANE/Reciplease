@@ -110,8 +110,9 @@ class RecipeNetworkManager {
     }
 
     private func formatTime(minutes: Double) -> String {
+        if minutes == 0.0 { return "N/A" }
         let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute]
+        formatter.allowedUnits = [.day, .hour, .minute]
         formatter.unitsStyle = .abbreviated
         formatter.zeroFormattingBehavior = .dropAll
 

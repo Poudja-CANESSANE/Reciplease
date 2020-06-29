@@ -11,7 +11,7 @@ import UIKit
 class SearchViewController: UIViewController {
     // MARK: - INTERNAL
 
-    // MARK: Lifecycle metods
+    // MARK: Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
