@@ -30,7 +30,7 @@ class RecipeDetailViewController: UIViewController {
 
     // MARK: IBOutlets
 
-    @IBOutlet private weak var nameLabel: OutlinedLabel!
+    @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var caloriesLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!

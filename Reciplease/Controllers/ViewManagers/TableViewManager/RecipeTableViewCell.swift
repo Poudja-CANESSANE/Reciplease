@@ -15,7 +15,6 @@ class RecipeTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        addBottomGradient()
     }
 
     // MARK: Methods
@@ -54,24 +53,4 @@ class RecipeTableViewCell: UITableViewCell {
         ingredientsPreview.removeLast(2)
         return ingredientsPreview
     }
-
-    private func addBottomGradient() {
-        let gradient = getGradient()
-        insertSublayers(gradient: gradient)
-    }
-
-    private func getGradient() -> CAGradientLayer {
-        let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.black.cgColor, UIColor.clear.cgColor]
-        gradient.startPoint = CGPoint(x: 0, y: 1)
-        gradient.endPoint = CGPoint(x: 0, y: 0)
-        gradient.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: frame.height)
-        return gradient
-    }
-
-    private func insertSublayers(gradient: CAGradientLayer) {
-       layer.insertSublayer(gradient, above: recipeImageView.layer)
-       layer.insertSublayer(recipeNameLabel.layer, above: layer)
-       layer.insertSublayer(ingredientsLabel.layer, above: layer)
-   }
 }

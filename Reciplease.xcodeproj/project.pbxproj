@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC2A52A324AE5A350022F8FA /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2A52A224AE5A350022F8FA /* GradientView.swift */; };
 		AC7A8C7A24A7D1BD00DB48B9 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7A8C7924A7D1BD00DB48B9 /* RoundedView.swift */; };
 		AC7A8C7E24A7D7FA00DB48B9 /* UrlProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7A8C7D24A7D7FA00DB48B9 /* UrlProvider.swift */; };
 		AC7A8C8124A7D85000DB48B9 /* UrlProviderImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC7A8C8024A7D85000DB48B9 /* UrlProviderImplementation.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC2A52A224AE5A350022F8FA /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		AC7A8C7924A7D1BD00DB48B9 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		AC7A8C7D24A7D7FA00DB48B9 /* UrlProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlProvider.swift; sourceTree = "<group>"; };
 		AC7A8C8024A7D85000DB48B9 /* UrlProviderImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlProviderImplementation.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			children = (
 				ACB5F83624A5413B00E28502 /* RoundedButton.swift */,
 				AC7A8C7924A7D1BD00DB48B9 /* RoundedView.swift */,
+				AC2A52A224AE5A350022F8FA /* GradientView.swift */,
 			);
 			path = UISubclasses;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 			files = (
 				ACAF6AB224A0E3A300F7E7A9 /* RecipeTableViewController.swift in Sources */,
 				AC7A8C8724A7DC1600DB48B9 /* NetworkError.swift in Sources */,
+				AC2A52A324AE5A350022F8FA /* GradientView.swift in Sources */,
 				ACB5F83724A5413B00E28502 /* RoundedButton.swift in Sources */,
 				AC7A8C7E24A7D7FA00DB48B9 /* UrlProvider.swift in Sources */,
 				ACB5F83524A5152C00E28502 /* AddIngredientTableViewCell.swift in Sources */,
