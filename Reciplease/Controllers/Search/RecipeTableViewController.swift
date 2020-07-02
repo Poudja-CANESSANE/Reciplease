@@ -15,7 +15,7 @@ class RecipeTableViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.refreshControl = refresher
+        setupTableView()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -39,6 +39,13 @@ class RecipeTableViewController: UIViewController {
         networkService: NetworkServiceImplementation(),
         urlProvider: UrlProviderImplementation())
     private let alertManager = AlertManager()
+    private let recipeTableViewDataSource = RecipeTableViewDataSource()
+
+    lazy private var  recipeTableViewDelegateHandler: RecipeTableViewDelegateHandler = {
+        let recipeTableViewDelegateHandler = RecipeTableViewDelegateHandler(
+            didSelectRow: presentRecipeDetailScreen(indexPath:))
+        return recipeTableViewDelegateHandler
+    }()
 
     lazy private var refresher: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -47,12 +54,17 @@ class RecipeTableViewController: UIViewController {
         return refreshControl
     }()
 
-    private var recipes: [RecipeObject] = []
-    private var images: [String: UIImage] = [:]
+    
 
 
 
     // MARK: Methods
+
+    private func setupTableView() {
+        tableView.delegate = recipeTableViewDelegateHandler
+        tableView.dataSource = recipeTableViewDataSource
+        tableView.refreshControl = refresher
+    }
 
     @objc private func updateUIWithRecipes() {
         let foods = getQueryString()
@@ -74,18 +86,13 @@ class RecipeTableViewController: UIViewController {
 
     private func getQueryString() -> String {
         var foods = ""
-        Food.all.forEach {
-            if let name = $0.name {
-                foods.append(name + "+")
-            }
-        }
-
+        Food.all.forEach { if let name = $0.name { foods.append(name + "+") }}
         foods = String(foods.dropLast())
         return foods
     }
 
     private func handleSuccessfulNetworkFetching(recipeObjects: ([RecipeObject])) {
-        self.recipes = recipeObjects
+        recipeTableViewDataSource.recipes = recipeObjects
         recipeObjects.forEach { downloadRecipeImage(recipe: $0) }
     }
 
@@ -105,58 +112,29 @@ class RecipeTableViewController: UIViewController {
 
     private func populateImages(fromData data: Data, forRecipe recipe: RecipeObject) {
         guard let image = UIImage(data: data) else {
-            images[recipe.name] = UIImage(named: "defaultRecipeImage")
+            recipeTableViewDataSource.images[recipe.name] = UIImage(named: "defaultRecipeImage")
             return
         }
 
-        images[recipe.name] = image
+        recipeTableViewDataSource.images[recipe.name] = image
         refresher.endRefreshing()
         tableView.reloadData()
     }
 
-    private func getDataFromArrays(at indexPath: IndexPath) -> (recipe: RecipeObject, image: UIImage) {
-        let recipe = recipes[indexPath.row]
-        guard let image = images[recipe.name] else { return (recipe: recipe, image: UIImage()) }
-        return (recipe: recipe, image: image)
+    private func presentRecipeDetailScreen(indexPath: IndexPath) {
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "RecipeDetailViewController")
+            as? RecipeDetailViewController else { return }
+
+        guard let recipeWithImage = recipeTableViewDataSource.getRecipeWithImageFromArrays(at: indexPath)
+            else { return }
+
+        detailVC.recipe = recipeWithImage.recipe
+        detailVC.image = recipeWithImage.image
+
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)
     }
 }
-
-extension RecipeTableViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        guard let recipes = recipes else { return 1 }
-        return recipes.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: "recipeCell", for: indexPath) as? RecipeTableViewCell else { return UITableViewCell() }
-
-        let data = getDataFromArrays(at: indexPath)
-
-        cell.updateCell(withRecipe: data.recipe, image: data.image)
-
-//        if indexPath.row == self.recipes.count - 1 {
-//            self.loadMore()
-//        }
-
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "RecipeDetailViewController")
-            as? RecipeDetailViewController else { return }
-
-        let data = getDataFromArrays(at: indexPath)
-
-        detailVC.recipe = data.recipe
-        detailVC.image = data.image
-
-        navigationController?.pushViewController(detailVC, animated: true)
-    }
-}
-
-extension RecipeTableViewController: UITableViewDelegate {}

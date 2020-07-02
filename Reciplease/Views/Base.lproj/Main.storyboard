@@ -235,7 +235,7 @@
                                 <rect key="frame" x="0.0" y="44" width="320" height="387"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="recipeCell" translatesAutoresizingMaskIntoConstraints="NO" id="q9D-uA-2hW" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="recipeCell" translatesAutoresizingMaskIntoConstraints="NO" id="q9D-uA-2hW" customClass="RecipeTableViewCell" customModule="Reciplease" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="300.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q9D-uA-2hW" id="NNb-fd-zD2">
@@ -356,7 +356,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="caloriesLabel" destination="cLr-Xq-8Pt" id="Pdg-VY-Un7"/>
-                                            <outlet property="gradientView" destination="pPj-7x-kYd" id="2z4-wD-Cth"/>
                                             <outlet property="ingredientsLabel" destination="mgA-CA-3MQ" id="t9i-4L-Z70"/>
                                             <outlet property="recipeImageView" destination="W8A-VE-sob" id="VNf-Qg-Ffa"/>
                                             <outlet property="recipeNameLabel" destination="lxe-25-0KN" id="djC-sE-lkX"/>
@@ -364,10 +363,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="lei-t5-s7B" id="EGG-zV-iXJ"/>
-                                    <outlet property="delegate" destination="lei-t5-s7B" id="9XR-L9-D6x"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
