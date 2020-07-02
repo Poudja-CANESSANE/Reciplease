@@ -22,6 +22,12 @@ class GradientView: UIView {
         }
     }
 
+    @IBInspectable var opacity: Float = 1.0 {
+        didSet {
+            updateView()
+        }
+    }
+
     override class var layerClass: AnyClass {
         CAGradientLayer.self
     }
@@ -30,5 +36,6 @@ class GradientView: UIView {
     private func updateView() {
         guard let layer = layer as? CAGradientLayer else { return }
         layer.colors = [firstColor.cgColor, secondColor.cgColor]
+        alpha = CGFloat(opacity)
     }
 }
