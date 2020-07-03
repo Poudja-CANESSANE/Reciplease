@@ -35,12 +35,15 @@ class RecipeNetworkManager {
         toMaxIndex maxIndex: Int,
         completion: @escaping RecipeCompletion) {
 
-        guard let url = urlProvider.getUrl(forFood: foods, fromMinIndex: minIndex, toMaxIndex: maxIndex) else {
+        guard let urlString = urlProvider.getUrlString(
+            forFood: foods,
+            fromMinIndex: minIndex,
+            toMaxIndex: maxIndex) else {
             completion(.failure(.cannotGetUrl))
             return
         }
 
-        networkService.fetchData(url: url) { [weak self] (result: Result<RecipeResult, NetworkError>) in
+        networkService.fetchRecipes(urlString: urlString) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let networkError):
@@ -57,7 +60,7 @@ class RecipeNetworkManager {
             return completion(.failure(.cannotGetImageUrlFromRecipe))
         }
 
-        networkService.fetchData(url: url) { (result: Result<Data, NetworkError>) in
+        networkService.fetchRecipeImage(urlString: url.absoluteString) { result in
             switch result {
             case .failure(let networkError):
                 completion(.failure(networkError))

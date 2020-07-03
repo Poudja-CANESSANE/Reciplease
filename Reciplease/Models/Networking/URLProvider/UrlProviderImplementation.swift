@@ -9,7 +9,7 @@
 import Foundation
 
 class UrlProviderImplementation: UrlProvider {
-    func getUrl(forFood food: String, fromMinIndex minIndex: Int, toMaxIndex maxIndex: Int) -> URL? {
+    func getUrlString(forFood food: String, fromMinIndex minIndex: Int, toMaxIndex maxIndex: Int) -> String? {
         guard var url = URLComponents(
             string: "https://api.edamam.com/search?app_id=18ef1ba0&app_key=a6dd1b7f5987808e49bd2019a1f5468d")
             else {
@@ -22,7 +22,9 @@ class UrlProviderImplementation: UrlProvider {
         url.queryItems?.append(URLQueryItem(name: "q", value: food))
         url.queryItems?.append(URLQueryItem(name: "from", value: minIndexString))
         url.queryItems?.append(URLQueryItem(name: "to", value: maxIndexString))
-        print("\(String(describing: url.url)) " + #function)
-        return url.url
+
+        let urlString = url.url?.absoluteString
+        print("\(String(describing: url.url?.absoluteString)) " + #function)
+        return urlString
     }
 }
