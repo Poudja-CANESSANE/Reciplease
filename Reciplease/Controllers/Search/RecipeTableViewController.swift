@@ -16,18 +16,7 @@ class RecipeTableViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        if shouldMakeNetworkCall {
-            updateUIWithRecipes()
-        }
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        shouldMakeNetworkCall = false
+        updateUIWithRecipes()
     }
 
 
@@ -48,7 +37,8 @@ class RecipeTableViewController: UIViewController {
     private let alertManager = AlertManager()
     private let recipeTableViewDataSource = RecipeTableViewDataSource()
 
-    private var startIndexRecipe = 0 
+    private var startIndexRecipe = 0
+    private var shouldIncreaseStartIndexRecipe = false
 
     lazy private var  recipeTableViewDelegateHandler: RecipeTableViewDelegateHandler = {
         let recipeTableViewDelegateHandler = RecipeTableViewDelegateHandler(
@@ -64,9 +54,6 @@ class RecipeTableViewController: UIViewController {
         return button
     }()
 
-    private var shouldMakeNetworkCall = true
-    private var shouldIncreaseStartIndexRecipe = false
-
 
 
     // MARK: Methods
@@ -78,11 +65,7 @@ class RecipeTableViewController: UIViewController {
 
     @objc private func updateUIWithRecipes() {
         let foods = getQueryString()
-
-        if shouldIncreaseStartIndexRecipe {
-            startIndexRecipe += 50
-            shouldIncreaseStartIndexRecipe = false
-        }
+        increaseStartIndexRecipeIfNeeded()
 
         netwokManager.getRecipes(
         forFoods: foods,
@@ -108,6 +91,13 @@ class RecipeTableViewController: UIViewController {
         Food.all.forEach { if let name = $0.name { foods.append(name + "+") } }
         foods = String(foods.dropLast())
         return foods
+    }
+
+    private func increaseStartIndexRecipeIfNeeded() {
+        if shouldIncreaseStartIndexRecipe {
+            startIndexRecipe += 50
+            shouldIncreaseStartIndexRecipe = false
+        }
     }
 
     private func handleSuccessfulNetworkFetching(recipeObjects: ([RecipeObject])) {
@@ -160,15 +150,11 @@ class RecipeTableViewController: UIViewController {
 
         if shouldDisplayLoadMoreCell {
             tableView.tableFooterView = button
-            tableView.tableFooterView?.isHidden = false
-            print("\(tableView.tableFooterView?.isHidden) if  " + #function)
             shouldIncreaseStartIndexRecipe = true
             button.addTarget(self, action: #selector(updateUIWithRecipes), for: .touchUpInside)
-
-            } else {
+        } else {
              if tableView.tableFooterView != nil {
                     tableView.tableFooterView = nil
-                print("\(tableView.tableFooterView?.isHidden) else  " + #function)
                }
             }
         }
