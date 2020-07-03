@@ -397,12 +397,17 @@
                                     <constraint firstAttribute="width" secondItem="WYN-yD-Zfo" secondAttribute="height" multiplier="16:9" id="2w9-iy-VCd"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pizza" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XBG-p5-M45" customClass="OutlinedLabel" customModule="Reciplease" customModuleProvider="target">
-                                <rect key="frame" x="20" y="144.5" width="280" height="27.5"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Heavy" family="Avenir Next" pointSize="20"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HhQ-Rb-gvf" customClass="GradientView" customModule="Reciplease" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="147" width="320" height="33"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="opacity">
+                                        <real key="value" value="0.80000000000000004"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x52-4e-Jyd" customClass="RoundedView" customModule="Reciplease" customModuleProvider="target">
                                 <rect key="frame" x="246" y="8" width="58" height="29"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -498,24 +503,34 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pizza" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XBG-p5-M45" customClass="OutlinedLabel" customModule="Reciplease" customModuleProvider="target">
+                                <rect key="frame" x="16" y="155" width="288" height="25"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.2156862745" green="0.20000000000000001" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="HA4-8x-0oX" firstAttribute="leading" secondItem="x52-4e-Jyd" secondAttribute="leading" constant="1" id="0NI-vy-4ip"/>
                             <constraint firstItem="HA4-8x-0oX" firstAttribute="top" secondItem="x52-4e-Jyd" secondAttribute="top" constant="1" id="1w4-ko-U9h"/>
+                            <constraint firstItem="XBG-p5-M45" firstAttribute="height" secondItem="HhQ-Rb-gvf" secondAttribute="height" constant="-8" id="2ja-0o-U1j"/>
                             <constraint firstItem="glU-eO-Wik" firstAttribute="trailing" secondItem="WYN-yD-Zfo" secondAttribute="trailing" id="2o1-f1-L7S"/>
+                            <constraint firstItem="glU-eO-Wik" firstAttribute="trailing" secondItem="XBG-p5-M45" secondAttribute="trailing" constant="16" id="4Sl-Qf-fCS"/>
                             <constraint firstItem="X4r-rL-5DH" firstAttribute="leading" secondItem="glU-eO-Wik" secondAttribute="leading" constant="16" id="4bm-OF-9OO"/>
-                            <constraint firstItem="glU-eO-Wik" firstAttribute="trailing" secondItem="XBG-p5-M45" secondAttribute="trailing" constant="20" id="ALq-2H-j3d"/>
                             <constraint firstItem="WYN-yD-Zfo" firstAttribute="top" secondItem="glU-eO-Wik" secondAttribute="top" id="Jkj-B5-GvQ"/>
                             <constraint firstItem="x52-4e-Jyd" firstAttribute="top" secondItem="glU-eO-Wik" secondAttribute="top" constant="8" id="TFS-QE-MYo"/>
+                            <constraint firstItem="X4r-rL-5DH" firstAttribute="top" secondItem="XBG-p5-M45" secondAttribute="bottom" constant="8" id="UjR-OS-NZX"/>
                             <constraint firstItem="X4r-rL-5DH" firstAttribute="top" secondItem="WYN-yD-Zfo" secondAttribute="bottom" constant="8" id="YCv-XJ-e30"/>
+                            <constraint firstItem="X4r-rL-5DH" firstAttribute="top" secondItem="HhQ-Rb-gvf" secondAttribute="bottom" constant="8" id="Yyd-ZS-2KL"/>
                             <constraint firstItem="glU-eO-Wik" firstAttribute="trailing" secondItem="X4r-rL-5DH" secondAttribute="trailing" constant="16" id="aAF-gj-exC"/>
-                            <constraint firstItem="XBG-p5-M45" firstAttribute="leading" secondItem="glU-eO-Wik" secondAttribute="leading" constant="20" id="aYG-qg-k1g"/>
                             <constraint firstItem="glU-eO-Wik" firstAttribute="bottom" secondItem="X4r-rL-5DH" secondAttribute="bottom" constant="16" id="ala-Xp-a6D"/>
-                            <constraint firstItem="XBG-p5-M45" firstAttribute="bottom" secondItem="WYN-yD-Zfo" secondAttribute="bottom" constant="-8" id="cxG-wd-MK7"/>
                             <constraint firstItem="HA4-8x-0oX" firstAttribute="bottom" secondItem="x52-4e-Jyd" secondAttribute="bottom" constant="-1" id="fZ4-vD-wxD"/>
                             <constraint firstItem="HA4-8x-0oX" firstAttribute="trailing" secondItem="x52-4e-Jyd" secondAttribute="trailing" constant="-1" id="kFl-zW-3nN"/>
                             <constraint firstItem="glU-eO-Wik" firstAttribute="trailing" secondItem="x52-4e-Jyd" secondAttribute="trailing" constant="16" id="ldZ-zf-cyG"/>
+                            <constraint firstItem="XBG-p5-M45" firstAttribute="leading" secondItem="glU-eO-Wik" secondAttribute="leading" constant="16" id="m9y-AH-0fK"/>
+                            <constraint firstItem="HhQ-Rb-gvf" firstAttribute="leading" secondItem="glU-eO-Wik" secondAttribute="leading" id="mNI-Wn-YGn"/>
+                            <constraint firstItem="HhQ-Rb-gvf" firstAttribute="trailing" secondItem="glU-eO-Wik" secondAttribute="trailing" id="r4d-Yp-hJ8"/>
                             <constraint firstItem="WYN-yD-Zfo" firstAttribute="leading" secondItem="glU-eO-Wik" secondAttribute="leading" id="sQE-sk-Ldj"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="glU-eO-Wik"/>
@@ -535,7 +550,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dPr-bF-FGe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3263.1999999999998" y="-212.74362818590706"/>
+            <point key="canvasLocation" x="3262.5" y="-213.75"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Vzq-dp-YLK">
