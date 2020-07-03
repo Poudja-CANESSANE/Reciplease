@@ -144,20 +144,28 @@ class RecipeTableViewController: UIViewController {
 
     private func displayLoadMoreCell(indexPath: IndexPath) {
         print("\(recipeTableViewDataSource.recipes.count) \(indexPath.row)")
+        let shouldDisplayLoadMoreCell = getShouldDisplayLoadMoreCell(indexPath: indexPath)
+        shouldDisplayLoadMoreCell ? setupTableViewFooter() : removeTableViewFooter()
+    }
+
+    private func getShouldDisplayLoadMoreCell(indexPath: IndexPath) -> Bool {
         let shouldDisplayLoadMoreCell = indexPath.row == recipeTableViewDataSource.recipes.count - 1
         && startIndexRecipe < 50
         && tableView.tableFooterView == nil
+        return shouldDisplayLoadMoreCell
+    }
 
-        if shouldDisplayLoadMoreCell {
-            tableView.tableFooterView = button
-            shouldIncreaseStartIndexRecipe = true
-            button.addTarget(self, action: #selector(updateUIWithRecipes), for: .touchUpInside)
-        } else {
-             if tableView.tableFooterView != nil {
-                    tableView.tableFooterView = nil
-               }
-            }
+    private func setupTableViewFooter() {
+        tableView.tableFooterView = button
+        shouldIncreaseStartIndexRecipe = true
+        button.addTarget(self, action: #selector(updateUIWithRecipes), for: .touchUpInside)
+    }
+
+    private func removeTableViewFooter() {
+        if tableView.tableFooterView != nil {
+                tableView.tableFooterView = nil
         }
+    }
 
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)
