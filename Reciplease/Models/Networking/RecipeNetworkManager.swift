@@ -29,8 +29,13 @@ class RecipeNetworkManager {
     // MARK: Methods
 
     ///Returns by the completion parameter the downloaded us rate
-    func getRecipes(forFoods foods: String, completion: @escaping RecipeCompletion) {
-        guard let url = urlProvider.getUrl(forFood: foods) else {
+    func getRecipes(
+        forFoods foods: String,
+        fromMinIndex minIndex: Int,
+        toMaxIndex maxIndex: Int,
+        completion: @escaping RecipeCompletion) {
+
+        guard let url = urlProvider.getUrl(forFood: foods, fromMinIndex: minIndex, toMaxIndex: maxIndex) else {
             completion(.failure(.cannotGetUrl))
             return
         }
