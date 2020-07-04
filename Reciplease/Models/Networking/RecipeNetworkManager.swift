@@ -99,6 +99,7 @@ class RecipeNetworkManager {
         let imageUrl = hit.recipe.image
         let name = hit.recipe.label
         let ingredientLines = hit.recipe.ingredientLines
+        let url = hit.recipe.url
 
         let time = hit.recipe.totalTime
         let formattedtime = formatTime(minutes: time)
@@ -112,6 +113,7 @@ class RecipeNetworkManager {
             name: name,
             time: formattedtime,
             calories: formattedCalories,
+            url: url,
             ingredientLines: ingredientLines)
 
         return recipe

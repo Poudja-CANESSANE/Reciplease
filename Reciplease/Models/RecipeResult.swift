@@ -14,7 +14,7 @@ import Foundation
 
 struct RecipeObject {
     let bookmarked: Bool
-    let imageUrl, name, time, calories: String
+    let imageUrl, name, time, calories, url: String
     let ingredientLines: [String]
 }
 
@@ -37,7 +37,6 @@ struct Hit: Codable {
 struct Recipe: Codable {
     let label: String
     let image: String
-    let source: String
     let url: String
     let yield: Double
 //    let dietLabels: [DietLabel]

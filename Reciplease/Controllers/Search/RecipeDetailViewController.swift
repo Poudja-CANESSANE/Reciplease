@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class RecipeDetailViewController: UIViewController {
     // MARK: - INTERNAL
@@ -40,8 +41,16 @@ class RecipeDetailViewController: UIViewController {
     // MARK: IBActions
 
     @IBAction func didTapGetDirectionsButton(_ sender: RoundedButton) {
+        presentSafariPage(withUrlString: recipe.url)
     }
-    
+
+
+
+    // MARK: Properties
+
+    private let alertManager = AlertManager()
+
+
 
     // MARK: Methods
 
@@ -59,5 +68,20 @@ class RecipeDetailViewController: UIViewController {
         recipe.ingredientLines.forEach { ingredients.append(contentsOf: "- " + $0 + "\n") }
         print(ingredients)
         return ingredients
+    }
+
+    private func presentSafariPage(withUrlString urlString: String) {
+        print(urlString)
+        guard let url = URL(string: urlString) else {
+            presentAlert(message: "Cannot unwrap URL !")
+            return
+        }
+
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
+    }
+
+    private func presentAlert(message: String) {
+        alertManager.presentErrorAlert(with: message, presentingViewController: self)
     }
 }
