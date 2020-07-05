@@ -39,11 +39,6 @@ class RecipeTableViewDataSource: NSObject, UITableViewDataSource {
             guard let data = getRecipeWithImageFromArrays(at: indexPath) else { return UITableViewCell() }
 
             cell.updateCell(withRecipe: data.recipe, image: data.image)
-
-    //        if indexPath.row == self.recipes.count - 1 {
-    //            self.loadMore()
-    //        }
-
             return cell
         }
 }

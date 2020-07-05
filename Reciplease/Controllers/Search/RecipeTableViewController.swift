@@ -27,6 +27,7 @@ class RecipeTableViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
 
+    @IBOutlet private weak var noResultView: UIView!
 
 
     // MARK: Properties
@@ -39,6 +40,7 @@ class RecipeTableViewController: UIViewController {
 
     private var startIndexRecipe = 0
     private var shouldIncreaseStartIndexRecipe = false
+    private var hasFetchMoreRecipes = true
 
     lazy private var  recipeTableViewDelegateHandler: RecipeTableViewDelegateHandler = {
         let recipeTableViewDelegateHandler = RecipeTableViewDelegateHandler(
@@ -101,8 +103,26 @@ class RecipeTableViewController: UIViewController {
     }
 
     private func handleSuccessfulNetworkFetching(recipeObjects: ([RecipeObject])) {
+        hasFetchMoreRecipes = !recipeObjects.isEmpty
+        if hasToDisplayNoResultView(recipeObjects: recipeObjects) { return }
         recipeTableViewDataSource.recipes += recipeObjects
         recipeObjects.forEach { downloadRecipeImage(recipe: $0) }
+    }
+
+    private func hasToDisplayNoResultView(recipeObjects: [RecipeObject]) -> Bool {
+        if recipeObjects.isEmpty && recipeTableViewDataSource.recipes.isEmpty {
+            tableView.isHidden = true
+            setNoResultViewConstraints()
+            return true
+        }
+        return false
+    }
+
+    private func setNoResultViewConstraints() {
+        view.addSubview(noResultView)
+        noResultView.translatesAutoresizingMaskIntoConstraints = false
+        noResultView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        noResultView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
 
     private func downloadRecipeImage(recipe: RecipeObject) {
@@ -149,9 +169,12 @@ class RecipeTableViewController: UIViewController {
     }
 
     private func getShouldDisplayLoadMoreCell(indexPath: IndexPath) -> Bool {
-        let shouldDisplayLoadMoreCell = indexPath.row == recipeTableViewDataSource.recipes.count - 1
-        && startIndexRecipe < 50
-        && tableView.tableFooterView == nil
+        let shouldDisplayLoadMoreCell =
+            indexPath.row == recipeTableViewDataSource.recipes.count - 1
+            && startIndexRecipe < 50
+            && tableView.tableFooterView == nil
+            && recipeTableViewDataSource.recipes.count > 49
+            && hasFetchMoreRecipes
         return shouldDisplayLoadMoreCell
     }
 
