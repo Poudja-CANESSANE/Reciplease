@@ -9,6 +9,10 @@
 import Foundation
 
 class UrlProviderImplementation: UrlProvider {
+    // MARK: - INTERNAL
+
+    // MARK: Methods
+
     func getUrlString(forFood food: String, fromMinIndex minIndex: Int, toMaxIndex maxIndex: Int) -> String? {
         guard let url = URLComponents(
             string: "https://api.edamam.com/search?app_id=18ef1ba0&app_key=a6dd1b7f5987808e49bd2019a1f5468d")
@@ -28,6 +32,12 @@ class UrlProviderImplementation: UrlProvider {
         return urlString
     }
 
+
+
+    // MARK: - PRIVATE
+
+    // MARK: Methods
+
     private func appendURLQueryItems(
         toUrl url: URLComponents,
         food: String,
@@ -39,8 +49,8 @@ class UrlProviderImplementation: UrlProvider {
         url.queryItems?.append(URLQueryItem(name: "from", value: minIndexString))
         url.queryItems?.append(URLQueryItem(name: "to", value: maxIndexString))
 
-        UserDefaultsKey.allCases.forEach {
-            if UserDefaults.standard.bool(forKey: $0.name) {
+        SettingsService.Keys.allCases.forEach {
+            if SettingsService.getIsOn(forKey: $0) {
                 url.queryItems?.append(URLQueryItem(name: $0.urlName, value: $0.urlValue))
             }
         }

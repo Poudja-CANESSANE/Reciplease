@@ -46,19 +46,19 @@ class SettingsTableViewController: UITableViewController {
 
     private func setSwitchesActivation() {
         switches.forEach {
-            if let key = UserDefaultsKey(rawValue: $0.tag) {
-                let isOn = UserDefaults.standard.bool(forKey: key.name)
+            if let key = SettingsService.Keys(rawValue: $0.tag) {
+                let isOn = SettingsService.getIsOn(forKey: key)
                 $0.isOn = isOn
             }
         }
     }
 
     private func saveSetting(fromSender sender: UISwitch) {
-        guard let key = UserDefaultsKey(rawValue: sender.tag) else {
+        guard let key = SettingsService.Keys(rawValue: sender.tag) else {
             presentAlert(message: "Cannot unwrap key to save your settings !")
             return
         }
-        UserDefaults.standard.set(sender.isOn, forKey: key.name)
+        SettingsService.setIsOn(to: sender.isOn, forKey: key)
     }
 
     private func presentAlert(message: String) {
