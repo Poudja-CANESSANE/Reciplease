@@ -7,6 +7,7 @@ target 'Reciplease' do
 
   # Pods for Reciplease
   pod 'Alamofire', '~> 5.2'
+  pod 'RangeSeekSlider'
 
   target 'RecipleaseTests' do
     inherit! :search_paths

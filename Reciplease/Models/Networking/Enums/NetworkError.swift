@@ -19,7 +19,7 @@ enum NetworkError: Error {
         switch self {
         case .cannotGetUrl: return "The URL is wrong !"
         case .cannotDecodeData: return "The data decoding is impossible !"
-        case .noData: return "There is no data !"
+        case .noData: return "There is no data !\nCheck your internet connection or change your settings."
         case .cannotUnwrapFirstHit: return "The unwrapping of the first Hit is impossible !"
         case .cannotGetImageUrlFromRecipe: return "Cannot get the image URL from the RecipeObject !"
         }

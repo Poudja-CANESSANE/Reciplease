@@ -1,5 +1,5 @@
 //
-//  SettingdService.swift
+//  SettingsService.swift
 //  Reciplease
 //
 //  Created by Canessane Poudja on 05/07/2020.
@@ -9,11 +9,12 @@
 import Foundation
 
 class SettingsService {
-    enum Keys: Int, CaseIterable {
+    enum Key: Int, CaseIterable {
         // MARK: - INTERNAL
 
         case balanced, highProtein, lowFat, lowCarb
         case vegan, vegetarian, peanutFree, treeNutFree, alcoholFree, immunoSupportive, sugarConscious
+        case calories, time
 
 
 
@@ -32,11 +33,13 @@ class SettingsService {
             case .treeNutFree: return "Tree Nut Free"
             case .vegan: return "Vegan"
             case .vegetarian: return "Vegetarian"
+            case .calories: return "Calories"
+            case .time: return "Time"
             }
         }
 
         var urlName: String {
-            return isDiet ? "diet" : "health"
+            return isDiet ? "diet" : caloriesOrTimeOrHealth
         }
 
         var urlValue: String {
@@ -52,6 +55,8 @@ class SettingsService {
             case .treeNutFree: return "tree-nut-free"
             case .vegan: return "vegan"
             case .vegetarian: return "vegetarian"
+            case .calories: return getRange()
+            case .time: return getRange()
             }
         }
 
@@ -64,15 +69,66 @@ class SettingsService {
         private var isDiet: Bool {
             self == .balanced || self == .highProtein || self == .lowFat || self == .lowCarb
         }
+
+        private var caloriesOrTimeOrHealth: String {
+            isCalories ? "calories" : timeOrHealth
+        }
+
+        private var timeOrHealth: String {
+            isTime ? "time" : "health"
+        }
+
+        private var isCalories: Bool {
+            self == .calories
+        }
+
+        private var isTime: Bool {
+            self == .time
+        }
+
+
+
+        // MARK: Methods
+
+        private func getRange() -> String {
+            let minValueString = String(Int(SettingsService.getMinValue(forKey: self)))
+            let maxValueString = String(Int(SettingsService.getMaxValue(forKey: self)))
+            let range = minValueString + "-" + maxValueString
+            return range
+        }
     }
 
+    enum DictKey: String { case minValue, maxValue }
 
 
-    static func getIsOn(forKey key: Keys) -> Bool {
+
+    // MARK: UISwithch
+
+    static func getIsOn(forKey key: Key) -> Bool {
         UserDefaults.standard.bool(forKey: key.name)
     }
 
-    static func setIsOn(to bool: Bool, forKey key: Keys) {
+    static func setIsOn(to bool: Bool, forKey key: Key) {
         UserDefaults.standard.set(bool, forKey: key.name)
+    }
+
+
+
+    // MARK: RangeSeekSlider
+
+    static func getMinValue(forKey key: Key) -> Int {
+        guard let dict = UserDefaults.standard.dictionary(forKey: key.name) else { return 0 }
+        let minValue = dict[DictKey.minValue.rawValue] as? Int ?? 0
+        return minValue
+    }
+
+    static func getMaxValue(forKey key: Key) -> Int {
+        guard let dict = UserDefaults.standard.dictionary(forKey: key.name) else { return 360 }
+        let maxValue = dict[DictKey.maxValue.rawValue] as? Int ?? 360
+        return maxValue
+    }
+
+    static func setMinAndMaxValues(to dict: [String: Int], forKey key: Key) {
+        UserDefaults.standard.set(dict, forKey: key.name)
     }
 }

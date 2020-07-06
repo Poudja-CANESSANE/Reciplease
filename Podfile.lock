@@ -1,16 +1,20 @@
 PODS:
   - Alamofire (5.2.1)
+  - RangeSeekSlider (1.8.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
+  - RangeSeekSlider
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - RangeSeekSlider
 
 SPEC CHECKSUMS:
   Alamofire: e911732990610fe89af59ac0077f923d72dc3dfd
+  RangeSeekSlider: 650b11fa1edcb92e1e0ede797669d98622570fb5
 
-PODFILE CHECKSUM: ed136ecb9d1c0ceaeedced585f0b740e1bd46e78
+PODFILE CHECKSUM: 722be4dcd63989c3547c128df672ad8be4cbc7be
 
 COCOAPODS: 1.9.3
