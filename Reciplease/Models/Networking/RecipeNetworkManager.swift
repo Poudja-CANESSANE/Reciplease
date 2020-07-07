@@ -95,11 +95,11 @@ class RecipeNetworkManager {
     }
 
     private func createRecipeObject(fromHit hit: Hit) -> RecipeObject {
-        let bookmarked = hit.bookmarked
         let imageUrl = hit.recipe.image
         let name = hit.recipe.label
         let ingredientLines = hit.recipe.ingredientLines
         let url = hit.recipe.url
+        let yield = hit.recipe.yield
 
         let time = hit.recipe.totalTime
         let formattedtime = formatTime(minutes: time)
@@ -108,13 +108,13 @@ class RecipeNetworkManager {
         let formattedCalories = formatNumber(int: caloriesToFormat)
 
         let recipe = RecipeObject(
-            bookmarked: bookmarked,
             imageUrl: imageUrl,
             name: name,
             time: formattedtime,
             calories: formattedCalories,
             url: url,
-            ingredientLines: ingredientLines)
+            ingredientLines: ingredientLines,
+            yield: yield)
 
         return recipe
     }

@@ -35,7 +35,9 @@ class RecipeDetailViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var caloriesLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
+    @IBOutlet private weak var yieldsLabel: UILabel!
     @IBOutlet private weak var textView: UITextView!
+
 
 
     // MARK: IBActions
@@ -59,6 +61,7 @@ class RecipeDetailViewController: UIViewController {
         imageView.image = image
         caloriesLabel.text = recipe.calories + "kcal"
         timeLabel.text = recipe.time
+        yieldsLabel.text = "\(Int(recipe.yield)) yields"
         let ingredients = getIngredients()
         textView.text = ingredients
     }

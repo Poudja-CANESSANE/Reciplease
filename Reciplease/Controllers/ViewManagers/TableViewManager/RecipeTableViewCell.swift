@@ -22,10 +22,13 @@ class RecipeTableViewCell: UITableViewCell {
     func updateCell(withRecipe recipe: RecipeObject, image: UIImage) {
         recipeImageView.image = image
         recipeNameLabel.text = recipe.name
+
         let ingredientsPreview = getIngredientsPreview(fromRecipe: recipe)
         ingredientsLabel.text = ingredientsPreview
+
         caloriesLabel.text = recipe.calories + "kcal"
         timeLabel.text = recipe.time
+        yieldsLabel.text = "\(Int(recipe.yield)) yields"
     }
 
 
@@ -39,6 +42,7 @@ class RecipeTableViewCell: UITableViewCell {
     @IBOutlet private weak var ingredientsLabel: UILabel!
     @IBOutlet private weak var caloriesLabel: UILabel!
     @IBOutlet private weak var timeLabel: UILabel!
+    @IBOutlet private weak var yieldsLabel: UILabel!
 
 
 
@@ -46,11 +50,16 @@ class RecipeTableViewCell: UITableViewCell {
 
     private func getIngredientsPreview(fromRecipe recipe: RecipeObject) -> String {
         var ingredientsPreview = ""
-        let upperBound = recipe.ingredientLines.count - 1 < 3 ? recipe.ingredientLines.count - 1 : 3
+        let upperBound = getIngredientsUpperBound(fromRecipe: recipe)
         for index in 0...upperBound {
             ingredientsPreview += recipe.ingredientLines[index] + ", "
         }
         ingredientsPreview.removeLast(2)
         return ingredientsPreview
+    }
+
+    private func getIngredientsUpperBound(fromRecipe recipe: RecipeObject) -> Int {
+        let upperBound = recipe.ingredientLines.count - 1 < 3 ? recipe.ingredientLines.count - 1 : 3
+        return upperBound
     }
 }
