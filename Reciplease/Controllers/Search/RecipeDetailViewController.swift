@@ -61,15 +61,7 @@ class RecipeDetailViewController: UIViewController {
         caloriesLabel.text = recipeWithImage.recipe.calories + " kcal"
         timeLabel.text = recipeWithImage.recipe.time
         yieldsLabel.text = "\(Int(recipeWithImage.recipe.yield)) yields"
-        let ingredients = getIngredients()
-        textView.text = ingredients
-    }
-
-    private func getIngredients() -> String {
-        var ingredients = ""
-        recipeWithImage.recipe.ingredientLines.forEach { ingredients.append(contentsOf: "- " + $0 + "\n") }
-        print(ingredients)
-        return ingredients
+        textView.text = "- " + recipeWithImage.recipe.ingredientLines.joined(separator: "\n" + "- ")
     }
 
     private func presentSafariPage(withUrlString urlString: String) {
