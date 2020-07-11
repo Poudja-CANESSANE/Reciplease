@@ -26,13 +26,12 @@ class RecipeTableViewController: UIViewController {
     // MARK: IBOutlets
 
     @IBOutlet private weak var tableView: UITableView!
-
     @IBOutlet private weak var noResultView: UIView!
 
 
     // MARK: Properties
 
-    private let netwokManager = RecipeNetworkManager(
+    private let networkManager = RecipeNetworkManager(
         networkService: NetworkServiceImplementation(),
         urlProvider: UrlProviderImplementation())
     private let alertManager = AlertManager()
@@ -51,9 +50,19 @@ class RecipeTableViewController: UIViewController {
 
     lazy private var button: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 45))
-        button.setTitleColor(.blue, for: .normal)
+        button.setTitleColor(.white, for: .normal)
         button.setTitle("Load more recipes", for: .normal)
+        button.titleLabel?.font = UIFont.avenirNext
+        button.backgroundColor = UIColor.customGreen
+        setConstraints(toSubview: self.activityIndicator, inSuperview: button)
         return button
+    }()
+
+    lazy private var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.color = .white
+        return activityIndicator
     }()
 
 
@@ -66,10 +75,11 @@ class RecipeTableViewController: UIViewController {
     }
 
     @objc private func updateUIWithRecipes() {
+        showLoadingIfNeeded()
         let foods = getQueryString()
         increaseStartIndexRecipeIfNeeded()
 
-        netwokManager.getRecipes(
+        networkManager.getRecipes(
         forFoods: foods,
         fromMinIndex: startIndexRecipe,
         toMaxIndex: startIndexRecipe + 50) { [weak self] result in
@@ -85,6 +95,13 @@ class RecipeTableViewController: UIViewController {
                 }
             }
 
+        }
+    }
+
+    private func showLoadingIfNeeded() {
+        if tableView.tableFooterView != nil {
+            button.setTitleColor(.clear, for: .normal)
+            activityIndicator.startAnimating()
         }
     }
 
@@ -112,21 +129,14 @@ class RecipeTableViewController: UIViewController {
     private func hasToDisplayNoResultView(recipeObjects: [RecipeObject]) -> Bool {
         if recipeObjects.isEmpty && recipeTableViewDataSource.recipes.isEmpty {
             tableView.isHidden = true
-            setNoResultViewConstraints()
+            setConstraints(toSubview: noResultView, inSuperview: view)
             return true
         }
         return false
     }
 
-    private func setNoResultViewConstraints() {
-        view.addSubview(noResultView)
-        noResultView.translatesAutoresizingMaskIntoConstraints = false
-        noResultView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        noResultView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    }
-
     private func downloadRecipeImage(recipe: RecipeObject) {
-        self.netwokManager.getRecipeImage(fromImageString: recipe.imageUrl) { [weak self] result in
+        self.networkManager.getRecipeImage(fromImageString: recipe.imageUrl) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -146,7 +156,21 @@ class RecipeTableViewController: UIViewController {
         }
 
         recipeTableViewDataSource.images[recipe.name] = image
+        stopLoadingIfNeeded()
         tableView.reloadData()
+    }
+
+    private func stopLoadingIfNeeded() {
+        if tableView.tableFooterView != nil {
+            activityIndicator.stopAnimating()
+        }
+    }
+
+    private func setConstraints(toSubview subview: UIView, inSuperview superview: UIView) {
+        superview.addSubview(subview)
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        subview.centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
+        subview.centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
     }
 
     private func presentRecipeDetailScreen(indexPath: IndexPath) {
@@ -156,8 +180,7 @@ class RecipeTableViewController: UIViewController {
         guard let recipeWithImage = recipeTableViewDataSource.getRecipeWithImageFromArrays(at: indexPath)
             else { return }
 
-        detailVC.recipe = recipeWithImage.recipe
-        detailVC.image = recipeWithImage.image
+        detailVC.recipeWithImage = recipeWithImage
 
         navigationController?.pushViewController(detailVC, animated: true)
     }

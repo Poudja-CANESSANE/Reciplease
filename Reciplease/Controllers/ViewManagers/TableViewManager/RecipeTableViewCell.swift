@@ -26,7 +26,7 @@ class RecipeTableViewCell: UITableViewCell {
         let ingredientsPreview = getIngredientsPreview(fromRecipe: recipe)
         ingredientsLabel.text = ingredientsPreview
 
-        caloriesLabel.text = recipe.calories + "kcal"
+        caloriesLabel.text = recipe.calories + " kcal"
         timeLabel.text = recipe.time
         yieldsLabel.text = "\(Int(recipe.yield)) yields"
     }

@@ -14,8 +14,7 @@ class RecipeDetailViewController: UIViewController {
 
     // MARK: Properties
 
-    var recipe: RecipeObject!
-    var image: UIImage!
+    var recipeWithImage: RecipeWithImage!
 
 
 
@@ -43,7 +42,7 @@ class RecipeDetailViewController: UIViewController {
     // MARK: IBActions
 
     @IBAction func didTapGetDirectionsButton(_ sender: RoundedButton) {
-        presentSafariPage(withUrlString: recipe.url)
+        presentSafariPage(withUrlString: recipeWithImage.recipe.url)
     }
 
 
@@ -57,18 +56,18 @@ class RecipeDetailViewController: UIViewController {
     // MARK: Methods
 
     private func setUI() {
-        nameLabel.text = recipe.name
-        imageView.image = image
-        caloriesLabel.text = recipe.calories + "kcal"
-        timeLabel.text = recipe.time
-        yieldsLabel.text = "\(Int(recipe.yield)) yields"
+        nameLabel.text = recipeWithImage.recipe.name
+        imageView.image = recipeWithImage.image
+        caloriesLabel.text = recipeWithImage.recipe.calories + " kcal"
+        timeLabel.text = recipeWithImage.recipe.time
+        yieldsLabel.text = "\(Int(recipeWithImage.recipe.yield)) yields"
         let ingredients = getIngredients()
         textView.text = ingredients
     }
 
     private func getIngredients() -> String {
         var ingredients = ""
-        recipe.ingredientLines.forEach { ingredients.append(contentsOf: "- " + $0 + "\n") }
+        recipeWithImage.recipe.ingredientLines.forEach { ingredients.append(contentsOf: "- " + $0 + "\n") }
         print(ingredients)
         return ingredients
     }
