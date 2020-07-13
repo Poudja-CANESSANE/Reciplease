@@ -13,9 +13,7 @@
 import Foundation
 
 struct RecipeObject {
-    let imageUrl, name, time, calories, url: String
-    let ingredientLines: [String]
-    let yield: Double
+    let imageUrl, name, time, calories, url, ingredientLines, yield: String
 }
 
 // MARK: - RecipeResult

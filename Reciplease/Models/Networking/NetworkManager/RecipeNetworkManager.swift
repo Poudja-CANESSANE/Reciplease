@@ -56,11 +56,7 @@ class RecipeNetworkManager {
     }
 
     func getRecipeImage(fromImageString imageString: String, completion: @escaping RecipeImageCompletion) {
-        guard let url = URL(string: imageString) else {
-            return completion(.failure(.cannotGetImageUrlFromRecipe))
-        }
-
-        networkService.fetchRecipeImage(urlString: url.absoluteString) { result in
+        networkService.fetchRecipeImage(urlString: imageString) { result in
             switch result {
             case .failure(let networkError):
                 completion(.failure(networkError))
@@ -97,9 +93,9 @@ class RecipeNetworkManager {
     private func createRecipeObject(fromHit hit: Hit) -> RecipeObject {
         let imageUrl = hit.recipe.image
         let name = hit.recipe.label
-        let ingredientLines = hit.recipe.ingredientLines
+        let ingredientLines = "- " + hit.recipe.ingredientLines.joined(separator: "\n" + "- ")
         let url = hit.recipe.url
-        let yield = hit.recipe.yield
+        let yield = String(Int(hit.recipe.yield))
 
         let time = hit.recipe.totalTime
         let formattedtime = formatTime(minutes: time)

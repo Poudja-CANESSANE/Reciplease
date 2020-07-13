@@ -31,21 +31,23 @@ class RecipeTableViewController: UIViewController {
 
     // MARK: Properties
 
-    private let networkManager = RecipeNetworkManager(
-        networkService: NetworkServiceImplementation(),
-        urlProvider: UrlProviderImplementation())
-    private let alertManager = AlertManager()
+    private let networkManager = ServiceContainer.recipeNetworkManager
+    private let alertManager = ServiceContainer.alertManager
     private let recipeTableViewDataSource = RecipeTableViewDataSource()
 
     private var startIndexRecipe = 0
     private var shouldIncreaseStartIndexRecipe = false
     private var hasFetchMoreRecipes = true
 
-    lazy private var  recipeTableViewDelegateHandler: RecipeTableViewDelegateHandler = {
-        let recipeTableViewDelegateHandler = RecipeTableViewDelegateHandler(
-            didSelectRow: presentRecipeDetailScreen(indexPath:),
+    private var isTableViewFooterNil: Bool {
+        tableView.tableFooterView == nil
+    }
+
+    lazy private var recipeTableViewDelegateHandler: RecipeTableViewDelegateHandler = {
+        RecipeTableViewDelegateHandler(
+            viewController: self,
+            getRecipeWithImage: recipeTableViewDataSource.getRecipeWithImageFromArrays(atIndexPath:),
             willDisplayCell: displayLoadMoreCell(indexPath:))
-        return recipeTableViewDelegateHandler
     }()
 
     lazy private var button: UIButton = {
@@ -90,7 +92,6 @@ class RecipeTableViewController: UIViewController {
                 case .failure(let networkError):
                     self.presentAlert(message: networkError.message)
                 case .success(let recipeObjects):
-                    print(recipeObjects.count)
                     self.handleSuccessfulNetworkFetching(recipeObjects: recipeObjects)
                 }
             }
@@ -99,7 +100,7 @@ class RecipeTableViewController: UIViewController {
     }
 
     private func showLoadingIfNeeded() {
-        if tableView.tableFooterView != nil {
+        if !isTableViewFooterNil {
             button.setTitleColor(.clear, for: .normal)
             activityIndicator.startAnimating()
         }
@@ -151,7 +152,7 @@ class RecipeTableViewController: UIViewController {
 
     private func populateImages(fromData data: Data, forRecipe recipe: RecipeObject) {
         guard let image = UIImage(data: data) else {
-            recipeTableViewDataSource.images[recipe.name] = UIImage(named: "defaultRecipeImage")
+            recipeTableViewDataSource.images[recipe.name] = UIImage.defaultRecipeImage
             return
         }
 
@@ -161,9 +162,7 @@ class RecipeTableViewController: UIViewController {
     }
 
     private func stopLoadingIfNeeded() {
-        if tableView.tableFooterView != nil {
-            activityIndicator.stopAnimating()
-        }
+        if !isTableViewFooterNil { activityIndicator.stopAnimating() }
     }
 
     private func setConstraints(toSubview subview: UIView, inSuperview superview: UIView) {
@@ -173,20 +172,7 @@ class RecipeTableViewController: UIViewController {
         subview.centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
     }
 
-    private func presentRecipeDetailScreen(indexPath: IndexPath) {
-        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "RecipeDetailViewController")
-            as? RecipeDetailViewController else { return }
-
-        guard let recipeWithImage = recipeTableViewDataSource.getRecipeWithImageFromArrays(at: indexPath)
-            else { return }
-
-        detailVC.recipeWithImage = recipeWithImage
-
-        navigationController?.pushViewController(detailVC, animated: true)
-    }
-
     private func displayLoadMoreCell(indexPath: IndexPath) {
-        print("\(recipeTableViewDataSource.recipes.count) \(indexPath.row)")
         let shouldDisplayLoadMoreCell = getShouldDisplayLoadMoreCell(indexPath: indexPath)
         shouldDisplayLoadMoreCell ? setupTableViewFooter() : removeTableViewFooter()
     }
@@ -208,9 +194,7 @@ class RecipeTableViewController: UIViewController {
     }
 
     private func removeTableViewFooter() {
-        if tableView.tableFooterView != nil {
-                tableView.tableFooterView = nil
-        }
+        if !isTableViewFooterNil { tableView.tableFooterView = nil }
     }
 
     private func presentAlert(message: String) {

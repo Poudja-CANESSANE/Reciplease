@@ -28,7 +28,7 @@ class RecipeTableViewCell: UITableViewCell {
 
         caloriesLabel.text = recipe.calories + " kcal"
         timeLabel.text = recipe.time
-        yieldsLabel.text = "\(Int(recipe.yield)) yields"
+        yieldsLabel.text = recipe.yield + " yields"
     }
 
 
@@ -49,17 +49,34 @@ class RecipeTableViewCell: UITableViewCell {
     // MARK: Methods
 
     private func getIngredientsPreview(fromRecipe recipe: RecipeObject) -> String {
-        var ingredientsPreview = ""
-        let upperBound = getIngredientsUpperBound(fromRecipe: recipe)
-        for index in 0...upperBound {
-            ingredientsPreview += recipe.ingredientLines[index] + ", "
-        }
-        ingredientsPreview.removeLast(2)
+        let ingredientsArray = getIngredientsArray(fromRecipe: recipe)
+        let upperBound = getUpperBound(fromIngredientsArray: ingredientsArray)
+
+        let ingredientsPreview = assignValueToIngredientsPreview(
+            fromIngredientsArray: ingredientsArray,
+            upperBound: upperBound)
+
         return ingredientsPreview
     }
 
-    private func getIngredientsUpperBound(fromRecipe recipe: RecipeObject) -> Int {
-        let upperBound = recipe.ingredientLines.count - 1 < 3 ? recipe.ingredientLines.count - 1 : 3
+    private func getIngredientsArray(fromRecipe recipe: RecipeObject) -> [String] {
+        let ingredients = recipe.ingredientLines.replacingOccurrences(of: "- ", with: "")
+        let ingredientsArray = ingredients.components(separatedBy: "\n")
+        return ingredientsArray
+    }
+
+    private func getUpperBound(fromIngredientsArray ingredientsArray: [String]) -> Int {
+        let upperBound = ingredientsArray.count - 1 < 3 ? ingredientsArray.count - 1 : 3
         return upperBound
+    }
+
+    private func assignValueToIngredientsPreview(
+        fromIngredientsArray ingredientsArray: [String],
+        upperBound: Int) -> String {
+
+        var ingredientsPreview = ""
+        for index in 0...upperBound { ingredientsPreview += ingredientsArray[index] + ", " }
+        ingredientsPreview.removeLast(2)
+        return ingredientsPreview
     }
 }

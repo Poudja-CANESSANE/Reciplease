@@ -29,7 +29,7 @@ class SearchViewController: UIViewController {
         return Food.all
     }
 
-    private let alertManager = AlertManager()
+    private let alertManager = ServiceContainer.alertManager
 
 
 
@@ -64,19 +64,11 @@ class SearchViewController: UIViewController {
 
     private func displayFoodList() {
         var foodList = ""
-
-        foods.forEach {
-            if let name = $0.name {
-                foodList += "- " + name + "\n"
-            }
-        }
-
+        foods.forEach { if let name = $0.name { foodList += "- " + name + "\n" } }
         textView.text = foodList
     }
 
     private func addFood() {
-        print(foods)
-
         guard
             let foodName = textField.text,
             foodName != "",

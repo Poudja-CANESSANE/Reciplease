@@ -73,7 +73,7 @@ class UrlProviderImplementation: UrlProvider {
     private func appendURLQueryItemsFromSwitches(toUrl url: URLComponents) -> URLComponents {
         var url = url
         SettingsService.Key.allCases.forEach {
-            if SettingsService.getIsOn(forKey: $0) {
+            if ServiceContainer.settingsService.getIsOn(forKey: $0) {
                 url.queryItems?.append(URLQueryItem(name: $0.urlName, value: $0.urlValue))
             }
         }

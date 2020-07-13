@@ -46,7 +46,7 @@ class SettingsTableViewController: UITableViewController {
 
     // MARK: Properties
 
-    private let alertManager = AlertManager()
+    private let alertManager = ServiceContainer.alertManager
 
 
 
@@ -55,25 +55,24 @@ class SettingsTableViewController: UITableViewController {
     private func setSwitchesActivation() {
         switches.forEach {
             if let key = SettingsService.Key(rawValue: $0.tag) {
-                let isOn = SettingsService.getIsOn(forKey: key)
+                let isOn = ServiceContainer.settingsService.getIsOn(forKey: key)
                 $0.isOn = isOn
             }
         }
     }
 
     private func setRangeSeekSlidersValues() {
-        print(#function)
         rangeSeekSliders.forEach {
             if let key = SettingsService.Key(rawValue: $0.tag) {
-                $0.selectedMinValue = CGFloat(SettingsService.getMinValue(forKey: key))
-                $0.selectedMaxValue = CGFloat(SettingsService.getMaxValue(forKey: key))
+                $0.selectedMinValue = CGFloat(ServiceContainer.settingsService.getMinValue(forKey: key))
+                $0.selectedMaxValue = CGFloat(ServiceContainer.settingsService.getMaxValue(forKey: key))
             }
         }
     }
 
     private func saveSwitchSetting(fromSender sender: UISwitch) {
         guard let key = getKey(fromSender: sender) else { return }
-        SettingsService.setIsOn(to: sender.isOn, forKey: key)
+        ServiceContainer.settingsService.setIsOn(to: sender.isOn, forKey: key)
     }
 
     private func saveSlidersSettings() {
@@ -83,7 +82,7 @@ class SettingsTableViewController: UITableViewController {
     private func saveRangeSeekSliderSetting(fromSender sender: RangeSeekSlider) {
         guard let key = getKey(fromSender: sender) else { return }
         let dict = getDict(fromRangeSeekSlider: sender)
-        SettingsService.setMinAndMaxValues(to: dict, forKey: key)
+        ServiceContainer.settingsService.setMinAndMaxValues(to: dict, forKey: key)
     }
 
     private func getKey(fromSender sender: UIControl) -> SettingsService.Key? {
@@ -105,21 +104,6 @@ class SettingsTableViewController: UITableViewController {
 
         return dict
     }
-
-//        if let uiswitch = sender as? UISwitch {
-//
-//        }
-//
-//        if let rangeSeekSlider = sender as? RangeSeekSlider {
-//            print("cast into RangeSeekSlider  " + #function)
-//            let minValue = Float(rangeSeekSlider.selectedMinValue)
-//            let maxValue = Float(rangeSeekSlider.selectedMaxValue)
-//            let dict = [
-//                SettingsService.DictKey.minValue.rawValue: minValue,
-//                SettingsService.DictKey.maxValue.rawValue: maxValue
-//            ]
-//            SettingsService.setMinAndMaxValues(to: dict, forKey: key)
-//        }
 
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)

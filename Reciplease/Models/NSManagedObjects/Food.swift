@@ -21,7 +21,6 @@ class Food: NSManagedObject {
 
         do {
             try AppDelegate.viewContext.save()
-            print(all)
         } catch let error {
             print(error.localizedDescription)
         }
@@ -33,7 +32,6 @@ class Food: NSManagedObject {
 
         do {
             try AppDelegate.viewContext.save()
-            print("\(food.name ?? "food.name") successfully saved")
         } catch let error {
             print(error.localizedDescription)
         }

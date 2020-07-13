@@ -91,8 +91,8 @@ class SettingsService {
         // MARK: Methods
 
         private func getRange() -> String {
-            let minValueString = String(Int(SettingsService.getMinValue(forKey: self)))
-            let maxValueString = String(Int(SettingsService.getMaxValue(forKey: self)))
+            let minValueString = String(Int(ServiceContainer.settingsService.getMinValue(forKey: self)))
+            let maxValueString = String(Int(ServiceContainer.settingsService.getMaxValue(forKey: self)))
             let range = minValueString + "-" + maxValueString
             return range
         }
@@ -104,11 +104,11 @@ class SettingsService {
 
     // MARK: UISwithch
 
-    static func getIsOn(forKey key: Key) -> Bool {
+    func getIsOn(forKey key: Key) -> Bool {
         UserDefaults.standard.bool(forKey: key.name)
     }
 
-    static func setIsOn(to bool: Bool, forKey key: Key) {
+    func setIsOn(to bool: Bool, forKey key: Key) {
         UserDefaults.standard.set(bool, forKey: key.name)
     }
 
@@ -116,19 +116,19 @@ class SettingsService {
 
     // MARK: RangeSeekSlider
 
-    static func getMinValue(forKey key: Key) -> Int {
+    func getMinValue(forKey key: Key) -> Int {
         guard let dict = UserDefaults.standard.dictionary(forKey: key.name) else { return 0 }
         let minValue = dict[DictKey.minValue.rawValue] as? Int ?? 0
         return minValue
     }
 
-    static func getMaxValue(forKey key: Key) -> Int {
+    func getMaxValue(forKey key: Key) -> Int {
         guard let dict = UserDefaults.standard.dictionary(forKey: key.name) else { return 360 }
         let maxValue = dict[DictKey.maxValue.rawValue] as? Int ?? 360
         return maxValue
     }
 
-    static func setMinAndMaxValues(to dict: [String: Int], forKey key: Key) {
+    func setMinAndMaxValues(to dict: [String: Int], forKey key: Key) {
         UserDefaults.standard.set(dict, forKey: key.name)
     }
 }
