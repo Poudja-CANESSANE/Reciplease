@@ -11,34 +11,52 @@ import UIKit
 class FavoriteTableViewController: UIViewController {
     // MARK: - INTERNAL
 
+    // MARK: Lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupTableView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+        displayNoFavoriteRecipesViewIfNeeded()
+    }
+
     // MARK: IBOutlets
 
     @IBOutlet private weak var tableView: UITableView!
-
+    @IBOutlet private weak var noFavoriteRecipesView: UIView!
+    
 
 
     // MARK: Properties
-    private let alertManager = AlertManager()
+    private let alertManager = ServiceContainer.alertManager
+    private let favoriteTableViewDataSource = FavoriteTableViewDataSource()
+
+    lazy private var favoriteRecipeTableViewDelegateHandler: RecipeTableViewDelegateHandler = {
+        RecipeTableViewDelegateHandler(
+            viewController: self,
+            getRecipeWithImage: favoriteTableViewDataSource.getRecipeWithImage(indexPath:),
+            willDisplayCell: nil)
+    }()
 
 
 
     // MARK: Methods
+
+    private func setupTableView() {
+        tableView.dataSource = favoriteTableViewDataSource
+        tableView.delegate = favoriteRecipeTableViewDelegateHandler
+    }
+
+    private func displayNoFavoriteRecipesViewIfNeeded() {
+        let ifNoFavorite = favoriteTableViewDataSource.favoriteRecipes.isEmpty
+        tableView.backgroundView = ifNoFavorite ? noFavoriteRecipesView : nil
+    }
+
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)
     }
 }
-
-extension FavoriteTableViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
-            withIdentifier: "recipeCell", for: indexPath) as? RecipeTableViewCell else { return UITableViewCell() }
-
-        return cell
-    }
-}
-
-extension FavoriteTableViewController: UITableViewDelegate {}

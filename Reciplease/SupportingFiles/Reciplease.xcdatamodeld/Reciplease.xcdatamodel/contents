@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="FavoriteRecipe" representedClassName=".FavoriteRecipe" syncable="YES" codeGenerationType="category">
+        <attribute name="calories" attributeType="String" defaultValueString="N/A"/>
+        <attribute name="image" attributeType="Binary"/>
+        <attribute name="ingredientLines" attributeType="String" defaultValueString="N/A"/>
+        <attribute name="name" attributeType="String" defaultValueString="N/A"/>
+        <attribute name="time" attributeType="String" defaultValueString="N/A"/>
+        <attribute name="url" attributeType="String" defaultValueString="http://www.edamam.com/ontologies/edamam.owl#recipe_66d98ceff7f11dd47094e80903f4a942"/>
+        <attribute name="yield" attributeType="String" defaultValueString="N/A"/>
+    </entity>
     <entity name="Food" representedClassName=".Food" syncable="YES" codeGenerationType="category">
         <attribute name="name" optional="YES" attributeType="String"/>
     </entity>
     <elements>
+        <element name="FavoriteRecipe" positionX="-54" positionY="0" width="128" height="148"/>
         <element name="Food" positionX="-63" positionY="-18" width="128" height="58"/>
     </elements>
 </model>

@@ -9,5 +9,5 @@
 import Foundation
 
 protocol UrlProvider {
-    func getUrl(forFood food: String, fromMinIndex minIndex: Int, toMaxIndex maxIndex: Int) -> URL?
+    func getUrlString(forFood food: String, fromMinIndex minIndex: Int, toMaxIndex maxIndex: Int) -> String?
 }

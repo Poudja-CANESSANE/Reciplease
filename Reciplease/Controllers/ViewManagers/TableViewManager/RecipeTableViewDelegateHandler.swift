@@ -13,18 +13,21 @@ class RecipeTableViewDelegateHandler: NSObject, UITableViewDelegate {
 
     // MARK: Properties
 
-    var didSelectRow: (IndexPath) -> Void
-    var willDisplayCell: (IndexPath) -> Void
+    private let viewController: UIViewController
+    private let willDisplayCell: ((IndexPath) -> Void)?
+    private let getRecipeWithImage: (IndexPath) -> RecipeWithImage
 
 
 
     // MARK: Inits
 
     init(
-        didSelectRow: @escaping (IndexPath) -> Void,
-        willDisplayCell: @escaping (IndexPath) -> Void) {
+        viewController: UIViewController,
+        getRecipeWithImage: @escaping (IndexPath) -> RecipeWithImage,
+        willDisplayCell: ((IndexPath) -> Void)?) {
 
-        self.didSelectRow = didSelectRow
+        self.viewController = viewController
+        self.getRecipeWithImage = getRecipeWithImage
         self.willDisplayCell = willDisplayCell
     }
 
@@ -33,10 +36,16 @@ class RecipeTableViewDelegateHandler: NSObject, UITableViewDelegate {
     // MARK: Methods
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        didSelectRow(indexPath)
+        guard let detailVC = viewController.storyboard?.instantiateViewController(
+            withIdentifier: "RecipeDetailViewController") as? RecipeDetailViewController else { return }
+
+        let recipeWithImage = getRecipeWithImage(indexPath)
+        detailVC.recipeWithImage = recipeWithImage
+        viewController.navigationController?.pushViewController(detailVC, animated: true)
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let willDisplayCell = willDisplayCell else { return }
         willDisplayCell(indexPath)
     }
 }

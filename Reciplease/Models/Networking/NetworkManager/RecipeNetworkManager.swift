@@ -35,12 +35,15 @@ class RecipeNetworkManager {
         toMaxIndex maxIndex: Int,
         completion: @escaping RecipeCompletion) {
 
-        guard let url = urlProvider.getUrl(forFood: foods, fromMinIndex: minIndex, toMaxIndex: maxIndex) else {
+        guard let urlString = urlProvider.getUrlString(
+            forFood: foods,
+            fromMinIndex: minIndex,
+            toMaxIndex: maxIndex) else {
             completion(.failure(.cannotGetUrl))
             return
         }
 
-        networkService.fetchData(url: url) { [weak self] (result: Result<RecipeResult, NetworkError>) in
+        networkService.fetchRecipes(urlString: urlString) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .failure(let networkError):
@@ -53,11 +56,7 @@ class RecipeNetworkManager {
     }
 
     func getRecipeImage(fromImageString imageString: String, completion: @escaping RecipeImageCompletion) {
-        guard let url = URL(string: imageString) else {
-            return completion(.failure(.cannotGetImageUrlFromRecipe))
-        }
-
-        networkService.fetchData(url: url) { (result: Result<Data, NetworkError>) in
+        networkService.fetchRecipeImage(urlString: imageString) { result in
             switch result {
             case .failure(let networkError):
                 completion(.failure(networkError))
@@ -92,10 +91,11 @@ class RecipeNetworkManager {
     }
 
     private func createRecipeObject(fromHit hit: Hit) -> RecipeObject {
-        let bookmarked = hit.bookmarked
         let imageUrl = hit.recipe.image
         let name = hit.recipe.label
-        let ingredientLines = hit.recipe.ingredientLines
+        let ingredientLines = "- " + hit.recipe.ingredientLines.joined(separator: "\n" + "- ")
+        let url = hit.recipe.url
+        let yield = String(Int(hit.recipe.yield))
 
         let time = hit.recipe.totalTime
         let formattedtime = formatTime(minutes: time)
@@ -104,12 +104,13 @@ class RecipeNetworkManager {
         let formattedCalories = formatNumber(int: caloriesToFormat)
 
         let recipe = RecipeObject(
-            bookmarked: bookmarked,
             imageUrl: imageUrl,
             name: name,
             time: formattedtime,
             calories: formattedCalories,
-            ingredientLines: ingredientLines)
+            url: url,
+            ingredientLines: ingredientLines,
+            yield: yield)
 
         return recipe
     }
