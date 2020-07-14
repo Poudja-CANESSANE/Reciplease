@@ -11,6 +11,10 @@ import UIKit
 class RecipeTableViewController: UIViewController {
     // MARK: - INTERNAL
 
+    // MARK: Properties
+
+    var foods: [Food]!
+
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -108,7 +112,7 @@ class RecipeTableViewController: UIViewController {
 
     private func getQueryString() -> String {
         var foods = ""
-        Food.all.forEach { if let name = $0.name { foods.append(name + "+") } }
+        self.foods.forEach { if let name = $0.name { foods.append(name + "+") } }
         foods = String(foods.dropLast())
         return foods
     }

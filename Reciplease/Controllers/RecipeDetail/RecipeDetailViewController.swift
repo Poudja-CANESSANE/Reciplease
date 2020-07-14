@@ -25,6 +25,11 @@ class RecipeDetailViewController: UIViewController {
         setUI()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addNotificationObserver()
+    }
+
 
     // MARK: - PRIVATE
 
@@ -48,18 +53,27 @@ class RecipeDetailViewController: UIViewController {
 
     @IBAction private func didTapFavoriteBarButtonItem(_ sender: UIBarButtonItem) {
         addOrRemoveRecipeFromFavorite()
+        NotificationCenter.default.post(name: .favoriteStateDidChange, object: nil)
     }
+
 
 
     // MARK: Properties
 
     private let alertManager = ServiceContainer.alertManager
-    private let starFillImage = UIImage(systemName: "star.fill")
-    private let starImage = UIImage(systemName: "star")
+    private let favoriteRecipeDataManager = ServiceContainer.favoriteRecipeDataManager
 
 
 
     // MARK: Methods
+
+    private func addNotificationObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(setFavoriteBarButtonItemImage),
+            name: .favoriteStateDidChange,
+            object: nil)
+    }
 
     private func setUI() {
         setFavoriteBarButtonItemImage()
@@ -71,9 +85,9 @@ class RecipeDetailViewController: UIViewController {
         textView.text = recipeWithImage.recipe.ingredientLines
     }
 
-    private func setFavoriteBarButtonItemImage() {
-         favoriteBarButtonItem.image = FavoriteRecipe.isFavorite(recipeUrl: recipeWithImage.recipe.url)
-         ? starFillImage : starImage
+    @objc private func setFavoriteBarButtonItemImage() {
+         favoriteBarButtonItem.image = favoriteRecipeDataManager.isFavorite(recipeUrl: recipeWithImage.recipe.url)
+            ? UIImage.starFillImage : UIImage.starImage
     }
 
     private func presentSafariPage(withUrlString urlString: String) {
@@ -87,26 +101,21 @@ class RecipeDetailViewController: UIViewController {
     }
 
     private func addOrRemoveRecipeFromFavorite() {
-        return favoriteBarButtonItem.image == starImage ? addRecipeToFavorite() : removeRecipeFromFavorite()
+        return favoriteBarButtonItem.image == UIImage.starImage ? addRecipeToFavorite() : removeRecipeFromFavorite()
     }
 
     private func addRecipeToFavorite() {
-        let favoriteRecipe = FavoriteRecipe(context: AppDelegate.viewContext)
-        favoriteRecipe.name = recipeWithImage.recipe.name
-        favoriteRecipe.calories = recipeWithImage.recipe.calories
-        favoriteRecipe.ingredientLines = recipeWithImage.recipe.ingredientLines
-        favoriteRecipe.time = recipeWithImage.recipe.time
-        favoriteRecipe.url = recipeWithImage.recipe.url
-        favoriteRecipe.yield = recipeWithImage.recipe.yield
-        favoriteRecipe.image = recipeWithImage.image.pngData()
-        
-        FavoriteRecipe.save(recipe: favoriteRecipe)
-        favoriteBarButtonItem.image = starFillImage
+        do {
+            try favoriteRecipeDataManager.save(recipeWithImage)
+        } catch {
+            presentAlert(message: "The saving of \(recipeWithImage.recipe.name) is impossible !")
+        }
+        favoriteBarButtonItem.image = UIImage.starFillImage
     }
 
     private func removeRecipeFromFavorite() {
-        FavoriteRecipe.deleteFavoriteRecipe(withUrl: recipeWithImage.recipe.url)
-        favoriteBarButtonItem.image = starImage
+        favoriteRecipeDataManager.deleteFavoriteRecipe(withUrl: recipeWithImage.recipe.url)
+        favoriteBarButtonItem.image = UIImage.starImage
     }
 
     private func presentAlert(message: String) {

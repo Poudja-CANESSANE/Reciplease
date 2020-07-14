@@ -15,4 +15,8 @@ class ServiceContainer {
     static let recipeNetworkManager = RecipeNetworkManager(
         networkService: NetworkServiceImplementation(),
         urlProvider: UrlProviderImplementation())
+
+    static let coreDataManager = CoreDataManager()
+    static let foodDataManager = FoodDataManager()
+    static let favoriteRecipeDataManager = FavoriteRecipeDataManager()
 }

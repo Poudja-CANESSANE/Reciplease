@@ -26,10 +26,11 @@ class SearchViewController: UIViewController {
 
     private var foods: [Food] {
         setSearchButtonState()
-        return Food.all
+        return foodDataManager.getAll()
     }
 
     private let alertManager = ServiceContainer.alertManager
+    private let foodDataManager = ServiceContainer.foodDataManager
 
 
 
@@ -53,12 +54,19 @@ class SearchViewController: UIViewController {
         clearFoods()
     }
 
+    @IBAction func didTapSearchButton(_ sender: RoundedButton) {
+        performSegue(withIdentifier: "recipeListSegue", sender: self)
+    }
 
 
     // MARK: Methods
 
     private func clearFoods() {
-        Food.removeFoods()
+        do {
+            try foodDataManager.removeAll()
+        } catch {
+            presentAlert(message: "The deleting of the food list is impossible !")
+        }
         displayFoodList()
     }
 
@@ -79,12 +87,17 @@ class SearchViewController: UIViewController {
         textView.text = foods
         textField.text = ""
 
-        Food.saveFood(named: foodName)
+        do {
+            try foodDataManager.save(name: foodName)
+        } catch {
+            presentAlert(message: "The saving of \(foodName) in Core Data is impossible !")
+        }
+
         setSearchButtonState()
     }
 
     private func setSearchButtonState() {
-        toggleSearchButtonEnableState(to: !Food.all.isEmpty)
+        toggleSearchButtonEnableState(to: !foodDataManager.getAll().isEmpty)
     }
 
     private func toggleSearchButtonEnableState(to bool: Bool) {
@@ -94,6 +107,14 @@ class SearchViewController: UIViewController {
 
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "recipeListSegue" {
+            //swiftlint:disable:next force_cast
+            let recipeTableViewController = segue.destination as! RecipeTableViewController
+            recipeTableViewController.foods = foods
+        }
     }
 }
 

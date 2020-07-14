@@ -13,7 +13,7 @@ class FavoriteTableViewDataSource: NSObject, UITableViewDataSource {
 
     // MARK: Properties
 
-    var favoriteRecipes: [FavoriteRecipe] { FavoriteRecipe.all }
+    var favoriteRecipes: [FavoriteRecipe] { favoriteRecipeDataManager.getAll() }
 
 
 
@@ -45,6 +45,10 @@ class FavoriteTableViewDataSource: NSObject, UITableViewDataSource {
 
 
     // MARK: - PRIVATE
+
+    // MARK: Properties
+
+    private let favoriteRecipeDataManager = ServiceContainer.favoriteRecipeDataManager
 
     // MARK: Methods
 

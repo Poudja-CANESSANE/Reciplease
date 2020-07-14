@@ -841,7 +841,7 @@ To do so tap on the star button ★ in the top right corner of the recipe detail
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="lei-t5-s7B" kind="show" identifier="recipeListSegue" id="U0d-r7-zd9"/>
+                                            <action selector="didTapSearchButton:" destination="06l-RT-co3" eventType="touchUpInside" id="iBa-7p-N1s"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -876,6 +876,7 @@ To do so tap on the star button ★ in the top right corner of the recipe detail
                         <outlet property="searchButton" destination="Lxg-Bz-Yf2" id="iu3-Am-9uA"/>
                         <outlet property="textField" destination="hQb-yB-6fE" id="eqx-7p-GPY"/>
                         <outlet property="textView" destination="wy0-it-lrs" id="Qtg-r7-JiD"/>
+                        <segue destination="lei-t5-s7B" kind="show" identifier="recipeListSegue" id="sxL-MQ-NRY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrw-Zd-SJa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1306,7 +1307,7 @@ Try to change your settings.</string>
                     <tabBarItem key="tabBarItem" title="Search" image="magnifyingglass" catalog="system" id="qyl-Kc-lZA"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zjq-Xq-mwK">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="0.2156862745" green="0.20000000000000001" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1330,7 +1331,7 @@ Try to change your settings.</string>
                     <tabBarItem key="tabBarItem" title="Favorite" image="star.fill" catalog="system" id="FA6-li-7vC"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5T0-tE-82k">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="0.2156862745" green="0.20000000000000001" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
