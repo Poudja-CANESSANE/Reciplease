@@ -17,30 +17,23 @@ class FavoriteRecipeDataManager {
         coreDataManager.getAllElements(ofType: FavoriteRecipe.self)
     }
 
-    func deleteFavoriteRecipe(withUrl url: String) {
+    func deleteFavoriteRecipe(withUrl url: String) throws {
         let request: NSFetchRequest<FavoriteRecipe> = FavoriteRecipe.fetchRequest()
         request.predicate = NSPredicate(format: "url == %@", url)
         guard let favoriteRecipesToRemove = try? coreDataManager.context.fetch(request) else { return }
         favoriteRecipesToRemove.forEach { coreDataManager.context.delete($0)}
 
-        do {
-            try coreDataManager.context.save()
-        } catch let error {
-            print(error.localizedDescription)
-        }
+        do { try coreDataManager.save() } catch { throw error }
     }
 
-    func isFavorite(recipeUrl url: String) -> Bool {
+    func isFavorite(recipeUrl url: String) throws -> Bool {
         let request: NSFetchRequest<FavoriteRecipe> = FavoriteRecipe.fetchRequest()
         request.predicate = NSPredicate(format: "url == %@", url)
 
         do {
             let count = try coreDataManager.context.fetch(request)
             return count.isEmpty ? false : true
-        } catch {
-            print(error.localizedDescription)
-            return false
-        }
+        } catch { throw error }
     }
 
     func save(_ recipeWithImage: RecipeWithImage) throws {

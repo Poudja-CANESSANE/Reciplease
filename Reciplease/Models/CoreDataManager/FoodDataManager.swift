@@ -25,11 +25,8 @@ class FoodDataManager {
         do {
             let food = coreDataManager.getObject(type: Food.self)
             food.name = name
-
             try coreDataManager.save()
-        } catch let error {
-            throw error
-        }
+        } catch { throw error }
     }
 
 

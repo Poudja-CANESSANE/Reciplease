@@ -12,10 +12,18 @@ import Alamofire
 class NetworkServiceImplementation: NetworkService {
     // MARK: - INTERNAL
 
+    // MARK: Inits
+
+    init(session: Session = AF) {
+        self.session = session
+    }
+
+
+
     // MARK: Methods
 
     ///Returns by the completion parameter the downloaded Data of generic type from the given URL
-    func fetchRecipes(urlString: String, completion: @escaping (Result<RecipeResult, NetworkError>) -> Void) {
+    func fetchRecipes(urlString: String, completion: @escaping (Result<RecipeResult, CustomError>) -> Void) {
         dowload(urlString: urlString) { result in
             switch result {
             case .failure(let networError):
@@ -31,7 +39,7 @@ class NetworkServiceImplementation: NetworkService {
         }
     }
 
-    func fetchRecipeImage(urlString: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+    func fetchRecipeImage(urlString: String, completion: @escaping (Result<Data, CustomError>) -> Void) {
         dowload(urlString: urlString) { result in
             switch result {
             case .failure(let networError):
@@ -43,14 +51,21 @@ class NetworkServiceImplementation: NetworkService {
     }
 
 
+
     // MARK: - PRIVATE
+
+    // MARK: Properties
+
+    private let session: Session
+
+
 
     // MARK: Methods
 
     ///Checks if the response of the network call has no error, has data and if the statusCode is equal to 200
     ///then returns by the completion parameter the downloaded Data
-    private func dowload(urlString: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
-        AF.request(urlString).validate().responseData { dataResponse in
+    private func dowload(urlString: String, completion: @escaping (Result<Data, CustomError>) -> Void) {
+        session.request(urlString).validate().responseData { dataResponse in
             guard let data = dataResponse.value else {
                 completion(.failure(.noData))
                 return

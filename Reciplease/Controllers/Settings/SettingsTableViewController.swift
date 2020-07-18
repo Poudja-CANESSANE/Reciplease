@@ -47,6 +47,7 @@ class SettingsTableViewController: UITableViewController {
     // MARK: Properties
 
     private let alertManager = ServiceContainer.alertManager
+    private let settingsService = ServiceContainer.settingsService
 
 
 
@@ -55,7 +56,7 @@ class SettingsTableViewController: UITableViewController {
     private func setSwitchesActivation() {
         switches.forEach {
             if let key = SettingsService.Key(rawValue: $0.tag) {
-                let isOn = ServiceContainer.settingsService.getIsOn(forKey: key)
+                let isOn = settingsService.getIsOn(forKey: key)
                 $0.isOn = isOn
             }
         }
@@ -64,15 +65,15 @@ class SettingsTableViewController: UITableViewController {
     private func setRangeSeekSlidersValues() {
         rangeSeekSliders.forEach {
             if let key = SettingsService.Key(rawValue: $0.tag) {
-                $0.selectedMinValue = CGFloat(ServiceContainer.settingsService.getMinValue(forKey: key))
-                $0.selectedMaxValue = CGFloat(ServiceContainer.settingsService.getMaxValue(forKey: key))
+                $0.selectedMinValue = CGFloat(settingsService.getMinValue(forKey: key))
+                $0.selectedMaxValue = CGFloat(settingsService.getMaxValue(forKey: key))
             }
         }
     }
 
     private func saveSwitchSetting(fromSender sender: UISwitch) {
         guard let key = getKey(fromSender: sender) else { return }
-        ServiceContainer.settingsService.setIsOn(to: sender.isOn, forKey: key)
+        settingsService.setIsOn(to: sender.isOn, forKey: key)
     }
 
     private func saveSlidersSettings() {
@@ -87,7 +88,7 @@ class SettingsTableViewController: UITableViewController {
 
     private func getKey(fromSender sender: UIControl) -> SettingsService.Key? {
         guard let key = SettingsService.Key(rawValue: sender.tag) else {
-            presentAlert(message: "Cannot unwrap key to save your settings !")
+            presentAlert(message: CustomError.cannotUnwrapKey.message)
             return nil
         }
         return key

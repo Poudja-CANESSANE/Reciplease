@@ -10,12 +10,6 @@
 //
 //   let recipeResult = try? newJSONDecoder().decode(RecipeResult.self, from: jsonData)
 
-import Foundation
-
-struct RecipeObject {
-    let imageUrl, name, time, calories, url, ingredientLines, yield: String
-}
-
 // MARK: - RecipeResult
 struct RecipeResult: Codable {
     let q: String

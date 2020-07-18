@@ -65,7 +65,7 @@ class SearchViewController: UIViewController {
         do {
             try foodDataManager.removeAll()
         } catch {
-            presentAlert(message: "The deleting of the food list is impossible !")
+            presentAlert(message: CustomError.foodListDeletingIsImpossible.message)
         }
         displayFoodList()
     }
@@ -90,7 +90,7 @@ class SearchViewController: UIViewController {
         do {
             try foodDataManager.save(name: foodName)
         } catch {
-            presentAlert(message: "The saving of \(foodName) in Core Data is impossible !")
+            presentAlert(message: CustomError.foodSavingIsImpossible.message)
         }
 
         setSearchButtonState()

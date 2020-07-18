@@ -11,8 +11,8 @@ import Foundation
 class RecipeNetworkManager {
     // MARK: - INTERNAL
 
-    typealias RecipeCompletion = (Result<[RecipeObject], NetworkError>) -> Void
-    typealias RecipeImageCompletion = (Result<Data, NetworkError>) -> Void
+    typealias RecipeCompletion = (Result<[RecipeObject], CustomError>) -> Void
+    typealias RecipeImageCompletion = (Result<Data, CustomError>) -> Void
 
 
 

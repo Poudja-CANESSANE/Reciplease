@@ -11,6 +11,14 @@ import Foundation
 class UrlProviderImplementation: UrlProvider {
     // MARK: - INTERNAL
 
+    // MARK: Inits
+
+    init(settingsService: SettingsService = ServiceContainer.settingsService) {
+        self.settingsService = settingsService
+    }
+
+
+
     // MARK: Methods
 
     func getUrlString(forFood food: String, fromMinIndex minIndex: Int, toMaxIndex maxIndex: Int) -> String? {
@@ -35,6 +43,12 @@ class UrlProviderImplementation: UrlProvider {
 
 
     // MARK: - PRIVATE
+
+    // MARK: Properties
+
+    private let settingsService: SettingsService
+
+
 
     // MARK: Methods
 
@@ -73,7 +87,7 @@ class UrlProviderImplementation: UrlProvider {
     private func appendURLQueryItemsFromSwitches(toUrl url: URLComponents) -> URLComponents {
         var url = url
         SettingsService.Key.allCases.forEach {
-            if ServiceContainer.settingsService.getIsOn(forKey: $0) {
+            if settingsService.getIsOn(forKey: $0) {
                 url.queryItems?.append(URLQueryItem(name: $0.urlName, value: $0.urlValue))
             }
         }

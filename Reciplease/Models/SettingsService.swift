@@ -9,6 +9,10 @@
 import Foundation
 
 class SettingsService {
+    // MARK: - INTERNAL
+
+    // MARK: Enums
+
     enum Key: Int, CaseIterable {
         // MARK: - INTERNAL
 
@@ -70,21 +74,10 @@ class SettingsService {
             self == .balanced || self == .highProtein || self == .lowFat || self == .lowCarb
         }
 
-        private var caloriesOrTimeOrHealth: String {
-            isCalories ? "calories" : timeOrHealth
-        }
-
-        private var timeOrHealth: String {
-            isTime ? "time" : "health"
-        }
-
-        private var isCalories: Bool {
-            self == .calories
-        }
-
-        private var isTime: Bool {
-            self == .time
-        }
+        private var caloriesOrTimeOrHealth: String { isCalories ? "calories" : timeOrHealth }
+        private var timeOrHealth: String { isTime ? "time" : "health" }
+        private var isCalories: Bool { self == .calories }
+        private var isTime: Bool { self == .time }
 
 
 
@@ -102,14 +95,24 @@ class SettingsService {
 
 
 
-    // MARK: UISwithch
+    // MARK: Inits
+
+    init(userDefaults: UserDefaults = UserDefaults.standard) {
+        self.userDefaults = userDefaults
+    }
+
+
+
+    // MARK: Methods
+
+    // MARK: UISwitch
 
     func getIsOn(forKey key: Key) -> Bool {
-        UserDefaults.standard.bool(forKey: key.name)
+        userDefaults.bool(forKey: key.name)
     }
 
     func setIsOn(to bool: Bool, forKey key: Key) {
-        UserDefaults.standard.set(bool, forKey: key.name)
+        userDefaults.set(bool, forKey: key.name)
     }
 
 
@@ -117,18 +120,26 @@ class SettingsService {
     // MARK: RangeSeekSlider
 
     func getMinValue(forKey key: Key) -> Int {
-        guard let dict = UserDefaults.standard.dictionary(forKey: key.name) else { return 0 }
+        guard let dict = userDefaults.dictionary(forKey: key.name) else { return 0 }
         let minValue = dict[DictKey.minValue.rawValue] as? Int ?? 0
         return minValue
     }
 
     func getMaxValue(forKey key: Key) -> Int {
-        guard let dict = UserDefaults.standard.dictionary(forKey: key.name) else { return 360 }
+        guard let dict = userDefaults.dictionary(forKey: key.name) else { return 360 }
         let maxValue = dict[DictKey.maxValue.rawValue] as? Int ?? 360
         return maxValue
     }
 
     func setMinAndMaxValues(to dict: [String: Int], forKey key: Key) {
-        UserDefaults.standard.set(dict, forKey: key.name)
+        userDefaults.set(dict, forKey: key.name)
     }
+
+
+
+    // MARK: - PRIVATE
+
+    // MARK: Properties
+
+    private let userDefaults: UserDefaults
 }
