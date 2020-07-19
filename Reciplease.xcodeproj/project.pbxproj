@@ -52,6 +52,7 @@
 		ACB5F83324A504C800E28502 /* RecipeResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB5F83224A504C800E28502 /* RecipeResult.swift */; };
 		ACB5F83724A5413B00E28502 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB5F83624A5413B00E28502 /* RoundedButton.swift */; };
 		ACB5F83924A548FA00E28502 /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACB5F83824A548FA00E28502 /* Food.swift */; };
+		ACE1D0D324C3B86200FBC703 /* RecipeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = ACE1D0D224C3B86200FBC703 /* RecipeTableViewCell.xib */; };
 		ACE6F1F524B1D32D00ADBFF3 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE6F1F424B1D32D00ADBFF3 /* SettingsService.swift */; };
 		ACF52A1824BBD01E00997F69 /* FavoriteTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF52A1724BBD01E00997F69 /* FavoriteTableViewDataSource.swift */; };
 		ACFDAE4824BCFEAD001B719F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFDAE4724BCFEAD001B719F /* CoreDataManager.swift */; };
@@ -119,6 +120,7 @@
 		ACB5F83224A504C800E28502 /* RecipeResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeResult.swift; sourceTree = "<group>"; };
 		ACB5F83624A5413B00E28502 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		ACB5F83824A548FA00E28502 /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
+		ACE1D0D224C3B86200FBC703 /* RecipeTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeTableViewCell.xib; sourceTree = "<group>"; };
 		ACE6F1F424B1D32D00ADBFF3 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
 		ACF52A1724BBD01E00997F69 /* FavoriteTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewDataSource.swift; sourceTree = "<group>"; };
 		ACFDAE4724BCFEAD001B719F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 				ACAF6A8A24A0CF6700F7E7A9 /* Main.storyboard */,
 				ACAF6A9224A0CF6A00F7E7A9 /* LaunchScreen.storyboard */,
 				AC4F854424A92EF70084A8B1 /* UISubclasses */,
+				ACE1D0D424C3BC3600FBC703 /* Xibs */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -404,6 +407,14 @@
 				ACAF6AAF24A0D71800F7E7A9 /* FavoriteTableViewController.swift */,
 			);
 			path = Favorite;
+			sourceTree = "<group>";
+		};
+		ACE1D0D424C3BC3600FBC703 /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				ACE1D0D224C3B86200FBC703 /* RecipeTableViewCell.xib */,
+			);
+			path = Xibs;
 			sourceTree = "<group>";
 		};
 		ACE6F1F124B1D16500ADBFF3 /* Structs */ = {
@@ -523,6 +534,7 @@
 				ACAF6A9424A0CF6A00F7E7A9 /* LaunchScreen.storyboard in Resources */,
 				ACAF6A9124A0CF6A00F7E7A9 /* Assets.xcassets in Resources */,
 				ACAF6A8C24A0CF6700F7E7A9 /* Main.storyboard in Resources */,
+				ACE1D0D324C3B86200FBC703 /* RecipeTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

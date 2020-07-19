@@ -49,6 +49,7 @@ class FavoriteTableViewController: UIViewController {
     private func setupTableView() {
         tableView.dataSource = favoriteTableViewDataSource
         tableView.delegate = favoriteRecipeTableViewDelegateHandler
+        tableView.register(UINib(nibName: "RecipeTableViewCell", bundle: .main), forCellReuseIdentifier: "recipeCell")
     }
 
     private func displayNoFavoriteRecipesViewIfNeeded() {

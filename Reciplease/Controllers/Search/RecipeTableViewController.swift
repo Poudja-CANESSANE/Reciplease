@@ -78,6 +78,7 @@ class RecipeTableViewController: UIViewController {
     private func setupTableView() {
         tableView.delegate = recipeTableViewDelegateHandler
         tableView.dataSource = recipeTableViewDataSource
+        tableView.register(UINib(nibName: "RecipeTableViewCell", bundle: .main), forCellReuseIdentifier: "recipeCell")
     }
 
     @objc private func updateUIWithRecipes() {
