@@ -12,8 +12,8 @@ import XCTest
 class FoodDataManagerTests: XCTestCase {
     let foodDataManager = FoodDataManager()
 
-    override func setUp() {
-        super.setUp()
+    override func tearDown() {
+        super.tearDown()
         try! foodDataManager.removeAll()
     }
 

@@ -22,7 +22,7 @@ class NetworkServiceImplementation: NetworkService {
 
     // MARK: Methods
 
-    ///Returns by the completion parameter the downloaded Data of generic type from the given URL
+    ///Returns by the completion parameter the downloaded RecipeResult from the given URL
     func fetchRecipes(urlString: String, completion: @escaping (Result<RecipeResult, CustomError>) -> Void) {
         dowload(urlString: urlString) { result in
             switch result {
@@ -39,6 +39,7 @@ class NetworkServiceImplementation: NetworkService {
         }
     }
 
+    ///Returns by the completion parameter the downloaded Data from the given URL
     func fetchRecipeImage(urlString: String, completion: @escaping (Result<Data, CustomError>) -> Void) {
         dowload(urlString: urlString) { result in
             switch result {

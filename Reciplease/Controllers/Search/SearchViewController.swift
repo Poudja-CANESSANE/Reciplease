@@ -1,4 +1,4 @@
-//
+//swiftlint:disable statement_position
 //  SearchViewController.swift
 //  Reciplease
 //
@@ -54,28 +54,28 @@ class SearchViewController: UIViewController {
         clearFoods()
     }
 
-    @IBAction func didTapSearchButton(_ sender: RoundedButton) {
+    @IBAction private func didTapSearchButton(_ sender: RoundedButton) {
         performSegue(withIdentifier: "recipeListSegue", sender: self)
     }
 
 
     // MARK: Methods
 
+    ///Removes all Food from Core Data and clears textView
     private func clearFoods() {
-        do {
-            try foodDataManager.removeAll()
-        } catch {
-            presentAlert(message: CustomError.foodListDeletingIsImpossible.message)
-        }
+        do { try foodDataManager.removeAll() }
+        catch { presentAlert(message: CustomError.foodListDeletingIsImpossible.message) }
         displayFoodList()
     }
 
+    ///Displays in textView all food saved in Core Data
     private func displayFoodList() {
         var foodList = ""
         foods.forEach { if let name = $0.name { foodList += "- " + name + "\n" } }
         textView.text = foodList
     }
 
+    ///Appends the food entered in textField to textView and saves it in CoreData
     private func addFood() {
         guard
             let foodName = textField.text,
@@ -87,36 +87,34 @@ class SearchViewController: UIViewController {
         textView.text = foods
         textField.text = ""
 
-        do {
-            try foodDataManager.save(name: foodName)
-        } catch {
-            presentAlert(message: CustomError.foodSavingIsImpossible.message)
-        }
+        do { try foodDataManager.save(name: foodName) }
+        catch { presentAlert(message: CustomError.foodSavingIsImpossible.message) }
 
         setSearchButtonState()
     }
 
+    ///Sets the enable state and the alpha of searchButton to !foodDataManager.getAll().isEmpty
     private func setSearchButtonState() {
         toggleSearchButtonEnableState(to: !foodDataManager.getAll().isEmpty)
     }
 
-    private func toggleSearchButtonEnableState(to bool: Bool) {
-        searchButton.isEnabled = bool
-        searchButton.alpha = bool ? 1 : 0.5
+    ///Sets the enable state and the alpha of searchButton to the given Bool
+    private func toggleSearchButtonEnableState(to isEnable: Bool) {
+        searchButton.isEnabled = isEnable
+        searchButton.alpha = isEnable ? 1 : 0.5
     }
 
+    ///Presents an alert with the given message
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)
     }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "recipeListSegue" {
-            //swiftlint:disable:next force_cast
-            let recipeTableViewController = segue.destination as! RecipeTableViewController
-            recipeTableViewController.foods = foods
-        }
-    }
 }
+
+
+
+// MARK: - Extension
+
+// MARK: Keyboard
 
 extension SearchViewController: UITextFieldDelegate {
     // MARK: - INTERNAL
@@ -127,5 +125,19 @@ extension SearchViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         addFood()
         return true
+    }
+}
+
+
+
+// MARK: Navigation
+
+extension SearchViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "recipeListSegue" {
+            //swiftlint:disable:next force_cast
+            let recipeTableViewController = segue.destination as! RecipeTableViewController
+            recipeTableViewController.foods = foods
+        }
     }
 }

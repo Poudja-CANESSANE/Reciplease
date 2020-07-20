@@ -29,11 +29,12 @@ class FavoriteTableViewDataSource: NSObject, UITableViewDataSource {
 
         let recipeWithImage = getRecipeWithImage(indexPath: indexPath)
 
-        cell.updateCell(withRecipe: recipeWithImage.recipe, image: recipeWithImage.image)
+        cell.updateCell(withRecipeWithImage: recipeWithImage)
 
         return cell
     }
 
+    ///Returns a RecipeWithImage from the favoriteRecipes array at the given indexPath
     func getRecipeWithImage(indexPath: IndexPath) -> RecipeWithImage {
         let favoriteRecipe = favoriteRecipes[indexPath.row]
         let recipe = getRecipeObject(fromFavoriteRecipe: favoriteRecipe)
@@ -50,8 +51,11 @@ class FavoriteTableViewDataSource: NSObject, UITableViewDataSource {
 
     private let favoriteRecipeDataManager = ServiceContainer.favoriteRecipeDataManager
 
+
+
     // MARK: Methods
 
+    ///Returns a RecipeObject build from the given FavoriteRecipe
     private func getRecipeObject(fromFavoriteRecipe favoriteRecipe: FavoriteRecipe) -> RecipeObject {
         let recipe = RecipeObject(
         imageUrl: "",
@@ -65,6 +69,7 @@ class FavoriteTableViewDataSource: NSObject, UITableViewDataSource {
         return recipe
     }
 
+    ///Returns a UIImage from the given FavoriteRecipe
     private func getImage(fromFavoriteRecipe favoriteRecipe: FavoriteRecipe) -> UIImage {
         guard
             let imageData = favoriteRecipe.image,

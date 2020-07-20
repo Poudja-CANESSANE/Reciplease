@@ -13,14 +13,17 @@ class FoodDataManager {
 
     // MARK: Methods
 
+    ///Returns an array containing all Food object saved in Core Data
     func getAll() -> [Food] {
         coreDataManager.getAllElements(ofType: Food.self)
     }
 
+    ///Removes all Food entities from Core Data
     func removeAll() throws {
         do { try coreDataManager.removeElements(ofType: Food.self) } catch { throw error }
     }
 
+    ///Creates and saves a Food with the given name in Core Data
     func save(name: String) throws {
         do {
             let food = coreDataManager.getObject(type: Food.self)

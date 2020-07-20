@@ -66,6 +66,10 @@ class SettingsService {
 
 
 
+//        init(settingsService: SettingsService) {
+//            self.settingsService = settingsService
+//        }
+
         // MARK: - PRIVATE
 
         // MARK: Properties
@@ -78,6 +82,8 @@ class SettingsService {
         private var timeOrHealth: String { isTime ? "time" : "health" }
         private var isCalories: Bool { self == .calories }
         private var isTime: Bool { self == .time }
+
+//        private var settingsService: SettingsService
 
 
 
@@ -107,10 +113,12 @@ class SettingsService {
 
     // MARK: UISwitch
 
+    ///Returns a Bool corresponding to switches' activation state
     func getIsOn(forKey key: Key) -> Bool {
         userDefaults.bool(forKey: key.name)
     }
 
+    ///Sets the given switch's activation state
     func setIsOn(to bool: Bool, forKey key: Key) {
         userDefaults.set(bool, forKey: key.name)
     }
@@ -119,18 +127,21 @@ class SettingsService {
 
     // MARK: RangeSeekSlider
 
+    ///Returns an Int corresponding the minimum value of the given RangeSeekSlider
     func getMinValue(forKey key: Key) -> Int {
         guard let dict = userDefaults.dictionary(forKey: key.name) else { return 0 }
         let minValue = dict[DictKey.minValue.rawValue] as? Int ?? 0
         return minValue
     }
 
+    ///Returns an Int corresponding to the maximum value of the given RangeSeekSlider
     func getMaxValue(forKey key: Key) -> Int {
         guard let dict = userDefaults.dictionary(forKey: key.name) else { return 360 }
         let maxValue = dict[DictKey.maxValue.rawValue] as? Int ?? 360
         return maxValue
     }
 
+    ///Sets the minimum and maximum values of the given RangeSeekSlider
     func setMinAndMaxValues(to dict: [String: Int], forKey key: Key) {
         userDefaults.set(dict, forKey: key.name)
     }

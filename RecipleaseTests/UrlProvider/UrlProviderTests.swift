@@ -10,18 +10,14 @@ import XCTest
 @testable import Reciplease
 
 class UrlProviderTests: XCTestCase {
-    var userDefaults: UserDefaults!
     let userDefaultsSuiteName = "TestDefaults"
-    var settingsService: SettingsService!
-    var urlProvider: UrlProviderImplementation!
-    var sut: UserDefaults!
+    lazy var userDefaults = UserDefaults(suiteName: userDefaultsSuiteName)
+    lazy var settingsService = SettingsService(userDefaults: userDefaults!)
+    lazy var urlProvider = UrlProviderImplementation(settingsService: settingsService)
 
     override func setUp() {
         super.setUp()
-        UserDefaults().removePersistentDomain(forName: userDefaultsSuiteName)
-        userDefaults = UserDefaults(suiteName: userDefaultsSuiteName)
-        settingsService = SettingsService(userDefaults: userDefaults)
-        urlProvider = UrlProviderImplementation(settingsService: SettingsService(userDefaults: userDefaults))
+        userDefaults!.removePersistentDomain(forName: userDefaultsSuiteName)
     }
     
     func testGetUrl() {

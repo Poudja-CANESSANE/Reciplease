@@ -18,7 +18,6 @@
 		AC0FC08824C361800075B3A7 /* RecipeNetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0FC08724C361800075B3A7 /* RecipeNetworkManagerTests.swift */; };
 		AC2A52A324AE5A350022F8FA /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2A52A224AE5A350022F8FA /* GradientView.swift */; };
 		AC3CD0A624BE021100A0289B /* FavoriteRecipeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CD0A524BE021100A0289B /* FavoriteRecipeDataManager.swift */; };
-		AC3CD0A824BE354800A0289B /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CD0A724BE354800A0289B /* NotificationNames.swift */; };
 		AC55245124AE6E3E002E56BE /* RecipeWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC55245024AE6E3E002E56BE /* RecipeWithImage.swift */; };
 		AC55245324AE6E98002E56BE /* RecipeTableViewDelegateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC55245224AE6E98002E56BE /* RecipeTableViewDelegateHandler.swift */; };
 		AC57557524C3421700FF61B9 /* FoodDataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC57557424C3421700FF61B9 /* FoodDataManagerTests.swift */; };
@@ -82,7 +81,6 @@
 		AC0FC08724C361800075B3A7 /* RecipeNetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeNetworkManagerTests.swift; sourceTree = "<group>"; };
 		AC2A52A224AE5A350022F8FA /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		AC3CD0A524BE021100A0289B /* FavoriteRecipeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeDataManager.swift; sourceTree = "<group>"; };
-		AC3CD0A724BE354800A0289B /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
 		AC55245024AE6E3E002E56BE /* RecipeWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeWithImage.swift; sourceTree = "<group>"; };
 		AC55245224AE6E98002E56BE /* RecipeTableViewDelegateHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewDelegateHandler.swift; sourceTree = "<group>"; };
 		AC57557424C3421700FF61B9 /* FoodDataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDataManagerTests.swift; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 				AC0BC3CA24B924CD002AC135 /* Colors.swift */,
 				AC0BC3CC24B924D6002AC135 /* Fonts.swift */,
 				AC58DC9624BCC7580098588F /* Images.swift */,
-				AC3CD0A724BE354800A0289B /* NotificationNames.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -652,7 +649,6 @@
 				AC55245324AE6E98002E56BE /* RecipeTableViewDelegateHandler.swift in Sources */,
 				ACFDAE4A24BE00A0001B719F /* FoodDataManager.swift in Sources */,
 				ACAF6AAE24A0D70A00F7E7A9 /* SearchViewController.swift in Sources */,
-				AC3CD0A824BE354800A0289B /* NotificationNames.swift in Sources */,
 				AC7A8C8B24A7DCCB00DB48B9 /* RecipeNetworkManager.swift in Sources */,
 				ACAF6A8F24A0CF6700F7E7A9 /* Reciplease.xcdatamodeld in Sources */,
 				ACF52A1824BBD01E00997F69 /* FavoriteTableViewDataSource.swift in Sources */,

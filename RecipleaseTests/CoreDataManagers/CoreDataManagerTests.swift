@@ -12,8 +12,8 @@ import XCTest
 class CoreDataManagerTests: XCTestCase {
     let coreDataManager = CoreDataManager()
 
-    override func setUp() {
-        super.setUp()
+    override func tearDown() {
+        super.tearDown()
         try! coreDataManager.removeElements(ofType: Food.self)
     }
 

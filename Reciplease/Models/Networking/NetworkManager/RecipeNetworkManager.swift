@@ -28,7 +28,8 @@ class RecipeNetworkManager {
 
     // MARK: Methods
 
-    ///Returns by the completion parameter the downloaded us rate
+    ///Returns by the completion parameter the downloaded array of RecipeObject
+    ///from the given food, minIndex and maxIndex
     func getRecipes(
         forFoods foods: String,
         fromMinIndex minIndex: Int,
@@ -55,8 +56,9 @@ class RecipeNetworkManager {
         }
     }
 
-    func getRecipeImage(fromImageString imageString: String, completion: @escaping RecipeImageCompletion) {
-        networkService.fetchRecipeImage(urlString: imageString) { result in
+    ///Returns by the completion parameter the downloaded Data corresponding to the recipe's image from the given url
+    func getRecipeImage(fromImageUrlString imageUrlString: String, completion: @escaping RecipeImageCompletion) {
+        networkService.fetchRecipeImage(urlString: imageUrlString) { result in
             switch result {
             case .failure(let networkError):
                 completion(.failure(networkError))
@@ -79,6 +81,7 @@ class RecipeNetworkManager {
 
     // MARK: Methods
 
+    ///Returns an array of RecipeObject from the given RecipeResult
     private func getRecipes(fromResponse response: RecipeResult) -> [RecipeObject] {
         var recipes = [RecipeObject]()
 
@@ -90,6 +93,7 @@ class RecipeNetworkManager {
         return recipes
     }
 
+    ///Returns a RecipeObject build from the given Hit
     private func createRecipeObject(fromHit hit: Hit) -> RecipeObject {
         let imageUrl = hit.recipe.image
         let name = hit.recipe.label
@@ -115,6 +119,7 @@ class RecipeNetworkManager {
         return recipe
     }
 
+    ///Returns the given Double corresponding to minutes formatted into days, hours and minutes for more readability
     private func formatTime(minutes: Double) -> String {
         if minutes == 0.0 { return "N/A" }
         let formatter = DateComponentsFormatter()
@@ -130,6 +135,7 @@ class RecipeNetworkManager {
         return formattedTime
     }
 
+    ///Returns the given Int with spaces for more readability
     private func formatNumber(int: Int) -> String {
         let formatter = NumberFormatter()
         formatter.groupingSeparator = " "

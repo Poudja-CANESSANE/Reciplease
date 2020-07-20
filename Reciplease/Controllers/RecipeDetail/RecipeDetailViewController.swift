@@ -27,7 +27,7 @@ class RecipeDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        addNotificationObserver()
+        setFavoriteBarButtonItemImage()
     }
 
 
@@ -53,7 +53,6 @@ class RecipeDetailViewController: UIViewController {
 
     @IBAction private func didTapFavoriteBarButtonItem(_ sender: UIBarButtonItem) {
         addOrRemoveRecipeFromFavorite()
-        NotificationCenter.default.post(name: .favoriteStateDidChange, object: nil)
     }
 
 
@@ -67,14 +66,7 @@ class RecipeDetailViewController: UIViewController {
 
     // MARK: Methods
 
-    private func addNotificationObserver() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(setFavoriteBarButtonItemImage),
-            name: .favoriteStateDidChange,
-            object: nil)
-    }
-
+    ///Sets the UI with recipeWithImage
     private func setUI() {
         setFavoriteBarButtonItemImage()
         nameLabel.text = recipeWithImage.recipe.name
@@ -85,7 +77,8 @@ class RecipeDetailViewController: UIViewController {
         textView.text = recipeWithImage.recipe.ingredientLines
     }
 
-    @objc private func setFavoriteBarButtonItemImage() {
+    ///Sets the favoriteBarButtonItem's image according to the presence of recipeWithImage in Core Data
+    private func setFavoriteBarButtonItemImage() {
         do {
             favoriteBarButtonItem.image =
                 try favoriteRecipeDataManager.isFavorite(recipeUrl: recipeWithImage.recipe.url)
@@ -93,6 +86,7 @@ class RecipeDetailViewController: UIViewController {
         } catch { presentAlert(message: CustomError.getErrorWhileFetchingFromCoreData.message) }
     }
 
+    ///Presents a SFSafariViewController with the given url
     private func presentSafariPage(withUrlString urlString: String) {
         guard let url = URL(string: urlString) else {
             presentAlert(message: CustomError.cannotUnwrapUrl.message)
@@ -103,10 +97,12 @@ class RecipeDetailViewController: UIViewController {
         present(safariVC, animated: true)
     }
 
+    ///Saves or removes recipeWithImage in Core Data according to the favoriteBarButtonItem's image
     private func addOrRemoveRecipeFromFavorite() {
         return favoriteBarButtonItem.image == UIImage.starImage ? addRecipeToFavorite() : removeRecipeFromFavorite()
     }
 
+    ///Saves the RecipeWithImage in Core Data and sets the favoriteBarButtonItem's image to UIImage.starFillImage
     private func addRecipeToFavorite() {
         do {
             try favoriteRecipeDataManager.save(recipeWithImage)
@@ -116,6 +112,7 @@ class RecipeDetailViewController: UIViewController {
         favoriteBarButtonItem.image = UIImage.starFillImage
     }
 
+    ///Removes the FavoriteRecipe from Core Data and sets the favoriteBarButtonItem's image to UIImage.starImage
     private func removeRecipeFromFavorite() {
         do {
             try favoriteRecipeDataManager.deleteFavoriteRecipe(withUrl: recipeWithImage.recipe.url)
@@ -125,6 +122,7 @@ class RecipeDetailViewController: UIViewController {
         favoriteBarButtonItem.image = UIImage.starImage
     }
 
+    ///Presents an alert with the given message
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)
     }

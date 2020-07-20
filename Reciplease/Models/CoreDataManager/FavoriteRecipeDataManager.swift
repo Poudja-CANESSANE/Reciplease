@@ -13,10 +13,12 @@ class FavoriteRecipeDataManager {
 
     // MARK: Methods
 
+    ///Returns an array containing all FavoriteRecipe object saved in Core Data
     func getAll() -> [FavoriteRecipe] {
         coreDataManager.getAllElements(ofType: FavoriteRecipe.self)
     }
 
+    ///Removes a specific FavoriteRecipe with the given url from Core Data
     func deleteFavoriteRecipe(withUrl url: String) throws {
         let request: NSFetchRequest<FavoriteRecipe> = FavoriteRecipe.fetchRequest()
         request.predicate = NSPredicate(format: "url == %@", url)
@@ -26,6 +28,7 @@ class FavoriteRecipeDataManager {
         do { try coreDataManager.save() } catch { throw error }
     }
 
+    ///Returns a Bool whether the Recipe is favorite according to its presence or not in Core Data
     func isFavorite(recipeUrl url: String) throws -> Bool {
         let request: NSFetchRequest<FavoriteRecipe> = FavoriteRecipe.fetchRequest()
         request.predicate = NSPredicate(format: "url == %@", url)
@@ -36,6 +39,7 @@ class FavoriteRecipeDataManager {
         } catch { throw error }
     }
 
+    ///Creates and saves a FavoriteRecipe entity from a RecipeWithImage object in Core Data
     func save(_ recipeWithImage: RecipeWithImage) throws {
         do {
             let favoriteRecipe = coreDataManager.getObject(type: FavoriteRecipe.self)

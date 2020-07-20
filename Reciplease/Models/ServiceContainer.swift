@@ -8,7 +8,7 @@
 
 import Foundation
 
-class ServiceContainer {
+struct ServiceContainer {
     static let settingsService = SettingsService()
     static let alertManager = AlertManager()
 

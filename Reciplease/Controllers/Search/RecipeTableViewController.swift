@@ -15,6 +15,8 @@ class RecipeTableViewController: UIViewController {
 
     var foods: [Food]!
 
+
+
     // MARK: Lifecycle
 
     override func viewDidLoad() {
@@ -31,6 +33,7 @@ class RecipeTableViewController: UIViewController {
 
     @IBOutlet private weak var tableView: UITableView!
     @IBOutlet private weak var noResultView: UIView!
+
 
 
     // MARK: Properties
@@ -54,6 +57,7 @@ class RecipeTableViewController: UIViewController {
             willDisplayCell: displayLoadMoreCell(indexPath:))
     }()
 
+    ///This button is shown in the tableView's footerView to load more recipes
     lazy private var button: UIButton = {
         let button = UIButton(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 45))
         button.setTitleColor(.white, for: .normal)
@@ -75,12 +79,14 @@ class RecipeTableViewController: UIViewController {
 
     // MARK: Methods
 
+    ///Sets the delegate, the dataSource of the tavleView and registers the RecipeTableViewCell
     private func setupTableView() {
         tableView.delegate = recipeTableViewDelegateHandler
         tableView.dataSource = recipeTableViewDataSource
         tableView.register(UINib(nibName: "RecipeTableViewCell", bundle: .main), forCellReuseIdentifier: "recipeCell")
     }
 
+    ///Updates the UI with the downloaded recipes
     @objc private func updateUIWithRecipes() {
         showLoadingIfNeeded()
         let foods = getQueryString()
@@ -104,6 +110,7 @@ class RecipeTableViewController: UIViewController {
         }
     }
 
+    ///Sets the button tilteColor to .clear and starts the loading animation of activityIndicator
     private func showLoadingIfNeeded() {
         if !isTableViewFooterNil {
             button.setTitleColor(.clear, for: .normal)
@@ -111,6 +118,7 @@ class RecipeTableViewController: UIViewController {
         }
     }
 
+    ///Returns a String build by appending all food's name contained in foods
     private func getQueryString() -> String {
         var foods = ""
         self.foods.forEach { if let name = $0.name { foods.append(name + "+") } }
@@ -118,6 +126,7 @@ class RecipeTableViewController: UIViewController {
         return foods
     }
 
+    ///Increases startIndexRecipe of 50 according to shouldIncreaseStartIndexRecipe
     private func increaseStartIndexRecipeIfNeeded() {
         if shouldIncreaseStartIndexRecipe {
             startIndexRecipe += 50
@@ -125,6 +134,9 @@ class RecipeTableViewController: UIViewController {
         }
     }
 
+    ///Sets hasFetchMoreRecipes according the given recipeObjects array,
+    ///display noResultView if needed, populates recipeTableViewDataSource.recipes
+    ///with recipesObjects and downloads the recipes' images
     private func handleSuccessfulNetworkFetching(recipeObjects: ([RecipeObject])) {
         hasFetchMoreRecipes = !recipeObjects.isEmpty
         if hasToDisplayNoResultView(recipeObjects: recipeObjects) { return }
@@ -132,6 +144,7 @@ class RecipeTableViewController: UIViewController {
         recipeObjects.forEach { downloadRecipeImage(recipe: $0) }
     }
 
+    ///Returns true if noResultView should be displayed and hides tableView if needed
     private func hasToDisplayNoResultView(recipeObjects: [RecipeObject]) -> Bool {
         if recipeObjects.isEmpty && recipeTableViewDataSource.recipes.isEmpty {
             tableView.isHidden = true
@@ -141,8 +154,10 @@ class RecipeTableViewController: UIViewController {
         return false
     }
 
+    ///Dowloads the image corresponding to the given RecipeObject
+    ///and populates recipeTableViewDataSource.images with it
     private func downloadRecipeImage(recipe: RecipeObject) {
-        self.networkManager.getRecipeImage(fromImageString: recipe.imageUrl) { [weak self] result in
+        self.networkManager.getRecipeImage(fromImageUrlString: recipe.imageUrl) { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.main.async {
                 switch result {
@@ -155,6 +170,8 @@ class RecipeTableViewController: UIViewController {
         }
     }
 
+    ///Converts the given Data into a UIImage and inserts it
+    ///in recipeTableViewDataSource.images at the given recipe's name key
     private func populateImages(fromData data: Data, forRecipe recipe: RecipeObject) {
         guard let image = UIImage(data: data) else {
             recipeTableViewDataSource.images[recipe.name] = UIImage.defaultRecipeImage
@@ -166,10 +183,12 @@ class RecipeTableViewController: UIViewController {
         tableView.reloadData()
     }
 
+    ///Stops the activityIndicator loading animation whether the footerView exists
     private func stopLoadingIfNeeded() {
         if !isTableViewFooterNil { activityIndicator.stopAnimating() }
     }
 
+    ///Sets the given subview in the center of the given superview
     private func setConstraints(toSubview subview: UIView, inSuperview superview: UIView) {
         superview.addSubview(subview)
         subview.translatesAutoresizingMaskIntoConstraints = false
@@ -177,11 +196,13 @@ class RecipeTableViewController: UIViewController {
         subview.centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
     }
 
+    ///Displays "Load more recipes" cell if needed
     private func displayLoadMoreCell(indexPath: IndexPath) {
         let shouldDisplayLoadMoreCell = getShouldDisplayLoadMoreCell(indexPath: indexPath)
         shouldDisplayLoadMoreCell ? setupTableViewFooter() : removeTableViewFooter()
     }
 
+    ///Returns true if the "Load more recipe" cell shoud be displayed
     private func getShouldDisplayLoadMoreCell(indexPath: IndexPath) -> Bool {
         let shouldDisplayLoadMoreCell =
             indexPath.row == recipeTableViewDataSource.recipes.count - 1
@@ -192,16 +213,19 @@ class RecipeTableViewController: UIViewController {
         return shouldDisplayLoadMoreCell
     }
 
+    ///Sets the tableView's footerView to the button and shouldIncreaseStartIndexRecipe to true
     private func setupTableViewFooter() {
         tableView.tableFooterView = button
         shouldIncreaseStartIndexRecipe = true
         button.addTarget(self, action: #selector(updateUIWithRecipes), for: .touchUpInside)
     }
 
+    ///Sets the tableView's footerView to nil if it exists
     private func removeTableViewFooter() {
         if !isTableViewFooterNil { tableView.tableFooterView = nil }
     }
 
+    ///Presents an alert with the given message
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)
     }

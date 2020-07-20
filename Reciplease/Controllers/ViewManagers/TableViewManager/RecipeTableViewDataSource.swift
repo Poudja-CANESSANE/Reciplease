@@ -19,7 +19,8 @@ class RecipeTableViewDataSource: NSObject, UITableViewDataSource {
 
 
     // MARK: Methods
-    
+
+    ///Returns a RecipeObject from the recipes array at the given indexPath
     func getRecipeWithImageFromArrays(atIndexPath indexPath: IndexPath) -> RecipeWithImage {
         let recipe = recipes[indexPath.row]
 
@@ -40,7 +41,7 @@ class RecipeTableViewDataSource: NSObject, UITableViewDataSource {
             withIdentifier: "recipeCell", for: indexPath) as? RecipeTableViewCell else { return UITableViewCell() }
 
         let recipeWithImage = getRecipeWithImageFromArrays(atIndexPath: indexPath)
-        cell.updateCell(withRecipe: recipeWithImage.recipe, image: recipeWithImage.image)
+        cell.updateCell(withRecipeWithImage: recipeWithImage)
         return cell
     }
 }

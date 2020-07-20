@@ -24,6 +24,10 @@ class FavoriteTableViewController: UIViewController {
         displayNoFavoriteRecipesViewIfNeeded()
     }
 
+
+
+    // MARK: - PRIVATE
+
     // MARK: IBOutlets
 
     @IBOutlet private weak var tableView: UITableView!
@@ -46,17 +50,20 @@ class FavoriteTableViewController: UIViewController {
 
     // MARK: Methods
 
+    ///Sets the delegate, the dataSource of the tavleView and registers the RecipeTableViewCell
     private func setupTableView() {
         tableView.dataSource = favoriteTableViewDataSource
         tableView.delegate = favoriteRecipeTableViewDelegateHandler
         tableView.register(UINib(nibName: "RecipeTableViewCell", bundle: .main), forCellReuseIdentifier: "recipeCell")
     }
 
+    ///Displays noFavoriteRecipesView if there is no favorite recipe saved in Core Data
     private func displayNoFavoriteRecipesViewIfNeeded() {
         let ifNoFavorite = favoriteTableViewDataSource.favoriteRecipes.isEmpty
         tableView.backgroundView = ifNoFavorite ? noFavoriteRecipesView : nil
     }
 
+    ///Presents an alert with the given message
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)
     }

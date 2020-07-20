@@ -10,15 +10,13 @@ import XCTest
 @testable import Reciplease
 
 class SettingsServiceTests: XCTestCase {
-    var userDefaults: UserDefaults!
     let userDefaultsSuiteName = "TestDefaults"
-    var settingsService: SettingsService!
+    lazy var userDefaults = UserDefaults(suiteName: userDefaultsSuiteName)
+    lazy var settingsService = SettingsService(userDefaults: userDefaults!)
 
-    override func setUp() {
-        super.setUp()
-        UserDefaults().removePersistentDomain(forName: userDefaultsSuiteName)
-        userDefaults = UserDefaults(suiteName: userDefaultsSuiteName)
-        settingsService = SettingsService(userDefaults: userDefaults)
+    override func tearDown() {
+        super.tearDown()
+        userDefaults!.removePersistentDomain(forName: userDefaultsSuiteName)
     }
 
     func testSetIsOnAndGetIsOn() {

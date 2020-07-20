@@ -21,6 +21,7 @@ class UrlProviderImplementation: UrlProvider {
 
     // MARK: Methods
 
+    ///Returns the url's absoluteString build from the given food, minIndex, maxIndex and settingsService's parameters
     func getUrlString(forFood food: String, fromMinIndex minIndex: Int, toMaxIndex maxIndex: Int) -> String? {
         guard let url = URLComponents(
             string: "https://api.edamam.com/search?app_id=18ef1ba0&app_key=a6dd1b7f5987808e49bd2019a1f5468d")
@@ -52,6 +53,8 @@ class UrlProviderImplementation: UrlProvider {
 
     // MARK: Methods
 
+    ///Returns an URLComponents build by appending the given food, minIndex, maxIndex
+    ///and settingsService's parameters to the given url
     private func appendURLQueryItems(
         toUrl url: URLComponents,
         food: String,
@@ -71,6 +74,7 @@ class UrlProviderImplementation: UrlProvider {
 
     }
 
+    ///Returns an URLComponents build by appending the given food, minIndex and maxIndex to the given url
     private func appendURLQueryItemsFromParameters(
         toUrl url: URLComponents,
         food: String,
@@ -84,6 +88,8 @@ class UrlProviderImplementation: UrlProvider {
         return url
     }
 
+    ///Returns an URLComponents build by appending URLQueryItem to the given url
+    ///according to the switches' state from the settingsService
     private func appendURLQueryItemsFromSwitches(toUrl url: URLComponents) -> URLComponents {
         var url = url
         SettingsService.Key.allCases.forEach {
@@ -94,6 +100,8 @@ class UrlProviderImplementation: UrlProvider {
         return url
     }
 
+    ///Returns an URLComponents build by appending URLQueryItem to the given url
+    ///according the SettingsService.Key's calories and time cases
     private func appendURLQueryItemsFromRangeSeekSliders(toUrl url: URLComponents) -> URLComponents {
         var url = url
         let caloriesKey = SettingsService.Key.calories

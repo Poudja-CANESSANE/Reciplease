@@ -10,11 +10,16 @@ import XCTest
 @testable import Reciplease
 
 class FavoriteRecipeDataManagerTests: XCTestCase {
-    let favoriteRecipeDataManager = FavoriteRecipeDataManager()
+    var favoriteRecipeDataManager: FavoriteRecipeDataManager!
     let url = "http://notwithoutsalt.com/dating-my-husband-peanut-butter-pie/"
 
     override func setUp() {
         super.setUp()
+        favoriteRecipeDataManager = FavoriteRecipeDataManager()
+    }
+
+    override func tearDown() {
+        super.tearDown()
         try! favoriteRecipeDataManager.deleteFavoriteRecipe(withUrl: url)
     }
 
