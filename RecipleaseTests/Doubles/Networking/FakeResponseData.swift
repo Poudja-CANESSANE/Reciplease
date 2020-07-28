@@ -32,20 +32,6 @@ class FakeResponseData {
 
     // MARK: Incorrect Data
 
-    static var recipeIncorrectData: Data {
-        let bundle = Bundle(for: FakeResponseError.self)
-
-        guard let url = bundle.url(forResource: "IncorrectRecipe", withExtension: "json") else {
-            fatalError("No such resource: IncorrectRecipe.json")
-        }
-
-        guard let incorrectRecipeData = try? Data(contentsOf: url) else {
-            fatalError("Fail to load IncorrectRecipe.json from bundle.")
-        }
-
-        return incorrectRecipeData
-    }
-
     static let incorrectData = "error".data(using: .utf8)
 
     static let incorrectImageData = UIImage.defaultRecipeImage.pngData()

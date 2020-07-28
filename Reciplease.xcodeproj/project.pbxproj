@@ -14,7 +14,6 @@
 		AC0BC3CD24B924D6002AC135 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0BC3CC24B924D6002AC135 /* Fonts.swift */; };
 		AC0BC3D124B9FD28002AC135 /* FavoriteRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0BC3D024B9FD28002AC135 /* FavoriteRecipe.swift */; };
 		AC0FC08424C35F860075B3A7 /* Recipe.json in Resources */ = {isa = PBXBuildFile; fileRef = AC0FC08324C35F860075B3A7 /* Recipe.json */; };
-		AC0FC08624C360560075B3A7 /* IncorrectRecipe.json in Resources */ = {isa = PBXBuildFile; fileRef = AC0FC08524C360560075B3A7 /* IncorrectRecipe.json */; };
 		AC0FC08824C361800075B3A7 /* RecipeNetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0FC08724C361800075B3A7 /* RecipeNetworkManagerTests.swift */; };
 		AC1081AD24CB6DBF0093EAF3 /* DateComponentsFormatterStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1081AC24CB6DBF0093EAF3 /* DateComponentsFormatterStub.swift */; };
 		AC1081AF24CB6E170093EAF3 /* NumberFormatterStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1081AE24CB6E170093EAF3 /* NumberFormatterStub.swift */; };
@@ -93,7 +92,6 @@
 		AC0BC3CC24B924D6002AC135 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		AC0BC3D024B9FD28002AC135 /* FavoriteRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipe.swift; sourceTree = "<group>"; };
 		AC0FC08324C35F860075B3A7 /* Recipe.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Recipe.json; sourceTree = "<group>"; };
-		AC0FC08524C360560075B3A7 /* IncorrectRecipe.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = IncorrectRecipe.json; sourceTree = "<group>"; };
 		AC0FC08724C361800075B3A7 /* RecipeNetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeNetworkManagerTests.swift; sourceTree = "<group>"; };
 		AC1081AC24CB6DBF0093EAF3 /* DateComponentsFormatterStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponentsFormatterStub.swift; sourceTree = "<group>"; };
 		AC1081AE24CB6E170093EAF3 /* NumberFormatterStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterStub.swift; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				AC0FC08324C35F860075B3A7 /* Recipe.json */,
-				AC0FC08524C360560075B3A7 /* IncorrectRecipe.json */,
 			);
 			path = JSONResponses;
 			sourceTree = "<group>";
@@ -676,7 +673,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AC0FC08424C35F860075B3A7 /* Recipe.json in Resources */,
-				AC0FC08624C360560075B3A7 /* IncorrectRecipe.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
