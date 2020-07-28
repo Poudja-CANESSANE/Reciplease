@@ -1056,10 +1056,10 @@ Try to change your settings.</string>
     <resources>
         <image name="clock.fill" catalog="system" width="128" height="121"/>
         <image name="defaultRecipeImage" width="300" height="300"/>
-        <image name="flame.fill" catalog="system" width="109" height="128"/>
+        <image name="flame.fill" catalog="system" width="32" height="32"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="pizza" width="100" height="100"/>
-        <image name="slider.horizontal.3" catalog="system" width="32" height="32"/>
+        <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
     </resources>

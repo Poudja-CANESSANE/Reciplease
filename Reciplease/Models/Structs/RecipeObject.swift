@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct RecipeObject {
+struct RecipeObject: Equatable {
     let imageUrl, name, time, calories, url, ingredientLines, yield: String
 }

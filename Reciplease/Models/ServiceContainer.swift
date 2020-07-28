@@ -11,12 +11,13 @@ import Foundation
 struct ServiceContainer {
     static let settingsService = SettingsService()
     static let alertManager = AlertManager()
-
-    static let recipeNetworkManager = RecipeNetworkManager(
-        networkService: NetworkServiceImplementation(),
-        urlProvider: UrlProviderImplementation())
-
+    static let networkService = NetworkServiceImplementation()
+    static let urlProvider = UrlProviderImplementation()
+    static let recipeNetworkManager = RecipeNetworkManager()
     static let coreDataManager = CoreDataManager()
     static let foodDataManager = FoodDataManager()
     static let favoriteRecipeDataManager = FavoriteRecipeDataManager()
+    static let urlValueProvider = UrlValueProvider()
+    static let alamofireNetworkRequest = AlamofireNetworkRequest()
+    static let contextProvider = ContextProviderImplementation()
 }

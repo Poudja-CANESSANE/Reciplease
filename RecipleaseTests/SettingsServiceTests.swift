@@ -10,8 +10,6 @@ import XCTest
 @testable import Reciplease
 
 class SettingsServiceTests: XCTestCase {
-    let userDefaultsSuiteName = "TestDefaults"
-    lazy var userDefaults = UserDefaults(suiteName: userDefaultsSuiteName)
     lazy var settingsService = SettingsService(userDefaults: userDefaults!)
 
     override func tearDown() {
@@ -19,14 +17,14 @@ class SettingsServiceTests: XCTestCase {
         userDefaults!.removePersistentDomain(forName: userDefaultsSuiteName)
     }
 
-    func testSetIsOnAndGetIsOn() {
+    func testSetIsOn_AndGetIsOn() {
         settingsService.setIsOn(to: false, forKey: .alcoholFree)
         let isOn = settingsService.getIsOn(forKey: .alcoholFree)
 
         XCTAssertFalse(isOn)
     }
 
-    func testSetMinAndMaxValueAndGetMinValueAndGetMaxValue() {
+    func testSetMinAndMaxValue_GetMinValue_AndGetMaxValue() {
         let dict = [
             SettingsService.DictKey.minValue.rawValue: 100,
             SettingsService.DictKey.maxValue.rawValue: 300
@@ -40,7 +38,7 @@ class SettingsServiceTests: XCTestCase {
         XCTAssertEqual(maxValue, 300)
     }
 
-    func testSetMinAndMaxValueAndGetMinValueAndGetMaxValueFaillureCase() {
+    func testSetMin_MaxValue_GetMinValue_AndGetMaxValue_FaillureCase() {
         let dict = [
             SettingsService.DictKey.minValue.rawValue: 100,
             SettingsService.DictKey.maxValue.rawValue: 300
@@ -55,4 +53,11 @@ class SettingsServiceTests: XCTestCase {
         XCTAssertEqual(minValue, 0)
         XCTAssertEqual(maxValue, 360)
     }
+
+
+
+    // MARK: Tools
+
+    private let userDefaultsSuiteName = "TestDefaults"
+    private lazy var userDefaults = UserDefaults(suiteName: userDefaultsSuiteName)
 }

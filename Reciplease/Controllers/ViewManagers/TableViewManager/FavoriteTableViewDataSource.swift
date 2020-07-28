@@ -13,7 +13,10 @@ class FavoriteTableViewDataSource: NSObject, UITableViewDataSource {
 
     // MARK: Properties
 
-    var favoriteRecipes: [FavoriteRecipe] { favoriteRecipeDataManager.getAll() }
+    var favoriteRecipes: [FavoriteRecipe] {
+        let favoriteRecipes = try? favoriteRecipeDataManager.getAll()
+        return favoriteRecipes ?? []
+    }
 
 
 
@@ -78,5 +81,4 @@ class FavoriteTableViewDataSource: NSObject, UITableViewDataSource {
 
         return image
     }
-
 }

@@ -46,29 +46,6 @@ class SettingsService {
             return isDiet ? "diet" : caloriesOrTimeOrHealth
         }
 
-        var urlValue: String {
-            switch self {
-            case .alcoholFree: return "alcohol-free"
-            case .balanced: return "balanced"
-            case .highProtein: return "high-protein"
-            case .immunoSupportive: return "immuno-supportive"
-            case .lowCarb: return "low-carb"
-            case .lowFat: return "low-fat"
-            case .peanutFree: return "peanut-free"
-            case .sugarConscious: return "sugar-conscious"
-            case .treeNutFree: return "tree-nut-free"
-            case .vegan: return "vegan"
-            case .vegetarian: return "vegetarian"
-            case .calories: return getRange()
-            case .time: return getRange()
-            }
-        }
-
-
-
-//        init(settingsService: SettingsService) {
-//            self.settingsService = settingsService
-//        }
 
         // MARK: - PRIVATE
 
@@ -82,19 +59,6 @@ class SettingsService {
         private var timeOrHealth: String { isTime ? "time" : "health" }
         private var isCalories: Bool { self == .calories }
         private var isTime: Bool { self == .time }
-
-//        private var settingsService: SettingsService
-
-
-
-        // MARK: Methods
-
-        private func getRange() -> String {
-            let minValueString = String(Int(ServiceContainer.settingsService.getMinValue(forKey: self)))
-            let maxValueString = String(Int(ServiceContainer.settingsService.getMaxValue(forKey: self)))
-            let range = minValueString + "-" + maxValueString
-            return range
-        }
     }
 
     enum DictKey: String { case minValue, maxValue }

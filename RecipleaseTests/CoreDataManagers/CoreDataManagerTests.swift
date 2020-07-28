@@ -7,48 +7,94 @@
 //
 
 import XCTest
+import CoreData
 @testable import Reciplease
 
 class CoreDataManagerTests: XCTestCase {
-    let coreDataManager = CoreDataManager()
+    var coreDataManager: CoreDataManager!
 
+    override func setUp() {
+        super.setUp()
+        assignNewValueToCoreDataManager()
+    }
     override func tearDown() {
         super.tearDown()
-        try! coreDataManager.removeElements(ofType: Food.self)
+        coreDataManager = nil
     }
 
-    func testGetObjectOfTypeFood() {
-        let food = coreDataManager.getObject(type: Food.self)
-        XCTAssertTrue((food as Any) is Food)
-    }
+    func testGetObject_SaveFood_AndGetAllElements() {
+        savePotatoe()
+        let foods = try! coreDataManager.getAllElements(ofType: Food.self)
 
-    func testSaveFood() {
-        let food = coreDataManager.getObject(type: Food.self)
-        food.name = "Potatoe"
-        try! coreDataManager.save()
-        let foods = coreDataManager.getAllElements(ofType: Food.self)
-
-        XCTAssertTrue((food as Any) is Food)
         XCTAssertEqual(foods.count, 1)
-        XCTAssertEqual(foods.first?.name, "Potatoe")
+        XCTAssertEqual(foods.first?.name, foodName)
     }
 
-    func testRemoveAllFood() {
+    func testRemoveAllElements() {
         savePotatoe()
 
         try! coreDataManager.removeElements(ofType: Food.self)
 
-        let foods = coreDataManager.getAllElements(ofType: Food.self)
+        let foods = try! coreDataManager.getAllElements(ofType: Food.self)
         XCTAssertTrue(foods.isEmpty)
+    }
+
+    func testGivenCoreDataManagerWithContextProviderStub_WhenSave_ThenShouldThrowError() {
+        let coreDataManager = getCoreDataManagerWithContextProviderStub()
+
+        XCTAssertThrowsError(try coreDataManager.save()) { error in
+            XCTAssertEqual(error as! CoreDataError, CoreDataError.getErrorSavingContext)
+        }
+    }
+
+    func testGivenCoreDataManagerWithContextProviderStub_WhenGetAllElements_ThenShouldThrowError() {
+        let coreDataManager = getCoreDataManagerWithContextProviderStub()
+
+        XCTAssertThrowsError(try coreDataManager.getAllElements(ofType: Food.self)) { error in
+            XCTAssertEqual(error as! CoreDataError, CoreDataError.getErrorWhileFetchingFromCoreData)
+        }
+    }
+
+    func testGivenCoreDataManagerWithContextProviderStub_WhenRemoveElements_ThenShouldThrowError() {
+        let coreDataManager = getCoreDataManagerWithContextProviderStub()
+
+        XCTAssertThrowsError(try coreDataManager.removeElements(ofType: Food.self)) { error in
+            XCTAssertEqual(error as! CoreDataError, CoreDataError.getErrorWhileFetchingFromCoreData)
+        }
+    }
+
+    func testGivenCoreDataManagerWithContextProviderSaveStub_WhenRemoveElements_ThenShouldThrowError() {
+        let coreDataManager = getCoreDataManagerWithContextProviderSaveStub()
+
+        XCTAssertThrowsError(try coreDataManager.removeElements(ofType: Food.self)) { error in
+            XCTAssertEqual(error as! CoreDataError, CoreDataError.getErrorSavingContext)
+        }
     }
 
 
 
     // MARK: Tools
 
+    private let foodName = "Potatoe"
+
+    private func assignNewValueToCoreDataManager() {
+        let contextProvider = ContextProviderImplementation(context: ContextProviderStub.mockContext)
+        coreDataManager = CoreDataManager(contextProvider: contextProvider)
+    }
+
     private func savePotatoe() {
         let food = coreDataManager.getObject(type: Food.self)
-        food.name = "Potatoe"
+        food.name = foodName
         try! coreDataManager.save()
+    }
+
+    private func getCoreDataManagerWithContextProviderStub() -> CoreDataManager {
+        let coreDataManager = CoreDataManager(contextProvider: ContextProviderStub())
+        return coreDataManager
+    }
+
+    private func getCoreDataManagerWithContextProviderSaveStub() -> CoreDataManager {
+        let coreDataManager = CoreDataManager(contextProvider: ContextProviderSaveStub())
+        return coreDataManager
     }
 }

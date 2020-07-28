@@ -83,13 +83,13 @@ class RecipeDetailViewController: UIViewController {
             favoriteBarButtonItem.image =
                 try favoriteRecipeDataManager.isFavorite(recipeUrl: recipeWithImage.recipe.url)
             ? UIImage.starFillImage : UIImage.starImage
-        } catch { presentAlert(message: CustomError.getErrorWhileFetchingFromCoreData.message) }
+        } catch { presentAlert(message: CoreDataError.getErrorWhileFetchingFromCoreData.message) }
     }
 
     ///Presents a SFSafariViewController with the given url
     private func presentSafariPage(withUrlString urlString: String) {
         guard let url = URL(string: urlString) else {
-            presentAlert(message: CustomError.cannotUnwrapUrl.message)
+            presentAlert(message: "Cannot unwrap URL to show recipe directions!")
             return
         }
 
@@ -107,7 +107,7 @@ class RecipeDetailViewController: UIViewController {
         do {
             try favoriteRecipeDataManager.save(recipeWithImage)
         } catch {
-            presentAlert(message: CustomError.recipeWithImageSavingIsImpossible.message)
+            presentAlert(message: CoreDataError.recipeWithImageSavingIsImpossible.message)
         }
         favoriteBarButtonItem.image = UIImage.starFillImage
     }
@@ -117,7 +117,7 @@ class RecipeDetailViewController: UIViewController {
         do {
             try favoriteRecipeDataManager.deleteFavoriteRecipe(withUrl: recipeWithImage.recipe.url)
         } catch {
-            presentAlert(message: CustomError.favoriteRecipeDeletingIsImpossible.message)
+            presentAlert(message: CoreDataError.favoriteRecipeDeletingIsImpossible.message)
         }
         favoriteBarButtonItem.image = UIImage.starImage
     }

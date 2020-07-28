@@ -26,7 +26,7 @@ class SearchViewController: UIViewController {
 
     private var foods: [Food] {
         setSearchButtonState()
-        return foodDataManager.getAll()
+        return getFoods()
     }
 
     private let alertManager = ServiceContainer.alertManager
@@ -64,7 +64,7 @@ class SearchViewController: UIViewController {
     ///Removes all Food from Core Data and clears textView
     private func clearFoods() {
         do { try foodDataManager.removeAll() }
-        catch { presentAlert(message: CustomError.foodListDeletingIsImpossible.message) }
+        catch { presentAlert(message: CoreDataError.foodListDeletingIsImpossible.message) }
         displayFoodList()
     }
 
@@ -88,14 +88,22 @@ class SearchViewController: UIViewController {
         textField.text = ""
 
         do { try foodDataManager.save(name: foodName) }
-        catch { presentAlert(message: CustomError.foodSavingIsImpossible.message) }
+        catch { presentAlert(message: CoreDataError.foodSavingIsImpossible.message) }
 
         setSearchButtonState()
     }
 
     ///Sets the enable state and the alpha of searchButton to !foodDataManager.getAll().isEmpty
     private func setSearchButtonState() {
-        toggleSearchButtonEnableState(to: !foodDataManager.getAll().isEmpty)
+        let foods = getFoods()
+        toggleSearchButtonEnableState(to: !foods.isEmpty)
+    }
+
+    private func getFoods() -> [Food] {
+        var foods = [Food]()
+        do { foods = try foodDataManager.getAll() }
+        catch { presentAlert(message: (error as! CoreDataError).message) }//swiftlint:disable:this force_cast
+        return foods
     }
 
     ///Sets the enable state and the alpha of searchButton to the given Bool

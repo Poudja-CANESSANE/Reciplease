@@ -11,17 +11,22 @@ import Foundation
 class RecipeNetworkManager {
     // MARK: - INTERNAL
 
-    typealias RecipeCompletion = (Result<[RecipeObject], CustomError>) -> Void
-    typealias RecipeImageCompletion = (Result<Data, CustomError>) -> Void
+    typealias RecipeCompletion = (Result<[RecipeObject], NetworkError>) -> Void
+    typealias RecipeImageCompletion = (Result<Data, NetworkError>) -> Void
 
 
 
     // MARK: Inits
 
-    init(networkService: NetworkService,
-         urlProvider: UrlProvider) {
+    init(networkService: NetworkService = ServiceContainer.networkService,
+         urlProvider: UrlProvider = ServiceContainer.urlProvider,
+         dateFormatter: DateComponentsFormatter = DateComponentsFormatter(),
+         numberFormatter: NumberFormatter = NumberFormatter()) {
+
         self.networkService = networkService
         self.urlProvider = urlProvider
+        self.dateFormatter = dateFormatter
+        self.numberFormatter = numberFormatter
     }
 
 
@@ -40,8 +45,7 @@ class RecipeNetworkManager {
             forFood: foods,
             fromMinIndex: minIndex,
             toMaxIndex: maxIndex) else {
-            completion(.failure(.cannotGetUrl))
-            return
+            return completion(.failure(.cannotGetUrl))
         }
 
         networkService.fetchRecipes(urlString: urlString) { [weak self] result in
@@ -50,7 +54,7 @@ class RecipeNetworkManager {
             case .failure(let networkError):
                 completion(.failure(networkError))
             case .success(let response):
-                let recipes = self.getRecipes(fromResponse: response)
+                let recipes = self.getRecipeObjects(fromResponse: response)
                 completion(.success(recipes))
             }
         }
@@ -76,13 +80,15 @@ class RecipeNetworkManager {
 
     private let networkService: NetworkService
     private let urlProvider: UrlProvider
+    private let dateFormatter: DateComponentsFormatter
+    private let numberFormatter: NumberFormatter
 
 
 
     // MARK: Methods
 
     ///Returns an array of RecipeObject from the given RecipeResult
-    private func getRecipes(fromResponse response: RecipeResult) -> [RecipeObject] {
+    private func getRecipeObjects(fromResponse response: RecipeResult) -> [RecipeObject] {
         var recipes = [RecipeObject]()
 
         response.hits.forEach {
@@ -122,29 +128,21 @@ class RecipeNetworkManager {
     ///Returns the given Double corresponding to minutes formatted into days, hours and minutes for more readability
     private func formatTime(minutes: Double) -> String {
         if minutes == 0.0 { return "N/A" }
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.day, .hour, .minute]
-        formatter.unitsStyle = .abbreviated
-        formatter.zeroFormattingBehavior = .dropAll
+        dateFormatter.allowedUnits = [.day, .hour, .minute]
+        dateFormatter.unitsStyle = .abbreviated
+        dateFormatter.zeroFormattingBehavior = .dropAll
 
         let timeInSec = minutes * 60
-        guard let formattedTime = formatter.string(from: TimeInterval(timeInSec)) else {
-            return "Error"
-        }
-
+        guard let formattedTime = dateFormatter.string(from: TimeInterval(timeInSec)) else { return "Error" }
         return formattedTime
     }
 
     ///Returns the given Int with spaces for more readability
     private func formatNumber(int: Int) -> String {
-        let formatter = NumberFormatter()
-        formatter.groupingSeparator = " "
-        formatter.numberStyle = .decimal
+        numberFormatter.groupingSeparator = " "
+        numberFormatter.numberStyle = .decimal
 
-        guard let formattedNumber = formatter.string(from: NSNumber(value: int)) else {
-            return "NaN"
-        }
-
+        guard let formattedNumber = numberFormatter.string(from: NSNumber(value: int)) else { return "NaN" }
         return formattedNumber
     }
 }

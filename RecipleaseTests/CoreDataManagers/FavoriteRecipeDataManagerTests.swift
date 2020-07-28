@@ -7,27 +7,28 @@
 //
 
 import XCTest
+import CoreData
 @testable import Reciplease
 
 class FavoriteRecipeDataManagerTests: XCTestCase {
     var favoriteRecipeDataManager: FavoriteRecipeDataManager!
-    let url = "http://notwithoutsalt.com/dating-my-husband-peanut-butter-pie/"
 
     override func setUp() {
         super.setUp()
-        favoriteRecipeDataManager = FavoriteRecipeDataManager()
+        assignNewValueToFavoriteRecipeCoreDataManager()
     }
 
     override func tearDown() {
         super.tearDown()
         try! favoriteRecipeDataManager.deleteFavoriteRecipe(withUrl: url)
+        favoriteRecipeDataManager = nil
     }
 
-    func testSaveRecipeWithImageAndGetAllFavoriteRecipe() {
+    func testSaveRecipeWithImage_AndGetAllFavoriteRecipe() {
         let recipeWithImage = getRecipeWithImage()
         try! favoriteRecipeDataManager.save(recipeWithImage)
-        let favoriteRecipes = favoriteRecipeDataManager.getAll()
-
+        let favoriteRecipes = try! favoriteRecipeDataManager.getAll()
+        print(favoriteRecipes)
         XCTAssertEqual(favoriteRecipes.count, 1)
         XCTAssertEqual(favoriteRecipes.first?.url, url)
     }
@@ -36,7 +37,7 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
         let recipeWithImage = getRecipeWithImage()
         try! favoriteRecipeDataManager.save(recipeWithImage)
         try! favoriteRecipeDataManager.deleteFavoriteRecipe(withUrl: url)
-        let favoriteRecipes = favoriteRecipeDataManager.getAll()
+        let favoriteRecipes = try! favoriteRecipeDataManager.getAll()
 
         XCTAssertTrue(favoriteRecipes.isEmpty)
     }
@@ -55,9 +56,59 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
         XCTAssertFalse(isFavorite)
     }
 
+    func testGivenFavoriteRecipeDataManagerWithContextProviderStub_WhenSave_ThenShouldThrowError() {
+        let favoriteRecipeDataManagerStub = getFavoriteRecipeDataManagerWithContextProviderStub()
+        let recipeWithImage = getRecipeWithImage()
+
+        XCTAssertThrowsError(try favoriteRecipeDataManagerStub.save(recipeWithImage)) { error in
+            XCTAssertEqual(error as! CoreDataError, CoreDataError.getErrorSavingContext)
+        }
+    }
+
+    func testGivenFavoriteRecipeDataManagerWithContextProviderStub_WhenGetAll_ThenShouldThrowError() {
+        let favoriteRecipeDataManagerStub = getFavoriteRecipeDataManagerWithContextProviderStub()
+
+        XCTAssertThrowsError(try favoriteRecipeDataManagerStub.getAll()) { error in
+            XCTAssertEqual(error as! CoreDataError, CoreDataError.getErrorWhileFetchingFromCoreData)
+        }
+    }
+
+    func testGivenFavoriteRecipeDataManagerWithContextProviderStub_WhenDeleteFavoriteRecipe_ThenShouldThrowError() {
+        let favoriteRecipeDataManagerStub = getFavoriteRecipeDataManagerWithContextProviderStub()
+
+        XCTAssertThrowsError(try favoriteRecipeDataManagerStub.deleteFavoriteRecipe(withUrl: url)) { error in
+            XCTAssertEqual(error as! CoreDataError, CoreDataError.getErrorWhileFetchingFromCoreData)
+        }
+    }
+
+    func testGivenFavoriteRecipeDataManagerWithContextProviderSaveStub_WhenDeleteFavoriteRecipe_ThenShouldThrowError() {
+        let favoriteRecipeDataManagerStub = getFavoriteRecipeDataManagerWithContextProviderSaveStub()
+
+        XCTAssertThrowsError(try favoriteRecipeDataManagerStub.deleteFavoriteRecipe(withUrl: url)) { error in
+            XCTAssertEqual(error as! CoreDataError, CoreDataError.getErrorSavingContext)
+        }
+    }
+
+    func testGivenFavoriteRecipeDataManagerWithContextProviderStub_WhenIfFavorite_ThenShouldThrowError() {
+        let favoriteRecipeDataManagerStub = getFavoriteRecipeDataManagerWithContextProviderStub()
+
+        XCTAssertThrowsError(try favoriteRecipeDataManagerStub.isFavorite(recipeUrl: url)) { error in
+            XCTAssertEqual(error as! CoreDataError, CoreDataError.getErrorWhileFetchingFromCoreData)
+        }
+    }
+
 
 
     // MARK: Tools
+
+    private let url = "http://notwithoutsalt.com/dating-my-husband-peanut-butter-pie/"
+
+    private func assignNewValueToFavoriteRecipeCoreDataManager() {
+        let contextProvider = ContextProviderImplementation(context: ContextProviderStub.mockContext)
+        let coreDataManager = CoreDataManager(contextProvider: contextProvider)
+        favoriteRecipeDataManager = FavoriteRecipeDataManager(coreDataManager: coreDataManager)
+    }
+
 
     private func getRecipeWithImage() -> RecipeWithImage {
         let recipe = RecipeObject(
@@ -72,5 +123,17 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
         let image = UIImage.defaultRecipeImage
         let recipeWithImage = RecipeWithImage(recipe: recipe, image: image)
         return recipeWithImage
+    }
+
+    private func getFavoriteRecipeDataManagerWithContextProviderStub() -> FavoriteRecipeDataManager {
+        let coreDataManager = CoreDataManager(contextProvider: ContextProviderStub())
+        let favoriteRecipeDataManager = FavoriteRecipeDataManager(coreDataManager: coreDataManager)
+        return favoriteRecipeDataManager
+    }
+
+    private func getFavoriteRecipeDataManagerWithContextProviderSaveStub() -> FavoriteRecipeDataManager {
+        let coreDataManager = CoreDataManager(contextProvider: ContextProviderSaveStub())
+        let favoriteRecipeDataManager = FavoriteRecipeDataManager(coreDataManager: coreDataManager)
+        return favoriteRecipeDataManager
     }
 }

@@ -13,8 +13,12 @@ class UrlProviderImplementation: UrlProvider {
 
     // MARK: Inits
 
-    init(settingsService: SettingsService = ServiceContainer.settingsService) {
+    init(settingsService: SettingsService = ServiceContainer.settingsService,
+         urlValueProvider: UrlValueProvider = ServiceContainer.urlValueProvider,
+         urlComponent: URLComponent = URLComponentImplementation()) {
         self.settingsService = settingsService
+        self.urlValueProvider = urlValueProvider
+        self.urlComponent = urlComponent
     }
 
 
@@ -23,8 +27,8 @@ class UrlProviderImplementation: UrlProvider {
 
     ///Returns the url's absoluteString build from the given food, minIndex, maxIndex and settingsService's parameters
     func getUrlString(forFood food: String, fromMinIndex minIndex: Int, toMaxIndex maxIndex: Int) -> String? {
-        guard let url = URLComponents(
-            string: "https://api.edamam.com/search?app_id=18ef1ba0&app_key=a6dd1b7f5987808e49bd2019a1f5468d")
+        guard let url = urlComponent.getBaseUrl(fromString:
+            "https://api.edamam.com/search?app_id=18ef1ba0&app_key=a6dd1b7f5987808e49bd2019a1f5468d")
             else { return nil }
 
         let minIndexString = String(minIndex)
@@ -48,6 +52,8 @@ class UrlProviderImplementation: UrlProvider {
     // MARK: Properties
 
     private let settingsService: SettingsService
+    private let urlValueProvider: UrlValueProvider
+    private let urlComponent: URLComponent
 
 
 
@@ -94,7 +100,8 @@ class UrlProviderImplementation: UrlProvider {
         var url = url
         SettingsService.Key.allCases.forEach {
             if settingsService.getIsOn(forKey: $0) {
-                url.queryItems?.append(URLQueryItem(name: $0.urlName, value: $0.urlValue))
+                let urlValue = urlValueProvider.getUrlValue(forKey: $0)
+                url.queryItems?.append(URLQueryItem(name: $0.urlName, value: urlValue))
             }
         }
         return url
@@ -106,8 +113,12 @@ class UrlProviderImplementation: UrlProvider {
         var url = url
         let caloriesKey = SettingsService.Key.calories
         let timeKey = SettingsService.Key.time
-        url.queryItems?.append(URLQueryItem(name: caloriesKey.urlName, value: caloriesKey.urlValue))
-        url.queryItems?.append(URLQueryItem(name: timeKey.urlName, value: timeKey.urlValue))
+
+        let caloriesUrlValue = urlValueProvider.getUrlValue(forKey: .calories)
+        let timeUrlValue = urlValueProvider.getUrlValue(forKey: .time)
+
+        url.queryItems?.append(URLQueryItem(name: caloriesKey.urlName, value: caloriesUrlValue))
+        url.queryItems?.append(URLQueryItem(name: timeKey.urlName, value: timeUrlValue))
         return url
     }
 }

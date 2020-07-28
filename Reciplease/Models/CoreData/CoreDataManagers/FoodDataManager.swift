@@ -1,4 +1,4 @@
-//
+//swiftlint:disable statement_position
 //  FoodDataManager.swift
 //  Reciplease
 //
@@ -11,11 +11,20 @@ import Foundation
 class FoodDataManager {
     // MARK: - INTERNAL
 
+    // MARK: Inits
+
+    init(coreDataManager: CoreDataManager = ServiceContainer.coreDataManager) {
+        self.coreDataManager = coreDataManager
+    }
+
     // MARK: Methods
 
     ///Returns an array containing all Food object saved in Core Data
-    func getAll() -> [Food] {
-        coreDataManager.getAllElements(ofType: Food.self)
+    func getAll() throws -> [Food] {
+        var foods: [Food]
+        do { foods = try coreDataManager.getAllElements(ofType: Food.self) }
+        catch { throw error }
+        return foods
     }
 
     ///Removes all Food entities from Core Data
@@ -25,11 +34,9 @@ class FoodDataManager {
 
     ///Creates and saves a Food with the given name in Core Data
     func save(name: String) throws {
-        do {
-            let food = coreDataManager.getObject(type: Food.self)
-            food.name = name
-            try coreDataManager.save()
-        } catch { throw error }
+        let food = coreDataManager.getObject(type: Food.self)
+        food.name = name
+        do { try coreDataManager.save() } catch { throw error }
     }
 
 
@@ -38,5 +45,5 @@ class FoodDataManager {
 
     // MARK: Properties
 
-    private let coreDataManager = ServiceContainer.coreDataManager
+    private let coreDataManager: CoreDataManager
 }

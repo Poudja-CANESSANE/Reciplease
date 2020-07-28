@@ -36,7 +36,6 @@ class FavoriteTableViewController: UIViewController {
 
 
     // MARK: Properties
-    private let alertManager = ServiceContainer.alertManager
     private let favoriteTableViewDataSource = FavoriteTableViewDataSource()
 
     lazy private var favoriteRecipeTableViewDelegateHandler: RecipeTableViewDelegateHandler = {
@@ -61,10 +60,5 @@ class FavoriteTableViewController: UIViewController {
     private func displayNoFavoriteRecipesViewIfNeeded() {
         let ifNoFavorite = favoriteTableViewDataSource.favoriteRecipes.isEmpty
         tableView.backgroundView = ifNoFavorite ? noFavoriteRecipesView : nil
-    }
-
-    ///Presents an alert with the given message
-    private func presentAlert(message: String) {
-        alertManager.presentErrorAlert(with: message, presentingViewController: self)
     }
 }

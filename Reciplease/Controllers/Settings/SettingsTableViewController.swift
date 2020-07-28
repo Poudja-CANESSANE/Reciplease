@@ -93,7 +93,7 @@ class SettingsTableViewController: UITableViewController {
     ///Returns an optional SettingsService.Key from the given UIControl's tag
     private func getKey(fromSender sender: UIControl) -> SettingsService.Key? {
         guard let key = SettingsService.Key(rawValue: sender.tag) else {
-            presentAlert(message: CustomError.cannotUnwrapKey.message)
+            presentAlert(message: CoreDataError.cannotUnwrapKey.message)
             return nil
         }
         return key
