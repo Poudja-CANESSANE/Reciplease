@@ -9,6 +9,10 @@
 import Foundation
 
 class URLComponentImplementation: URLComponent {
+    // MARK: - INTERNAL
+
+    // MARK: Methods
+
     ///Returns an optional URLComponents by calling the its init(string: String) method
     func getBaseUrl(fromString string: String) -> URLComponents? {
         URLComponents(string: string)

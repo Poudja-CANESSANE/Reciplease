@@ -11,12 +11,6 @@ import UIKit
 class RecipeTableViewCell: UITableViewCell {
     // MARK: - INTERNAL
 
-    // MARK: Lifecycle
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
     // MARK: Methods
 
     ///Updates the cell with the given RecipeWithImage

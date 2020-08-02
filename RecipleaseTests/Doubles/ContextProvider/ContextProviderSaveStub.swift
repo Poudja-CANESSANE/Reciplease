@@ -10,6 +10,11 @@
 import CoreData
 
 class ContextProviderSaveStub: ContextProvider {
+    var persistentStoreDestroyer: PersistentStoreDestroyer = PersistentStoreDestroyer(
+        context: ContextProviderStub.mockContext,
+        persistentStoreCoordinator: ContextProviderStub.mockContext.persistentStoreCoordinator,
+        storeURL: ContextProviderStub.mockContext.persistentStoreCoordinator?.persistentStores.last?.url)
+
     // MARK: - INTERNAL
 
     // MARK: Properties
@@ -31,6 +36,4 @@ class ContextProviderSaveStub: ContextProvider {
     func delete(_ object: NSManagedObject) {
         context.delete(object)
     }
-
-
 }

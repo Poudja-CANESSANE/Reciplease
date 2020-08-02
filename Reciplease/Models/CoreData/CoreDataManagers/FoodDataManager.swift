@@ -6,7 +6,6 @@
 //  Copyright © 2020 Canessane Poudja. All rights reserved.
 //
 
-import Foundation
 
 class FoodDataManager {
     // MARK: - INTERNAL
@@ -16,6 +15,14 @@ class FoodDataManager {
     init(coreDataManager: CoreDataManager = ServiceContainer.coreDataManager) {
         self.coreDataManager = coreDataManager
     }
+
+
+
+    // MARK: Properties
+
+    let coreDataManager: CoreDataManager
+
+
 
     // MARK: Methods
 
@@ -38,12 +45,4 @@ class FoodDataManager {
         food.name = name
         do { try coreDataManager.save() } catch { throw error }
     }
-
-
-
-    // MARK: - PRIVATE
-
-    // MARK: Properties
-
-    private let coreDataManager: CoreDataManager
 }

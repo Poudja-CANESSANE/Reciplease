@@ -15,7 +15,7 @@ class UrlProviderImplementation: UrlProvider {
 
     init(settingsService: SettingsService = ServiceContainer.settingsService,
          urlValueProvider: UrlValueProvider = ServiceContainer.urlValueProvider,
-         urlComponent: URLComponent = URLComponentImplementation()) {
+         urlComponent: URLComponent = ServiceContainer.urlComponent) {
         self.settingsService = settingsService
         self.urlValueProvider = urlValueProvider
         self.urlComponent = urlComponent

@@ -6,8 +6,6 @@
 //  Copyright © 2020 Canessane Poudja. All rights reserved.
 //
 
-import Foundation
-
 struct RecipeObject: Equatable {
     let imageUrl, name, time, calories, url, ingredientLines, yield: String
 }

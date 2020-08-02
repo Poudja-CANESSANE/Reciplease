@@ -78,7 +78,7 @@ class RecipeNetworkManagerTests: XCTestCase {
         let recipeNetworkManager = getRecipeNetworkManager(
             data: nil, response: nil, error: FakeResponseData.error)
 
-        recipeNetworkManager.getRecipes(forFoods: "Potatoe", fromMinIndex: 0, toMaxIndex: 3) { result in
+        recipeNetworkManager.getRecipes(forFoods: foodName, fromMinIndex: 0, toMaxIndex: 3) { result in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.getError)
             } else { XCTFail() }
@@ -89,7 +89,7 @@ class RecipeNetworkManagerTests: XCTestCase {
         let recipeNetworkManager = getRecipeNetworkManager(
             data: nil, response: nil, error: nil)
 
-        recipeNetworkManager.getRecipes(forFoods: "Potatoe", fromMinIndex: 0, toMaxIndex: 3) { result in
+        recipeNetworkManager.getRecipes(forFoods: foodName, fromMinIndex: 0, toMaxIndex: 3) { result in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.noData)
             } else { XCTFail() }
@@ -100,7 +100,7 @@ class RecipeNetworkManagerTests: XCTestCase {
         let recipeNetworkManager = getRecipeNetworkManager(
             data: FakeResponseData.recipeCorrectImageData, response: nil, error: nil)
 
-        recipeNetworkManager.getRecipes(forFoods: "Potatoe", fromMinIndex: 0, toMaxIndex: 3) { result in
+        recipeNetworkManager.getRecipes(forFoods: foodName, fromMinIndex: 0, toMaxIndex: 3) { result in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.noResponse)
             } else { XCTFail() }
@@ -111,7 +111,7 @@ class RecipeNetworkManagerTests: XCTestCase {
         let recipeNetworkManager = getRecipeNetworkManager(
             data: FakeResponseData.incorrectData, response: FakeResponseData.responseOK, error: nil)
 
-        recipeNetworkManager.getRecipes(forFoods: "Potatoe", fromMinIndex: 0, toMaxIndex: 3) { result in
+        recipeNetworkManager.getRecipes(forFoods: foodName, fromMinIndex: 0, toMaxIndex: 3) { result in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.cannotDecodeData)
             } else { XCTFail() }
@@ -122,7 +122,7 @@ class RecipeNetworkManagerTests: XCTestCase {
         let recipeNetworkManager = getRecipeNetworkManager(
             data: FakeResponseData.recipeCorrectImageData, response: FakeResponseData.responseKO, error: nil)
 
-        recipeNetworkManager.getRecipes(forFoods: "Potatoe", fromMinIndex: 0, toMaxIndex: 3) { result in
+        recipeNetworkManager.getRecipes(forFoods: foodName, fromMinIndex: 0, toMaxIndex: 3) { result in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.badStatusCode)
             } else { XCTFail() }
@@ -132,7 +132,7 @@ class RecipeNetworkManagerTests: XCTestCase {
     func testGetRecipes_ShouldFail_IfIncorrectUrl() {
         let recipeNetworkManager = getRecipeNetworkManagerWithStubUrlProvider()
 
-        recipeNetworkManager.getRecipes(forFoods: "Potatoe", fromMinIndex: 0, toMaxIndex: 3) { result in
+        recipeNetworkManager.getRecipes(forFoods: foodName, fromMinIndex: 0, toMaxIndex: 3) { result in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.cannotGetUrl)
             } else { XCTFail() }
@@ -142,7 +142,7 @@ class RecipeNetworkManagerTests: XCTestCase {
     func testGetRecipes_ShouldSucceed_IfNoErrorAndCorrectResponseAndCorrectData() {
         let recipeNetworkManager = getRecipeNetworkManager(data: FakeResponseData.recipeCorrectData, response: FakeResponseData.responseOK, error: nil)
 
-        recipeNetworkManager.getRecipes(forFoods: "Potatoe", fromMinIndex: 0, toMaxIndex: 3) { result in
+        recipeNetworkManager.getRecipes(forFoods: foodName, fromMinIndex: 0, toMaxIndex: 3) { result in
             let recipes = try! result.get()
             XCTAssertEqual(recipes, self.correctRecipes)
         }
@@ -151,7 +151,7 @@ class RecipeNetworkManagerTests: XCTestCase {
     func testGetRecipesWithStubFormatters() {
         let recipeNetworkManager = getRecipeNetworkManagerWithStubFormatters()
 
-        recipeNetworkManager.getRecipes(forFoods: "Potatoe", fromMinIndex: 0, toMaxIndex: 3) { result in
+        recipeNetworkManager.getRecipes(forFoods: foodName, fromMinIndex: 0, toMaxIndex: 3) { result in
             let recipes = try! result.get()
             let firstRecipe = recipes[0]
             let secondRecipe = recipes[1]
@@ -168,6 +168,7 @@ class RecipeNetworkManagerTests: XCTestCase {
 
     // MARK: Tools
 
+    private let foodName = "Potato"
     private let url = "http://openclassrooms.com"
     private let userDefaultsSuiteName = "TestDefaults"
     lazy private var userDefaults = UserDefaults(suiteName: userDefaultsSuiteName)
@@ -200,7 +201,6 @@ class RecipeNetworkManagerTests: XCTestCase {
             yield: "4")
     ]
 
-    ///Returns a CurrencyNetworkManager with a URLSessionFake from the given Data?, HTTPURLResponse? and Error?
     private func getRecipeNetworkManager(
         data: Data?,
         response: HTTPURLResponse?,
@@ -217,7 +217,6 @@ class RecipeNetworkManagerTests: XCTestCase {
         return recipeNetworkManager
     }
 
-    ///Returns a CurrencyNetworkManager with a URLSessionFake and a CurrencyUrlProviderStub
     private func getRecipeNetworkManagerWithStubUrlProvider() -> RecipeNetworkManager {
         let fakeNetworkRequest = FakeNetworkRequest(data: nil, response: nil, error: nil)
 

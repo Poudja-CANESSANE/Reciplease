@@ -10,7 +10,6 @@
 //
 //   let recipeResult = try? newJSONDecoder().decode(RecipeResult.self, from: jsonData)
 
-// MARK: - RecipeResult
 struct RecipeResult: Codable, Equatable {
     static func == (lhs: RecipeResult, rhs: RecipeResult) -> Bool {
         return (lhs.q == rhs.q &&
@@ -24,7 +23,6 @@ struct RecipeResult: Codable, Equatable {
     let hits: [Hit]
 }
 
-// MARK: - Hit
 struct Hit: Codable, Equatable {
     static func == (lhs: Hit, rhs: Hit) -> Bool {
         return lhs.recipe == rhs.recipe
@@ -33,7 +31,6 @@ struct Hit: Codable, Equatable {
     let recipe: Recipe
 }
 
-// MARK: - Recipe
 struct Recipe: Codable, Equatable {
     let label: String
     let image: String

@@ -6,7 +6,7 @@
 //  Copyright © 2020 Canessane Poudja. All rights reserved.
 //
 
-import Foundation
+import CoreData
 
 struct ServiceContainer {
     static let settingsService = SettingsService()
@@ -18,6 +18,20 @@ struct ServiceContainer {
     static let foodDataManager = FoodDataManager()
     static let favoriteRecipeDataManager = FavoriteRecipeDataManager()
     static let urlValueProvider = UrlValueProvider()
+    static let urlComponent = URLComponentImplementation()
     static let alamofireNetworkRequest = AlamofireNetworkRequest()
     static let contextProvider = ContextProviderImplementation()
+
+    ///Returns a NSManagedObjectContext from the given NSPersistentContainer
+    static func getContext(fromContainer container: NSPersistentContainer =
+        NSPersistentContainer(name: "Reciplease")) -> NSManagedObjectContext {
+
+        container.loadPersistentStores { (_, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+        let context = container.viewContext
+        return context
+    }
 }

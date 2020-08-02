@@ -19,6 +19,12 @@ class FavoriteRecipeDataManager {
 
 
 
+    // MARK: Properties
+
+    let coreDataManager: CoreDataManager
+
+
+
     // MARK: Methods
 
     ///Returns an array containing all FavoriteRecipe object saved in Core Data
@@ -42,6 +48,7 @@ class FavoriteRecipeDataManager {
     func isFavorite(recipeUrl url: String) throws -> Bool {
         let request: NSFetchRequest<FavoriteRecipe> = FavoriteRecipe.fetchRequest()
         request.predicate = NSPredicate(format: "url == %@", url)
+        request.returnsObjectsAsFaults = false
         var favoriteRecipes = [FavoriteRecipe]()
         do { favoriteRecipes = try coreDataManager.contextProvider.fetch(request)
         } catch { throw error }
@@ -62,12 +69,4 @@ class FavoriteRecipeDataManager {
 
         do { try coreDataManager.save() } catch { throw error }
     }
-
-
-
-    // MARK: - PRIVATE
-
-    // MARK: Properties
-
-    private let coreDataManager: CoreDataManager
 }

@@ -13,27 +13,24 @@ class ContextProviderImplementation: ContextProvider {
 
     // MARK: Inits
 
-    init(context: NSManagedObjectContext = {
-        let container = NSPersistentContainer(name: "Reciplease")
-        //swiftlint:disable:next unused_closure_parameter
-        container.loadPersistentStores { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        }
+    init(context: NSManagedObjectContext = ServiceContainer.getContext(),
+         persistentStoreDestroyer: PersistentStoreDestroyer =
+        PersistentStoreDestroyer(
+            context: ServiceContainer.getContext(),
+            persistentStoreCoordinator: ServiceContainer.getContext().persistentStoreCoordinator,
+            storeURL: ServiceContainer.getContext().persistentStoreCoordinator?.persistentStores.last?.url)) {
 
-        let context = container.viewContext
-        return context
-        }()
-    ) {
         self.context = context
+        self.persistentStoreDestroyer = persistentStoreDestroyer
     }
 
+    
 
 
     // MARK: Properties
 
     let context: NSManagedObjectContext
+    let persistentStoreDestroyer: PersistentStoreDestroyer
 
 
 

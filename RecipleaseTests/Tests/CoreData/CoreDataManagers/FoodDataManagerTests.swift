@@ -20,7 +20,7 @@ class FoodDataManagerTests: XCTestCase {
 
     override func tearDown() {
         super.tearDown()
-        foodDataManager = nil
+        try! foodDataManager.coreDataManager.contextProvider.persistentStoreDestroyer.destroyAllDataIfExist()
     }
 
     func testSaveFood_AndGetAllFood() {
@@ -67,10 +67,16 @@ class FoodDataManagerTests: XCTestCase {
 
     // MARK: Tools
 
-    private let foodName = "Potatoe"
+    private let foodName = "Potato"
 
     private func assignNewValueToFoodDataManager() {
-        let contextProvider = ContextProviderImplementation(context: ContextProviderStub.mockContext)
+        let contextProvider = ContextProviderImplementation(
+            context: ContextProviderStub.mockContext,
+            persistentStoreDestroyer: PersistentStoreDestroyer(
+                context: ContextProviderStub.mockContext,
+                persistentStoreCoordinator: ContextProviderStub.mockContext.persistentStoreCoordinator,
+                storeURL: ContextProviderStub.mockContext.persistentStoreCoordinator?.persistentStores.last?.url))
+
         let mockCoreDataManager = CoreDataManager(contextProvider: contextProvider)
         foodDataManager = FoodDataManager(coreDataManager: mockCoreDataManager)
     }

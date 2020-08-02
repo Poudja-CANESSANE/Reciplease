@@ -10,6 +10,12 @@
 import CoreData
 
 class ContextProviderStub: ContextProvider {
+    var persistentStoreDestroyer: PersistentStoreDestroyer = PersistentStoreDestroyer(
+        context: mockContext,
+        persistentStoreCoordinator: mockContext.persistentStoreCoordinator,
+        storeURL: mockContext.persistentStoreCoordinator?.persistentStores.last?.url)
+
+
     //MARK: mock in-memory persistant store
 
     static let mockContext: NSManagedObjectContext = mockPersistantContainer.viewContext
@@ -20,8 +26,7 @@ class ContextProviderStub: ContextProvider {
 
     // MARK: Properties
 
-    let context = mockPersistantContainer.viewContext
-
+    let context = mockContext
 
 
     // MARK: Methods

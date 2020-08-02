@@ -19,11 +19,11 @@ class CoreDataManagerTests: XCTestCase {
     }
     override func tearDown() {
         super.tearDown()
-        coreDataManager = nil
+        try! coreDataManager.contextProvider.persistentStoreDestroyer.destroyAllDataIfExist()
     }
 
     func testGetObject_SaveFood_AndGetAllElements() {
-        savePotatoe()
+        savePotato()
         let foods = try! coreDataManager.getAllElements(ofType: Food.self)
 
         XCTAssertEqual(foods.count, 1)
@@ -31,7 +31,7 @@ class CoreDataManagerTests: XCTestCase {
     }
 
     func testRemoveAllElements() {
-        savePotatoe()
+        savePotato()
 
         try! coreDataManager.removeElements(ofType: Food.self)
 
@@ -75,14 +75,20 @@ class CoreDataManagerTests: XCTestCase {
 
     // MARK: Tools
 
-    private let foodName = "Potatoe"
+    private let foodName = "Potato"
 
     private func assignNewValueToCoreDataManager() {
-        let contextProvider = ContextProviderImplementation(context: ContextProviderStub.mockContext)
+        let contextProvider = ContextProviderImplementation(
+            context: ContextProviderStub.mockContext,
+            persistentStoreDestroyer: PersistentStoreDestroyer(
+                context: ContextProviderStub.mockContext,
+                persistentStoreCoordinator: ContextProviderStub.mockContext.persistentStoreCoordinator,
+                storeURL: ContextProviderStub.mockContext.persistentStoreCoordinator?.persistentStores.last?.url))
+
         coreDataManager = CoreDataManager(contextProvider: contextProvider)
     }
 
-    private func savePotatoe() {
+    private func savePotato() {
         let food = coreDataManager.getObject(type: Food.self)
         food.name = foodName
         try! coreDataManager.save()

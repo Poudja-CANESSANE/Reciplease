@@ -6,8 +6,6 @@
 //  Copyright © 2020 Canessane Poudja. All rights reserved.
 //
 
-import Foundation
-
 enum CoreDataError: Error {
     case foodListDeletingIsImpossible
     case foodSavingIsImpossible
@@ -16,6 +14,9 @@ enum CoreDataError: Error {
     case favoriteRecipeDeletingIsImpossible
     case cannotUnwrapKey
     case getErrorSavingContext
+    case cannotFindLastPersistentStoreUrl
+    case cannotDestroyPersistantStore
+    case cannotAddPersistantStore
 
     var message: String {
         switch self {
@@ -26,6 +27,9 @@ enum CoreDataError: Error {
         case .favoriteRecipeDeletingIsImpossible: return "The deleting of this favorite recipe is impossible !"
         case .cannotUnwrapKey: return "Cannot unwrap key to save your settings !"
         case .getErrorSavingContext: return "An error occurred while saving the context !"
+        case .cannotFindLastPersistentStoreUrl: return "Cannot unwrap the last persistant store URL !"
+        case .cannotDestroyPersistantStore: return "Cannot destroy the persistant store !"
+        case .cannotAddPersistantStore: return "Cannot add a new persistant store !"
         }
     }
 }

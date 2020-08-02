@@ -6,7 +6,6 @@
 //  Copyright © 2020 Canessane Poudja. All rights reserved.
 //
 
-import Foundation
 import Alamofire
 
 class NetworkServiceImplementation: NetworkService {

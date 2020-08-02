@@ -20,15 +20,15 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
 
     override func tearDown() {
         super.tearDown()
+        try! favoriteRecipeDataManager.coreDataManager.contextProvider.persistentStoreDestroyer.destroyAllDataIfExist()
         try! favoriteRecipeDataManager.deleteFavoriteRecipe(withUrl: url)
-        favoriteRecipeDataManager = nil
     }
 
     func testSaveRecipeWithImage_AndGetAllFavoriteRecipe() {
         let recipeWithImage = getRecipeWithImage()
         try! favoriteRecipeDataManager.save(recipeWithImage)
         let favoriteRecipes = try! favoriteRecipeDataManager.getAll()
-        print(favoriteRecipes)
+
         XCTAssertEqual(favoriteRecipes.count, 1)
         XCTAssertEqual(favoriteRecipes.first?.url, url)
     }
@@ -104,7 +104,10 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
     private let url = "http://notwithoutsalt.com/dating-my-husband-peanut-butter-pie/"
 
     private func assignNewValueToFavoriteRecipeCoreDataManager() {
-        let contextProvider = ContextProviderImplementation(context: ContextProviderStub.mockContext)
+        let contextProvider = ContextProviderImplementation(context: ContextProviderStub.mockContext, persistentStoreDestroyer: PersistentStoreDestroyer(
+            context: ContextProviderStub.mockContext,
+            persistentStoreCoordinator: ContextProviderStub.mockContext.persistentStoreCoordinator,
+            storeURL: ContextProviderStub.mockContext.persistentStoreCoordinator?.persistentStores.last?.url))
         let coreDataManager = CoreDataManager(contextProvider: contextProvider)
         favoriteRecipeDataManager = FavoriteRecipeDataManager(coreDataManager: coreDataManager)
     }
@@ -113,7 +116,7 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
     private func getRecipeWithImage() -> RecipeWithImage {
         let recipe = RecipeObject(
             imageUrl: "https://www.edamam.com/web-img/423/423c241952e0319d3cc78a5bee04fba9.jpg",
-            name: "Potato Cake",
+            name: "Potatoe Cake",
             time: "0",
             calories: "1 145",
             url: url,
