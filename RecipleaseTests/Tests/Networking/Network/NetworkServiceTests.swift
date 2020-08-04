@@ -143,9 +143,9 @@ class NetworkServiceTests: XCTestCase {
                 calories: 890.224,
                 totalTime: 150.0)),
             Hit(recipe: Recipe(
-                label: "Potato Chips",
+                label: "Potatoe Chips",
                 image: "https://www.edamam.com/web-img/29c/29c6193eac9df6e3d2bc3eb01e0a2d9a.jpg",
-                url: "http://www.saveur.com/article/Recipes/Potato-Chips",
+                url: "http://www.saveur.com/article/Recipes/Potatoe-Chips",
                 yield: 4.0,
                 ingredientLines: ["3 lbs. Idaho potatoes, peeled","Peanut oil","Salt"],
                 calories: 1211.39644197264,

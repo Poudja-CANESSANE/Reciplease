@@ -193,10 +193,10 @@ class RecipeNetworkManagerTests: XCTestCase {
             yield: "8"),
         RecipeObject(
             imageUrl: "https://www.edamam.com/web-img/29c/29c6193eac9df6e3d2bc3eb01e0a2d9a.jpg",
-            name: "Potato Chips",
+            name: "Potatoe Chips",
             time: "N/A",
             calories: "1 211",
-            url: "http://www.saveur.com/article/Recipes/Potato-Chips",
+            url: "http://www.saveur.com/article/Recipes/Potatoe-Chips",
             ingredientLines: "- 3 lbs. Idaho potatoes, peeled\n- Peanut oil\n- Salt",
             yield: "4")
     ]
