@@ -14,11 +14,7 @@ class ContextProviderImplementation: ContextProvider {
     // MARK: Inits
 
     init(context: NSManagedObjectContext = ServiceContainer.getContext(),
-         persistentStoreDestroyer: PersistentStoreDestroyer =
-        PersistentStoreDestroyer(
-            context: ServiceContainer.getContext(),
-            persistentStoreCoordinator: ServiceContainer.getContext().persistentStoreCoordinator,
-            storeURL: ServiceContainer.getContext().persistentStoreCoordinator?.persistentStores.last?.url)) {
+         persistentStoreDestroyer: PersistentStoreDestroyer = ServiceContainer.persistentStoreDestroyer) {
 
         self.context = context
         self.persistentStoreDestroyer = persistentStoreDestroyer
@@ -30,7 +26,6 @@ class ContextProviderImplementation: ContextProvider {
     // MARK: Properties
 
     let context: NSManagedObjectContext
-    let persistentStoreDestroyer: PersistentStoreDestroyer
 
 
 
@@ -50,4 +45,12 @@ class ContextProviderImplementation: ContextProvider {
     func delete(_ object: NSManagedObject) {
         context.delete(object)
     }
+
+
+
+    // MARK: - PRIVATE
+
+    // MARK: Properties
+
+    private let persistentStoreDestroyer: PersistentStoreDestroyer
 }

@@ -10,7 +10,6 @@ import CoreData
 
 protocol ContextProvider {
     var context: NSManagedObjectContext { get }
-    var persistentStoreDestroyer: PersistentStoreDestroyer { get }
 
     func fetch<T: NSFetchRequestResult>(_ request: NSFetchRequest<T>) throws -> [T]
     func save() throws

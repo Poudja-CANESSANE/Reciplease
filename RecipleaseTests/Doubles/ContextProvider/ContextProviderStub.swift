@@ -10,15 +10,13 @@
 import CoreData
 
 class ContextProviderStub: ContextProvider {
-    var persistentStoreDestroyer: PersistentStoreDestroyer = PersistentStoreDestroyer(
-        context: mockContext,
-        persistentStoreCoordinator: mockContext.persistentStoreCoordinator,
-        storeURL: mockContext.persistentStoreCoordinator?.persistentStores.last?.url)
-
+    static let persistentStoreDestroyer = PersistentStoreDestroyer(
+    context: mockContext,
+    persistentStoreCoordinator: mockContext.persistentStoreCoordinator,
+    storeURL: mockContext.persistentStoreCoordinator?.persistentStores.last?.url)
 
     //MARK: mock in-memory persistant store
-
-    static let mockContext: NSManagedObjectContext = mockPersistantContainer.viewContext
+    static let mockContext = mockPersistantContainer.viewContext
 
 
 
@@ -63,7 +61,7 @@ class ContextProviderStub: ContextProvider {
 
              // Check if creating container wrong
              if let error = error {
-                 fatalError("Create an in-mem coordinator failed \(error)")
+                Swift.fatalError("Create an in-mem coordinator failed \(error)")
             }
         }
         return container

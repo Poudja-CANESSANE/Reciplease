@@ -19,18 +19,18 @@ class ContextProviderTests: XCTestCase {
     }
     override func tearDown() {
         super.tearDown()
-        try! contextProvider.persistentStoreDestroyer.destroyAllDataIfExist()
+        try! ContextProviderStub.persistentStoreDestroyer.destroyAllDataIfExist()
     }
 
     func testFetch() {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Food")
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         let foods = try! contextProvider.fetch(request)
 
         XCTAssertTrue(foods.isEmpty)
     }
 
     func testSave() {
-        let food = NSEntityDescription.insertNewObject(forEntityName: "Food", into: contextProvider.context) as! Food
+        let food = NSEntityDescription.insertNewObject(forEntityName: entityName, into: contextProvider.context) as! Food
         food.name = foodName
 
         try! contextProvider.save()
@@ -59,16 +59,13 @@ class ContextProviderTests: XCTestCase {
 
     // MARK: Tools
 
-    private let foodName = "Potato"
+    private let foodName = "Tomato"
     private let entityName = "Food"
 
     private func assignNewValueToContextProvider() {
         let contextProvider = ContextProviderImplementation(
             context: ContextProviderStub.mockContext,
-            persistentStoreDestroyer: PersistentStoreDestroyer(
-                context: ContextProviderStub.mockContext,
-                persistentStoreCoordinator: ContextProviderStub.mockContext.persistentStoreCoordinator,
-                storeURL: ContextProviderStub.mockContext.persistentStoreCoordinator?.persistentStores.last?.url))
+            persistentStoreDestroyer: ContextProviderStub.persistentStoreDestroyer)
         self.contextProvider = contextProvider
     }
 }

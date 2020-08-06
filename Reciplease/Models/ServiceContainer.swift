@@ -34,4 +34,9 @@ struct ServiceContainer {
         let context = container.viewContext
         return context
     }
+    
+    static let persistentStoreDestroyer = PersistentStoreDestroyer(
+        context: ServiceContainer.getContext(),
+        persistentStoreCoordinator: ServiceContainer.getContext().persistentStoreCoordinator,
+        storeURL: ServiceContainer.getContext().persistentStoreCoordinator?.persistentStores.last?.url)
 }

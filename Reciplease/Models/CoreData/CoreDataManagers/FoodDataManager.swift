@@ -18,12 +18,6 @@ class FoodDataManager {
 
 
 
-    // MARK: Properties
-
-    let coreDataManager: CoreDataManager
-
-
-
     // MARK: Methods
 
     ///Returns an array containing all Food object saved in Core Data
@@ -45,4 +39,12 @@ class FoodDataManager {
         food.name = name
         do { try coreDataManager.save() } catch { throw error }
     }
+
+
+
+    // MARK: - PRIVATE
+
+    // MARK: Properties
+
+    private let coreDataManager: CoreDataManager
 }

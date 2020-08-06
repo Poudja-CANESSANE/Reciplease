@@ -16,11 +16,11 @@ class FakeResponseData {
         let bundle = Bundle(for: FakeResponseData.self)
 
         guard let url = bundle.url(forResource: "Recipe", withExtension: "json") else {
-            fatalError("No such resource: Recipe.json from bundle.")
+            Swift.fatalError("No such resource: Recipe.json from bundle.")
         }
 
         guard let recipeData = try? Data(contentsOf: url) else {
-            fatalError("Failed to load Recipe.json from bundle.")
+            Swift.fatalError("Failed to load Recipe.json from bundle.")
         }
 
         return recipeData

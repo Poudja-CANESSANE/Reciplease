@@ -162,8 +162,10 @@ class RecipeTableViewController: UIViewController {
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let networkError):
-                    self.presentAlert(message: networkError.message)
+                    self.presentAlert(message: "\(networkError.message) \n WITH URL => \(recipe.imageUrl)")
+                    print(recipe.imageUrl)
                 case .success(let imageData):
+                    print("Success " + recipe.imageUrl)
                     self.populateImages(fromData: imageData, forRecipe: recipe)
                 }
             }

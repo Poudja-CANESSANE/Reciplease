@@ -10,11 +10,6 @@
 import CoreData
 
 class ContextProviderSaveStub: ContextProvider {
-    var persistentStoreDestroyer: PersistentStoreDestroyer = PersistentStoreDestroyer(
-        context: ContextProviderStub.mockContext,
-        persistentStoreCoordinator: ContextProviderStub.mockContext.persistentStoreCoordinator,
-        storeURL: ContextProviderStub.mockContext.persistentStoreCoordinator?.persistentStores.last?.url)
-
     // MARK: - INTERNAL
 
     // MARK: Properties

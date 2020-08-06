@@ -20,7 +20,7 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
 
     override func tearDown() {
         super.tearDown()
-        try! favoriteRecipeDataManager.coreDataManager.contextProvider.persistentStoreDestroyer.destroyAllDataIfExist()
+        try! ContextProviderStub.persistentStoreDestroyer.destroyAllDataIfExist()
         try! favoriteRecipeDataManager.deleteFavoriteRecipe(withUrl: url)
     }
 
@@ -45,6 +45,7 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
     func testGivenSavedRecipe_WhenIsFavoriteIsCalled_ThenReturnsTrue() {
         let recipeWithImage = getRecipeWithImage()
         try! favoriteRecipeDataManager.save(recipeWithImage)
+
         let isFavorite = try! favoriteRecipeDataManager.isFavorite(recipeUrl: url)
 
         XCTAssertTrue(isFavorite)
@@ -104,10 +105,9 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
     private let url = "http://notwithoutsalt.com/dating-my-husband-peanut-butter-pie/"
 
     private func assignNewValueToFavoriteRecipeCoreDataManager() {
-        let contextProvider = ContextProviderImplementation(context: ContextProviderStub.mockContext, persistentStoreDestroyer: PersistentStoreDestroyer(
+        let contextProvider = ContextProviderImplementation(
             context: ContextProviderStub.mockContext,
-            persistentStoreCoordinator: ContextProviderStub.mockContext.persistentStoreCoordinator,
-            storeURL: ContextProviderStub.mockContext.persistentStoreCoordinator?.persistentStores.last?.url))
+            persistentStoreDestroyer: ContextProviderStub.persistentStoreDestroyer)
         let coreDataManager = CoreDataManager(contextProvider: contextProvider)
         favoriteRecipeDataManager = FavoriteRecipeDataManager(coreDataManager: coreDataManager)
     }
@@ -116,7 +116,7 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
     private func getRecipeWithImage() -> RecipeWithImage {
         let recipe = RecipeObject(
             imageUrl: "https://www.edamam.com/web-img/423/423c241952e0319d3cc78a5bee04fba9.jpg",
-            name: "Potatoe Cake",
+            name: "Potato Cake",
             time: "0",
             calories: "1 145",
             url: url,
