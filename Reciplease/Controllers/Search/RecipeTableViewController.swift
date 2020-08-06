@@ -21,6 +21,7 @@ class RecipeTableViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupActivityIndicator()
         setupTableView()
         updateUIWithRecipes()
     }
@@ -64,7 +65,8 @@ class RecipeTableViewController: UIViewController {
         button.setTitle("Load more recipes", for: .normal)
         button.titleLabel?.font = UIFont.avenirNext
         button.backgroundColor = UIColor.customGreen
-        setConstraints(toSubview: self.activityIndicator, inSuperview: button)
+        activityIndicator.style = .medium
+        setConstraints(toSubview: activityIndicator, inSuperview: button)
         return button
     }()
 
@@ -78,6 +80,14 @@ class RecipeTableViewController: UIViewController {
 
 
     // MARK: Methods
+
+    ///Sets the activityIndicator's style, position in the center of view and starts its animation
+    private func setupActivityIndicator() {
+        activityIndicator.style = .large
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+    }
 
     ///Sets the delegate, the dataSource of the tavleView and registers the RecipeTableViewCell
     private func setupTableView() {
@@ -134,9 +144,9 @@ class RecipeTableViewController: UIViewController {
         }
     }
 
-    ///Sets hasFetchMoreRecipes according the given recipeObjects array,
-    ///display noResultView if needed, populates recipeTableViewDataSource.recipes
-    ///with recipesObjects and downloads the recipes' images
+    /**Sets hasFetchMoreRecipes according the given recipeObjects array,
+    display noResultView if needed, populates recipeTableViewDataSource.recipes
+    with recipesObjects and downloads the recipes' images*/
     private func handleSuccessfulNetworkFetching(recipeObjects: ([RecipeObject])) {
         hasFetchMoreRecipes = !recipeObjects.isEmpty
         if hasToDisplayNoResultView(recipeObjects: recipeObjects) { return }
@@ -165,7 +175,6 @@ class RecipeTableViewController: UIViewController {
                     self.presentAlert(message: "\(networkError.message) \n WITH URL => \(recipe.imageUrl)")
                     print(recipe.imageUrl)
                 case .success(let imageData):
-                    print("Success " + recipe.imageUrl)
                     self.populateImages(fromData: imageData, forRecipe: recipe)
                 }
             }
@@ -181,13 +190,8 @@ class RecipeTableViewController: UIViewController {
         }
 
         recipeTableViewDataSource.images[recipe.name] = image
-        stopLoadingIfNeeded()
+        activityIndicator.stopAnimating()
         tableView.reloadData()
-    }
-
-    ///Stops the activityIndicator loading animation whether the footerView exists
-    private func stopLoadingIfNeeded() {
-        if !isTableViewFooterNil { activityIndicator.stopAnimating() }
     }
 
     ///Sets the given subview in the center of the given superview
@@ -230,5 +234,6 @@ class RecipeTableViewController: UIViewController {
     ///Presents an alert with the given message
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)
+        activityIndicator.stopAnimating()
     }
 }

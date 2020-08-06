@@ -745,10 +745,9 @@ To do so tap on the star button ★ in the top right corner of the recipe detail
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dlu-bw-leO">
                                 <rect key="frame" x="0.0" y="44" width="320" height="387"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" red="0.2156862745" green="0.20000000000000001" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="dlu-bw-leO" firstAttribute="bottom" secondItem="dmh-c5-C8O" secondAttribute="bottom" id="PiE-Hm-D24"/>
                             <constraint firstItem="dlu-bw-leO" firstAttribute="leading" secondItem="dmh-c5-C8O" secondAttribute="leading" id="rHO-Df-jXc"/>
@@ -1056,10 +1055,10 @@ Try to change your settings.</string>
     <resources>
         <image name="clock.fill" catalog="system" width="128" height="121"/>
         <image name="defaultRecipeImage" width="300" height="300"/>
-        <image name="flame.fill" catalog="system" width="32" height="32"/>
+        <image name="flame.fill" catalog="system" width="109" height="128"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="pizza" width="100" height="100"/>
-        <image name="slider.horizontal.3" catalog="system" width="128" height="100"/>
+        <image name="slider.horizontal.3" catalog="system" width="32" height="32"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
     </resources>
