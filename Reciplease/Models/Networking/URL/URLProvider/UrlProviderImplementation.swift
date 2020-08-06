@@ -41,7 +41,6 @@ class UrlProviderImplementation: UrlProvider {
             maxIndexString: maxIndexString)
 
         let urlString = fullUrl.url?.absoluteString
-        print("\(String(describing: fullUrl.url?.absoluteString)) " + #function)
         return urlString
     }
 

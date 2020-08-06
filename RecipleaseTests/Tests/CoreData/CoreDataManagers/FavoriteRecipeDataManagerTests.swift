@@ -25,7 +25,6 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
     }
 
     func testSaveRecipeWithImage_AndGetAllFavoriteRecipe() {
-        let recipeWithImage = getRecipeWithImage()
         try! favoriteRecipeDataManager.save(recipeWithImage)
         let favoriteRecipes = try! favoriteRecipeDataManager.getAll()
 
@@ -34,7 +33,6 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
     }
 
     func testDeleteFavoriteRecipe() {
-        let recipeWithImage = getRecipeWithImage()
         try! favoriteRecipeDataManager.save(recipeWithImage)
         try! favoriteRecipeDataManager.deleteFavoriteRecipe(withUrl: url)
         let favoriteRecipes = try! favoriteRecipeDataManager.getAll()
@@ -43,7 +41,6 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
     }
 
     func testGivenSavedRecipe_WhenIsFavoriteIsCalled_ThenReturnsTrue() {
-        let recipeWithImage = getRecipeWithImage()
         try! favoriteRecipeDataManager.save(recipeWithImage)
 
         let isFavorite = try! favoriteRecipeDataManager.isFavorite(recipeUrl: url)
@@ -59,7 +56,6 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
 
     func testGivenFavoriteRecipeDataManagerWithContextProviderStub_WhenSave_ThenShouldThrowError() {
         let favoriteRecipeDataManagerStub = getFavoriteRecipeDataManagerWithContextProviderStub()
-        let recipeWithImage = getRecipeWithImage()
 
         XCTAssertThrowsError(try favoriteRecipeDataManagerStub.save(recipeWithImage)) { error in
             XCTAssertEqual(error as! CoreDataError, CoreDataError.getErrorSavingContext)
@@ -103,6 +99,17 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
     // MARK: Tools
 
     private let url = "http://notwithoutsalt.com/dating-my-husband-peanut-butter-pie/"
+    private let image = UIImage.defaultRecipeImage
+
+    private lazy var recipeWithImage = RecipeWithImage(recipe: recipe, image: image)
+    private lazy var recipe = RecipeObject(
+    imageUrl: "https://www.edamam.com/web-img/423/423c241952e0319d3cc78a5bee04fba9.jpg",
+    name: "Potato Cake",
+    time: "0",
+    calories: "1 145",
+    url: url,
+    ingredientLines: "- 5 (or so) potatoes (i used new potatoes)\n- 1 red pepper\n- 1 small onion\n- 1 stick butter, melted\n- 5 sprigs of thyme, leaves removed\n- Salt and pepper",
+    yield: "6")
 
     private func assignNewValueToFavoriteRecipeCoreDataManager() {
         let contextProvider = ContextProviderImplementation(
@@ -110,22 +117,6 @@ class FavoriteRecipeDataManagerTests: XCTestCase {
             persistentStoreDestroyer: ContextProviderStub.persistentStoreDestroyer)
         let coreDataManager = CoreDataManager(contextProvider: contextProvider)
         favoriteRecipeDataManager = FavoriteRecipeDataManager(coreDataManager: coreDataManager)
-    }
-
-
-    private func getRecipeWithImage() -> RecipeWithImage {
-        let recipe = RecipeObject(
-            imageUrl: "https://www.edamam.com/web-img/423/423c241952e0319d3cc78a5bee04fba9.jpg",
-            name: "Potato Cake",
-            time: "0",
-            calories: "1 145",
-            url: url,
-            ingredientLines: "- 5 (or so) potatoes (i used new potatoes)\n- 1 red pepper\n- 1 small onion\n- 1 stick butter, melted\n- 5 sprigs of thyme, leaves removed\n- Salt and pepper",
-            yield: "6")
-
-        let image = UIImage.defaultRecipeImage
-        let recipeWithImage = RecipeWithImage(recipe: recipe, image: image)
-        return recipeWithImage
     }
 
     private func getFavoriteRecipeDataManagerWithContextProviderStub() -> FavoriteRecipeDataManager {

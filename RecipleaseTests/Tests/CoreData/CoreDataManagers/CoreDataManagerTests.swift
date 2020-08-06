@@ -26,7 +26,6 @@ class CoreDataManagerTests: XCTestCase {
         savePotato()
         let foods = try! coreDataManager.getAllElements(ofType: Food.self)
 
-        print(foods)
         XCTAssertEqual(foods.count, 1)
         XCTAssertEqual(foods.first?.name, foodName)
     }
