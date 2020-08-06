@@ -25,6 +25,11 @@ class RecipeDetailViewController: UIViewController {
         setUI()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setFavoriteBarButtonItemImage()
+    }
+
 
     // MARK: - PRIVATE
 
@@ -51,16 +56,17 @@ class RecipeDetailViewController: UIViewController {
     }
 
 
+
     // MARK: Properties
 
     private let alertManager = ServiceContainer.alertManager
-    private let starFillImage = UIImage(systemName: "star.fill")
-    private let starImage = UIImage(systemName: "star")
+    private let favoriteRecipeDataManager = ServiceContainer.favoriteRecipeDataManager
 
 
 
     // MARK: Methods
 
+    ///Sets the UI with recipeWithImage
     private func setUI() {
         setFavoriteBarButtonItemImage()
         nameLabel.text = recipeWithImage.recipe.name
@@ -71,14 +77,19 @@ class RecipeDetailViewController: UIViewController {
         textView.text = recipeWithImage.recipe.ingredientLines
     }
 
+    ///Sets the favoriteBarButtonItem's image according to the presence of recipeWithImage in Core Data
     private func setFavoriteBarButtonItemImage() {
-         favoriteBarButtonItem.image = FavoriteRecipe.isFavorite(recipeUrl: recipeWithImage.recipe.url)
-         ? starFillImage : starImage
+        do {
+            favoriteBarButtonItem.image =
+                try favoriteRecipeDataManager.isFavorite(recipeUrl: recipeWithImage.recipe.url)
+            ? UIImage.starFillImage : UIImage.starImage
+        } catch { presentAlert(message: CoreDataError.getErrorWhileFetchingFromCoreData.message) }
     }
 
+    ///Presents a SFSafariViewController with the given url
     private func presentSafariPage(withUrlString urlString: String) {
         guard let url = URL(string: urlString) else {
-            presentAlert(message: "Cannot unwrap URL !")
+            presentAlert(message: "Cannot unwrap URL to show recipe directions!")
             return
         }
 
@@ -86,29 +97,32 @@ class RecipeDetailViewController: UIViewController {
         present(safariVC, animated: true)
     }
 
+    ///Saves or removes recipeWithImage in Core Data according to the favoriteBarButtonItem's image
     private func addOrRemoveRecipeFromFavorite() {
-        return favoriteBarButtonItem.image == starImage ? addRecipeToFavorite() : removeRecipeFromFavorite()
+        return favoriteBarButtonItem.image == UIImage.starImage ? addRecipeToFavorite() : removeRecipeFromFavorite()
     }
 
+    ///Saves the RecipeWithImage in Core Data and sets the favoriteBarButtonItem's image to UIImage.starFillImage
     private func addRecipeToFavorite() {
-        let favoriteRecipe = FavoriteRecipe(context: AppDelegate.viewContext)
-        favoriteRecipe.name = recipeWithImage.recipe.name
-        favoriteRecipe.calories = recipeWithImage.recipe.calories
-        favoriteRecipe.ingredientLines = recipeWithImage.recipe.ingredientLines
-        favoriteRecipe.time = recipeWithImage.recipe.time
-        favoriteRecipe.url = recipeWithImage.recipe.url
-        favoriteRecipe.yield = recipeWithImage.recipe.yield
-        favoriteRecipe.image = recipeWithImage.image.pngData()
-        
-        FavoriteRecipe.save(recipe: favoriteRecipe)
-        favoriteBarButtonItem.image = starFillImage
+        do {
+            try favoriteRecipeDataManager.save(recipeWithImage)
+        } catch {
+            presentAlert(message: CoreDataError.recipeWithImageSavingIsImpossible.message)
+        }
+        favoriteBarButtonItem.image = UIImage.starFillImage
     }
 
+    ///Removes the FavoriteRecipe from Core Data and sets the favoriteBarButtonItem's image to UIImage.starImage
     private func removeRecipeFromFavorite() {
-        FavoriteRecipe.deleteFavoriteRecipe(withUrl: recipeWithImage.recipe.url)
-        favoriteBarButtonItem.image = starImage
+        do {
+            try favoriteRecipeDataManager.deleteFavoriteRecipe(withUrl: recipeWithImage.recipe.url)
+        } catch {
+            presentAlert(message: CoreDataError.favoriteRecipeDeletingIsImpossible.message)
+        }
+        favoriteBarButtonItem.image = UIImage.starImage
     }
 
+    ///Presents an alert with the given message
     private func presentAlert(message: String) {
         alertManager.presentErrorAlert(with: message, presentingViewController: self)
     }

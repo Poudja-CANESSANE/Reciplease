@@ -3,3 +3,8 @@ disabled_rules: # rule identifiers to exclude from running
   - vertical_whitespace
 excluded:
   - Pods
+
+force_try:
+excluded:
+    - RecipleaseTests
+    - Pods

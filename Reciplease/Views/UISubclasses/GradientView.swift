@@ -10,29 +10,24 @@ import UIKit
 
 @IBDesignable
 class GradientView: UIView {
-    @IBInspectable var firstColor: UIColor = UIColor.clear {
-        didSet {
-            updateView()
-        }
-    }
 
-    @IBInspectable var secondColor: UIColor = UIColor.darkGray {
-        didSet {
-            updateView()
-        }
-    }
-
-    @IBInspectable var opacity: Float = 1.0 {
-        didSet {
-            updateView()
-        }
-    }
-
-    override class var layerClass: AnyClass {
-        CAGradientLayer.self
-    }
+    override class var layerClass: AnyClass { CAGradientLayer.self }
 
 
+
+    // MARK: - PRIVATE
+
+    // MARK: IBInspectables
+
+    @IBInspectable private var firstColor: UIColor = UIColor.clear { didSet { updateView() } }
+    @IBInspectable private var secondColor: UIColor = UIColor.darkGray { didSet { updateView() } }
+    @IBInspectable private var opacity: Float = 1.0 { didSet { updateView() } }
+
+
+
+    // MARK: Methods
+
+    //Updates the GradientView's layer with the firstColor, the secondColr and the opacity
     private func updateView() {
         guard let layer = layer as? CAGradientLayer else { return }
         layer.colors = [firstColor.cgColor, secondColor.cgColor]

@@ -10,4 +10,6 @@ import UIKit
 
 extension UIImage {
     static let defaultRecipeImage = UIImage(named: "defaultRecipeImage")!
+    static let starFillImage = UIImage(systemName: "star.fill")!
+    static let starImage = UIImage(systemName: "star")!
 }

@@ -10,26 +10,28 @@
 //
 //   let recipeResult = try? newJSONDecoder().decode(RecipeResult.self, from: jsonData)
 
-import Foundation
+struct RecipeResult: Codable, Equatable {
+    static func == (lhs: RecipeResult, rhs: RecipeResult) -> Bool {
+        return (lhs.q == rhs.q &&
+            lhs.from == lhs.from &&
+            lhs.to == rhs.to &&
+            lhs.hits == rhs.hits)
+    }
 
-struct RecipeObject {
-    let imageUrl, name, time, calories, url, ingredientLines, yield: String
-}
-
-// MARK: - RecipeResult
-struct RecipeResult: Codable {
     let q: String
     let from, to: Int
     let hits: [Hit]
 }
 
-// MARK: - Hit
-struct Hit: Codable {
+struct Hit: Codable, Equatable {
+    static func == (lhs: Hit, rhs: Hit) -> Bool {
+        return lhs.recipe == rhs.recipe
+    }
+
     let recipe: Recipe
 }
 
-// MARK: - Recipe
-struct Recipe: Codable {
+struct Recipe: Codable, Equatable {
     let label: String
     let image: String
     let url: String
