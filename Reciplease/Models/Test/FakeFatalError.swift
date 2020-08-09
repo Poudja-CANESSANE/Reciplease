@@ -15,7 +15,6 @@ public func fatalError(
     line: UInt = #line) -> Never {
 
     FatalErrorUtil.fatalErrorClosure(message(), file, line)
-//    unreachable()
 }
 
 /// This is a `noreturn` function that pauses forever

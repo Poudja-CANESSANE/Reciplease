@@ -51,7 +51,7 @@
 		ACAF6A9124A0CF6A00F7E7A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACAF6A9024A0CF6A00F7E7A9 /* Assets.xcassets */; };
 		ACAF6A9424A0CF6A00F7E7A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ACAF6A9224A0CF6A00F7E7A9 /* LaunchScreen.storyboard */; };
 		ACAF6AAE24A0D70A00F7E7A9 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF6AAD24A0D70A00F7E7A9 /* SearchViewController.swift */; };
-		ACAF6AB024A0D71800F7E7A9 /* FavoriteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF6AAF24A0D71800F7E7A9 /* FavoriteTableViewController.swift */; };
+		ACAF6AB024A0D71800F7E7A9 /* FavoritesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF6AAF24A0D71800F7E7A9 /* FavoritesTableViewController.swift */; };
 		ACAF6AB224A0E3A300F7E7A9 /* RecipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF6AB124A0E3A300F7E7A9 /* RecipeTableViewController.swift */; };
 		ACAF6AB424A0E3B800F7E7A9 /* RecipeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF6AB324A0E3B800F7E7A9 /* RecipeDetailViewController.swift */; };
 		ACAF6ABA24A0E6E000F7E7A9 /* RecipeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACAF6AB924A0E6E000F7E7A9 /* RecipeTableViewCell.swift */; };
@@ -70,7 +70,7 @@
 		ACE32CCD24CE108800ADDB81 /* URLComponentImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE32CCC24CE108800ADDB81 /* URLComponentImplementation.swift */; };
 		ACE32CCF24CE10C300ADDB81 /* URLComponentStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE32CCE24CE10C300ADDB81 /* URLComponentStub.swift */; };
 		ACE6F1F524B1D32D00ADBFF3 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE6F1F424B1D32D00ADBFF3 /* SettingsService.swift */; };
-		ACF52A1824BBD01E00997F69 /* FavoriteTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF52A1724BBD01E00997F69 /* FavoriteTableViewDataSource.swift */; };
+		ACF52A1824BBD01E00997F69 /* FavoritesTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF52A1724BBD01E00997F69 /* FavoritesTableViewDataSource.swift */; };
 		ACFB93AE24D48EAE00EF48D9 /* PersistentStoreCoordinatorDestroyStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB93AD24D48EAE00EF48D9 /* PersistentStoreCoordinatorDestroyStub.swift */; };
 		ACFB93B024D48EE100EF48D9 /* PersistentStoreCoordinatorAddStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB93AF24D48EE100EF48D9 /* PersistentStoreCoordinatorAddStub.swift */; };
 		ACFB93B324D490DA00EF48D9 /* PersistentStoreDestroyerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB93B224D490DA00EF48D9 /* PersistentStoreDestroyerTests.swift */; };
@@ -142,7 +142,7 @@
 		ACAF6A9A24A0CF6A00F7E7A9 /* RecipleaseTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RecipleaseTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACAF6AA024A0CF6A00F7E7A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ACAF6AAD24A0D70A00F7E7A9 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		ACAF6AAF24A0D71800F7E7A9 /* FavoriteTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewController.swift; sourceTree = "<group>"; };
+		ACAF6AAF24A0D71800F7E7A9 /* FavoritesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewController.swift; sourceTree = "<group>"; };
 		ACAF6AB124A0E3A300F7E7A9 /* RecipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewController.swift; sourceTree = "<group>"; };
 		ACAF6AB324A0E3B800F7E7A9 /* RecipeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailViewController.swift; sourceTree = "<group>"; };
 		ACAF6AB924A0E6E000F7E7A9 /* RecipeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTableViewCell.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		ACE32CCC24CE108800ADDB81 /* URLComponentImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLComponentImplementation.swift; sourceTree = "<group>"; };
 		ACE32CCE24CE10C300ADDB81 /* URLComponentStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLComponentStub.swift; sourceTree = "<group>"; };
 		ACE6F1F424B1D32D00ADBFF3 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
-		ACF52A1724BBD01E00997F69 /* FavoriteTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewDataSource.swift; sourceTree = "<group>"; };
+		ACF52A1724BBD01E00997F69 /* FavoritesTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewDataSource.swift; sourceTree = "<group>"; };
 		ACFB93AD24D48EAE00EF48D9 /* PersistentStoreCoordinatorDestroyStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStoreCoordinatorDestroyStub.swift; sourceTree = "<group>"; };
 		ACFB93AF24D48EE100EF48D9 /* PersistentStoreCoordinatorAddStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStoreCoordinatorAddStub.swift; sourceTree = "<group>"; };
 		ACFB93B224D490DA00EF48D9 /* PersistentStoreDestroyerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStoreDestroyerTests.swift; sourceTree = "<group>"; };
@@ -214,6 +214,17 @@
 				B829F13BF05EA9B98E40BFDC /* Pods-RecipleaseTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		AC2B3BF624E06A5D000557E7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				AC58DC9824BCCAD90098588F /* Settings */,
+				ACAF6AB524A0E3CD00F7E7A9 /* Search */,
+				ACAF6AB624A0E3D500F7E7A9 /* Favorites */,
+				AC58DC9924BCCB340098588F /* RecipeDetail */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		AC4F854424A92EF70084A8B1 /* UISubclasses */ = {
@@ -337,10 +348,9 @@
 		AC7A8C8C24A7E71700DB48B9 /* TableViewManager */ = {
 			isa = PBXGroup;
 			children = (
-				ACAF6AB924A0E6E000F7E7A9 /* RecipeTableViewCell.swift */,
-				AC55245224AE6E98002E56BE /* RecipeTableViewDelegateHandler.swift */,
-				AC019FFF24AE845000D79D6B /* RecipeTableViewDataSource.swift */,
-				ACF52A1724BBD01E00997F69 /* FavoriteTableViewDataSource.swift */,
+				ACCC6EE024E0611800B11737 /* Cells */,
+				ACCC6EE124E0612D00B11737 /* DelegateHandlers */,
+				ACCC6EE224E0614100B11737 /* DataSources */,
 			);
 			path = TableViewManager;
 			sourceTree = "<group>";
@@ -450,10 +460,7 @@
 			children = (
 				AC6B019D24BB4C1900A77E27 /* Extensions */,
 				AC7D742124A7E82E00890B57 /* ViewManagers */,
-				AC58DC9824BCCAD90098588F /* Settings */,
-				ACAF6AB524A0E3CD00F7E7A9 /* Search */,
-				ACAF6AB624A0E3D500F7E7A9 /* Favorite */,
-				AC58DC9924BCCB340098588F /* RecipeDetail */,
+				AC2B3BF624E06A5D000557E7 /* ViewControllers */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -492,12 +499,12 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		ACAF6AB624A0E3D500F7E7A9 /* Favorite */ = {
+		ACAF6AB624A0E3D500F7E7A9 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
-				ACAF6AAF24A0D71800F7E7A9 /* FavoriteTableViewController.swift */,
+				ACAF6AAF24A0D71800F7E7A9 /* FavoritesTableViewController.swift */,
 			);
-			path = Favorite;
+			path = Favorites;
 			sourceTree = "<group>";
 		};
 		ACB2755624CF39980055FA2E /* URL */ = {
@@ -525,6 +532,31 @@
 				ACBFFEBC24C787E60094EDA1 /* AlamofireNetworkRequest.swift */,
 			);
 			path = NetworkRequest;
+			sourceTree = "<group>";
+		};
+		ACCC6EE024E0611800B11737 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				ACAF6AB924A0E6E000F7E7A9 /* RecipeTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		ACCC6EE124E0612D00B11737 /* DelegateHandlers */ = {
+			isa = PBXGroup;
+			children = (
+				AC55245224AE6E98002E56BE /* RecipeTableViewDelegateHandler.swift */,
+			);
+			path = DelegateHandlers;
+			sourceTree = "<group>";
+		};
+		ACCC6EE224E0614100B11737 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				AC019FFF24AE845000D79D6B /* RecipeTableViewDataSource.swift */,
+				ACF52A1724BBD01E00997F69 /* FavoritesTableViewDataSource.swift */,
+			);
+			path = DataSources;
 			sourceTree = "<group>";
 		};
 		ACE1D0D424C3BC3600FBC703 /* Xibs */ = {
@@ -896,7 +928,7 @@
 				ACAF6AAE24A0D70A00F7E7A9 /* SearchViewController.swift in Sources */,
 				AC7A8C8B24A7DCCB00DB48B9 /* RecipeNetworkManager.swift in Sources */,
 				ACAF6A8F24A0CF6700F7E7A9 /* Reciplease.xcdatamodeld in Sources */,
-				ACF52A1824BBD01E00997F69 /* FavoriteTableViewDataSource.swift in Sources */,
+				ACF52A1824BBD01E00997F69 /* FavoritesTableViewDataSource.swift in Sources */,
 				ACAF6ABA24A0E6E000F7E7A9 /* RecipeTableViewCell.swift in Sources */,
 				AC55245124AE6E3E002E56BE /* RecipeWithImage.swift in Sources */,
 				AC7D742424A7E84F00890B57 /* AlertManager.swift in Sources */,
@@ -908,7 +940,7 @@
 				AC7A8C8124A7D85000DB48B9 /* UrlProviderImplementation.swift in Sources */,
 				AC01A00024AE845000D79D6B /* RecipeTableViewDataSource.swift in Sources */,
 				AC58682F24B1206600CE9874 /* SettingsTableViewController.swift in Sources */,
-				ACAF6AB024A0D71800F7E7A9 /* FavoriteTableViewController.swift in Sources */,
+				ACAF6AB024A0D71800F7E7A9 /* FavoritesTableViewController.swift in Sources */,
 				AC7A8C8424A7DBD800DB48B9 /* NetworkService.swift in Sources */,
 				AC7A8C7A24A7D1BD00DB48B9 /* RoundedView.swift in Sources */,
 				ACAF6AB424A0E3B800F7E7A9 /* RecipeDetailViewController.swift in Sources */,
