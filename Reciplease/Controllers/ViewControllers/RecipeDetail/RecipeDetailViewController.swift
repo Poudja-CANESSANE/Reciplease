@@ -68,7 +68,6 @@ class RecipeDetailViewController: UIViewController {
 
     ///Sets the UI with recipeWithImage
     private func setUI() {
-        setFavoriteBarButtonItemImage()
         nameLabel.text = recipeWithImage.recipe.name
         imageView.image = recipeWithImage.image
         caloriesLabel.text = recipeWithImage.recipe.calories + " kcal"

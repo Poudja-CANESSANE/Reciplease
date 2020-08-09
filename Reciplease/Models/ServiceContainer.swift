@@ -23,12 +23,14 @@ struct ServiceContainer {
     static let contextProvider = ContextProviderImplementation()
 
     ///Returns a NSManagedObjectContext from the given NSPersistentContainer
-    static func getContext(fromContainer container: NSPersistentContainer =
-        NSPersistentContainer(name: "Reciplease")) -> NSManagedObjectContext {
+    static func getContext(
+        fromContainer container: NSPersistentContainer = NSPersistentContainer(name: "Reciplease"),
+        stopExecution: @escaping (@autoclosure () -> String, StaticString, UInt) -> Never
+        = Swift.fatalError) -> NSManagedObjectContext {
 
         container.loadPersistentStores { (_, error) in
             if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
+                stopExecution("Unresolved error \(error), \(error.userInfo)", #file, #line)
             }
         }
         let context = container.viewContext

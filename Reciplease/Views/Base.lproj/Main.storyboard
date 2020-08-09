@@ -10,7 +10,7 @@
         <!--Reciplease-->
         <scene sceneID="Iss-C2-H9l">
             <objects>
-                <viewController id="mau-gt-GYM" customClass="FavoriteTableViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="mau-gt-GYM" customClass="FavoritesTableViewController" customModule="Reciplease" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eWn-82-5by">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -35,7 +35,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Reciplease" id="BL9-Qt-vv0"/>
                     <connections>
-                        <outlet property="noFavoriteRecipesView" destination="lYd-ln-QgU" id="NkO-zd-6iB"/>
+                        <outlet property="noFavoritesRecipesView" destination="lYd-ln-QgU" id="NkO-zd-6iB"/>
                         <outlet property="tableView" destination="vj4-d7-mmb" id="Rq8-eb-Cjo"/>
                     </connections>
                 </viewController>
@@ -361,17 +361,17 @@ To do so tap on the star button ★ in the top right corner of the recipe detail
                                         <rect key="frame" x="0.0" y="475.5" width="320" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="R4d-tl-RsV" id="OsG-EP-6ZC">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Immuno Supportive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3So-e3-ejD">
-                                                    <rect key="frame" x="16" y="11.5" width="223" height="21"/>
+                                                    <rect key="frame" x="16" y="11.5" width="503" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" tag="9" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="PLJ-Cg-Vyd">
-                                                    <rect key="frame" x="255" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="535" y="6.5" width="51" height="31"/>
                                                     <color key="onTintColor" red="0.24313725489999999" green="0.58823529409999997" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <action selector="didSwitch:" destination="Y9I-Vu-ncu" eventType="valueChanged" id="cnS-EP-ZDu"/>
@@ -392,17 +392,17 @@ To do so tap on the star button ★ in the top right corner of the recipe detail
                                         <rect key="frame" x="0.0" y="519" width="320" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="804-zj-VYQ" id="BcE-3q-fZV">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sugar Conscious" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcI-Ij-CeW">
-                                                    <rect key="frame" x="16" y="11.5" width="223" height="21"/>
+                                                    <rect key="frame" x="16" y="11.5" width="503" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cyk-aT-1Za">
-                                                    <rect key="frame" x="255" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="535" y="6.5" width="51" height="31"/>
                                                     <color key="onTintColor" red="0.24313725489999999" green="0.58823529409999997" blue="0.35294117650000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <connections>
                                                         <action selector="didSwitch:" destination="Y9I-Vu-ncu" eventType="valueChanged" id="MrO-AM-659"/>
@@ -427,11 +427,11 @@ To do so tap on the star button ★ in the top right corner of the recipe detail
                                         <rect key="frame" x="0.0" y="618.5" width="320" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2d2-ns-o4c" id="Lft-pW-ak4">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="85"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view tag="11" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d84-cx-9OW" customClass="RangeSeekSlider" customModule="RangeSeekSlider">
-                                                    <rect key="frame" x="8" y="8" width="304" height="69"/>
+                                                    <rect key="frame" x="8" y="8" width="584" height="69"/>
                                                     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="minValue">
@@ -501,11 +501,11 @@ To do so tap on the star button ★ in the top right corner of the recipe detail
                                         <rect key="frame" x="0.0" y="759.5" width="320" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uxy-5e-JdR" id="uG9-hU-Btd">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="85"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view tag="12" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4oM-jb-gd2" customClass="RangeSeekSlider" customModule="RangeSeekSlider">
-                                                    <rect key="frame" x="8" y="8" width="304" height="69"/>
+                                                    <rect key="frame" x="8" y="8" width="584" height="69"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                     <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
@@ -748,6 +748,7 @@ To do so tap on the star button ★ in the top right corner of the recipe detail
                                 <color key="backgroundColor" red="0.2156862745" green="0.20000000000000001" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="dlu-bw-leO" firstAttribute="bottom" secondItem="dmh-c5-C8O" secondAttribute="bottom" id="PiE-Hm-D24"/>
                             <constraint firstItem="dlu-bw-leO" firstAttribute="leading" secondItem="dmh-c5-C8O" secondAttribute="leading" id="rHO-Df-jXc"/>
@@ -1027,11 +1028,11 @@ Try to change your settings.</string>
             </objects>
             <point key="canvasLocation" x="710.625" y="-212.32394366197184"/>
         </scene>
-        <!--Favorite-->
+        <!--Favorites-->
         <scene sceneID="v9R-YN-j1n">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Hwv-fN-TYd" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favorite" image="star.fill" catalog="system" id="FA6-li-7vC"/>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="star.fill" catalog="system" id="FA6-li-7vC"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5T0-tE-82k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

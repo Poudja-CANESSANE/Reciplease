@@ -55,7 +55,7 @@ class RecipeTableViewController: UIViewController {
         RecipeTableViewDelegateHandler(
             viewController: self,
             getRecipeWithImage: recipeTableViewDataSource.getRecipeWithImageFromArrays(atIndexPath:),
-            willDisplayCell: displayLoadMoreCell(indexPath:))
+            willDisplayCell: displayLoadMoreCellIfNeeded(indexPath:))
     }()
 
     ///This button is shown in the tableView's footerView to load more recipes
@@ -128,6 +128,11 @@ class RecipeTableViewController: UIViewController {
         }
     }
 
+    ///Stops the spinnig animation of activityIndicator if it was already spinning
+    private func stopLoadingIfNeeded() {
+        if activityIndicator.isAnimating { activityIndicator.stopAnimating() }
+    }
+
     ///Returns a String build by appending all food's name contained in foods
     private func getQueryString() -> String {
         var foods = ""
@@ -149,7 +154,7 @@ class RecipeTableViewController: UIViewController {
     with recipesObjects and downloads the recipes' images*/
     private func handleSuccessfulNetworkFetching(recipeObjects: ([RecipeObject])) {
         hasFetchMoreRecipes = !recipeObjects.isEmpty
-        if hasToDisplayNoResultView(recipeObjects: recipeObjects) { return }
+        if hasToDisplayNoResultView(recipeObjects: recipeObjects) { stopLoadingIfNeeded() }
         recipeTableViewDataSource.recipes += recipeObjects
         recipeObjects.forEach { downloadRecipeImage(recipe: $0) }
     }
@@ -184,8 +189,7 @@ class RecipeTableViewController: UIViewController {
     ///in recipeTableViewDataSource.images at the given recipe's name key
     private func populateImages(fromData data: Data, forRecipe recipe: RecipeObject) {
         guard let image = UIImage(data: data) else {
-            recipeTableViewDataSource.images[recipe.name] = UIImage.defaultRecipeImage
-            return
+            return recipeTableViewDataSource.images[recipe.name] = UIImage.defaultRecipeImage
         }
 
         recipeTableViewDataSource.images[recipe.name] = image
@@ -201,8 +205,18 @@ class RecipeTableViewController: UIViewController {
         subview.centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
     }
 
+    ///Presents an alert with the given message and stops the loading animation of activityIndicator if needed
+    private func presentAlert(message: String) {
+        alertManager.presentErrorAlert(with: message, presentingViewController: self)
+        stopLoadingIfNeeded()
+    }
+
+
+
+    // MARK: Pagination
+
     ///Displays "Load more recipes" cell if needed
-    private func displayLoadMoreCell(indexPath: IndexPath) {
+    private func displayLoadMoreCellIfNeeded(indexPath: IndexPath) {
         let shouldDisplayLoadMoreCell = getShouldDisplayLoadMoreCell(indexPath: indexPath)
         shouldDisplayLoadMoreCell ? setupTableViewFooter() : removeTableViewFooter()
     }
@@ -228,11 +242,5 @@ class RecipeTableViewController: UIViewController {
     ///Sets the tableView's footerView to nil if it exists
     private func removeTableViewFooter() {
         if !isTableViewFooterNil { tableView.tableFooterView = nil }
-    }
-
-    ///Presents an alert with the given message
-    private func presentAlert(message: String) {
-        alertManager.presentErrorAlert(with: message, presentingViewController: self)
-        activityIndicator.stopAnimating()
     }
 }

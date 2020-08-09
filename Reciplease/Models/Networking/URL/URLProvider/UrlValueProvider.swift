@@ -52,7 +52,7 @@ class UrlValueProvider {
 
     // MARK: Methods
 
-    ///Retuens a String corresponding to the minimum and maximun values of calories or time RangeSeekSlider
+    ///Returns a String corresponding to the minimum and maximun values of calories or time RangeSeekSlider
     private func getRange(forKey key: SettingsService.Key) -> String {
         let minValueString = String(Int(settingsService.getMinValue(forKey: key)))
         let maxValueString = String(Int(settingsService.getMaxValue(forKey: key)))

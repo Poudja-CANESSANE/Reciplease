@@ -12,7 +12,8 @@ import XCTest
 class ServiceContainerTests: XCTestCase {
     func testGetContext() {
         expectFatalError(expectedMessage: "Unresolved error Error Domain=RecipleaseTests.FakeResponseData.FakeResponseError Code=1 \"(null)\", [:]") {
-            _ = ServiceContainer.getContext(fromContainer: ContainerStub(name: "Reciplease"))
+            _ = ServiceContainer.getContext(fromContainer: ContainerStub(name: "Reciplease"),
+                                            stopExecution: fatalError)
         }
     }
 }

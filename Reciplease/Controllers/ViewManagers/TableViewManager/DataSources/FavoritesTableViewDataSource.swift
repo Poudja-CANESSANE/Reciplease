@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FavoriteTableViewDataSource: NSObject, UITableViewDataSource {
+class FavoritesTableViewDataSource: NSObject, UITableViewDataSource {
     // MARK: - INTERNAL
 
     // MARK: Properties
