@@ -93,15 +93,15 @@ class SettingsService {
 
     ///Returns an Int corresponding the minimum value of the given RangeSeekSlider
     func getMinValue(forKey key: Key) -> Int {
-        guard let dict = userDefaults.dictionary(forKey: key.name) else { return 0 }
-        let minValue = dict[DictKey.minValue.rawValue] as! Int //swiftlint:disable:this force_cast
+        guard let dict = userDefaults.dictionary(forKey: key.name),
+            let minValue = dict[DictKey.minValue.rawValue] as? Int else { return 0 }
         return minValue
     }
 
     ///Returns an Int corresponding to the maximum value of the given RangeSeekSlider
     func getMaxValue(forKey key: Key) -> Int {
-        guard let dict = userDefaults.dictionary(forKey: key.name) else { return 360 }
-        let maxValue = dict[DictKey.maxValue.rawValue] as! Int //swiftlint:disable:this force_cast
+        guard let dict = userDefaults.dictionary(forKey: key.name),
+            let maxValue = dict[DictKey.maxValue.rawValue] as? Int else { return 360 }
         return maxValue
     }
 
