@@ -9,6 +9,8 @@
 import CoreData
 
 struct ServiceContainer {
+    // MARK: Properties
+
     static let settingsService = SettingsService()
     static let alertManager = AlertManager()
     static let networkService = NetworkServiceImplementation()
@@ -21,6 +23,15 @@ struct ServiceContainer {
     static let urlComponent = URLComponentImplementation()
     static let alamofireNetworkRequest = AlamofireNetworkRequest()
     static let contextProvider = ContextProviderImplementation()
+
+    static let persistentStoreDestroyer = PersistentStoreDestroyer(
+    context: ServiceContainer.getContext(),
+    persistentStoreCoordinator: ServiceContainer.getContext().persistentStoreCoordinator,
+    storeURL: ServiceContainer.getContext().persistentStoreCoordinator?.persistentStores.last?.url)
+
+
+
+    // MARK: Methods
 
     ///Returns a NSManagedObjectContext from the given NSPersistentContainer
     static func getContext(
@@ -36,9 +47,4 @@ struct ServiceContainer {
         let context = container.viewContext
         return context
     }
-    
-    static let persistentStoreDestroyer = PersistentStoreDestroyer(
-        context: ServiceContainer.getContext(),
-        persistentStoreCoordinator: ServiceContainer.getContext().persistentStoreCoordinator,
-        storeURL: ServiceContainer.getContext().persistentStoreCoordinator?.persistentStores.last?.url)
 }

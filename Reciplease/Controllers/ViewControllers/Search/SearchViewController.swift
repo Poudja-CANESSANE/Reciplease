@@ -58,6 +58,9 @@ class SearchViewController: UIViewController {
         performSegue(withIdentifier: "recipeListSegue", sender: self)
     }
 
+    @IBAction func dismissKeyboaed(_ sender: UITapGestureRecognizer) {
+        textField.resignFirstResponder()
+    }
 
     // MARK: Methods
 
@@ -101,8 +104,13 @@ class SearchViewController: UIViewController {
 
     private func getFoods() -> [Food] {
         var foods = [Food]()
-        do { foods = try foodDataManager.getAll() }
-        catch { presentAlert(message: (error as! CoreDataError).message) }//swiftlint:disable:this force_cast
+
+        do { foods = try foodDataManager.getAll()
+        } catch {
+            presentAlert(message: (error as? CoreDataError)?.message ??
+            "An error ocured while getting foods from CoreData !")
+        }
+
         return foods
     }
 
