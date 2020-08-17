@@ -12,10 +12,10 @@ This app is:
 - covered by unit tests.
 
 ## Search
-<img src="Search1.png" alt="drawing" width="200"> <img src="Search2.png" alt="drawing" width="200"> <img src="Search3.png" alt="drawing" width="200">
+<img src="READMEFiles/Search1.png" alt="drawing" width="200"> <img src="READMEFiles/Search2.png" alt="drawing" width="200"> <img src="READMEFiles/Search3.png" alt="drawing" width="200">
 
 ## Favorites
-<img src="Favorites1.png" alt="drawing" width="200"> <img src="Favorites2.png" alt="drawing" width="200"> <img src="Favorites3.png" alt="drawing" width="200">
+<img src="READMEFiles/Favorites1.png" alt="drawing" width="200"> <img src="READMEFiles/Favorites2.png" alt="drawing" width="200"> <img src="READMEFiles/Favorites3.png" alt="drawing" width="200">
 
 ## Settings
-<img src="Settings.png" alt="drawing" width="200"> <img src="Settings2.png" alt="drawing" width="200">
+<img src="READMEFiles/Settings.png" alt="drawing" width="200"> <img src="READMEFiles/Settings2.png" alt="drawing" width="200">
