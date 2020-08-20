@@ -11,6 +11,10 @@ This app is:
 - conform to MVC,
 - covered by unit tests.
 
+## Installation
+Please register in the [Edamam API](https://developer.edamam.com/edamam-docs-recipe-api) to get your own APP_ID and APP_KEY.  
+Go to Models/Networking/URLPovider/API to remove the APIKey.swift file and enter your APP_ID and APP_KEY in the APIConstants.swift file.
+
 ## Search
 <img src="READMEFiles/Search1.png" alt="drawing" width="200"> <img src="READMEFiles/Search2.png" alt="drawing" width="200"> <img src="READMEFiles/Search3.png" alt="drawing" width="200">
 
