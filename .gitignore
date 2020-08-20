@@ -21,6 +21,7 @@ xcuserdata/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
+Reciplease/Models/Networking/URL/URLProvider/APIKey.swift
 
 ## Obj-C/Swift specific
 *.hmap

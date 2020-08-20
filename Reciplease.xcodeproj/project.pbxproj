@@ -17,6 +17,7 @@
 		AC0FC08824C361800075B3A7 /* RecipeNetworkManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC0FC08724C361800075B3A7 /* RecipeNetworkManagerTests.swift */; };
 		AC1081AD24CB6DBF0093EAF3 /* DateComponentsFormatterStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1081AC24CB6DBF0093EAF3 /* DateComponentsFormatterStub.swift */; };
 		AC1081AF24CB6E170093EAF3 /* NumberFormatterStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1081AE24CB6E170093EAF3 /* NumberFormatterStub.swift */; };
+		AC15578124EDC82C000491E5 /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC15578024EDC82C000491E5 /* APIKey.swift */; };
 		AC1563BE24D35F940023F654 /* PersistentStoreDestroyer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1563BD24D35F940023F654 /* PersistentStoreDestroyer.swift */; };
 		AC2A52A324AE5A350022F8FA /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC2A52A224AE5A350022F8FA /* GradientView.swift */; };
 		AC3CD0A624BE021100A0289B /* FavoriteRecipeDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC3CD0A524BE021100A0289B /* FavoriteRecipeDataManager.swift */; };
@@ -70,6 +71,7 @@
 		ACE32CCD24CE108800ADDB81 /* URLComponentImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE32CCC24CE108800ADDB81 /* URLComponentImplementation.swift */; };
 		ACE32CCF24CE10C300ADDB81 /* URLComponentStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE32CCE24CE10C300ADDB81 /* URLComponentStub.swift */; };
 		ACE6F1F524B1D32D00ADBFF3 /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACE6F1F424B1D32D00ADBFF3 /* SettingsService.swift */; };
+		ACED27A224EEF3AF00F1FB7F /* APIConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACED27A124EEF3AF00F1FB7F /* APIConstants.swift */; };
 		ACF52A1824BBD01E00997F69 /* FavoritesTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACF52A1724BBD01E00997F69 /* FavoritesTableViewDataSource.swift */; };
 		ACFB93AE24D48EAE00EF48D9 /* PersistentStoreCoordinatorDestroyStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB93AD24D48EAE00EF48D9 /* PersistentStoreCoordinatorDestroyStub.swift */; };
 		ACFB93B024D48EE100EF48D9 /* PersistentStoreCoordinatorAddStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFB93AF24D48EE100EF48D9 /* PersistentStoreCoordinatorAddStub.swift */; };
@@ -104,6 +106,7 @@
 		AC0FC08724C361800075B3A7 /* RecipeNetworkManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeNetworkManagerTests.swift; sourceTree = "<group>"; };
 		AC1081AC24CB6DBF0093EAF3 /* DateComponentsFormatterStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateComponentsFormatterStub.swift; sourceTree = "<group>"; };
 		AC1081AE24CB6E170093EAF3 /* NumberFormatterStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatterStub.swift; sourceTree = "<group>"; };
+		AC15578024EDC82C000491E5 /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = APIKey.swift; path = Reciplease/Models/Networking/URL/URLProvider/APIKey.swift; sourceTree = SOURCE_ROOT; };
 		AC1563BD24D35F940023F654 /* PersistentStoreDestroyer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStoreDestroyer.swift; sourceTree = "<group>"; };
 		AC2A52A224AE5A350022F8FA /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		AC3CD0A524BE021100A0289B /* FavoriteRecipeDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRecipeDataManager.swift; sourceTree = "<group>"; };
@@ -161,6 +164,7 @@
 		ACE32CCC24CE108800ADDB81 /* URLComponentImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLComponentImplementation.swift; sourceTree = "<group>"; };
 		ACE32CCE24CE10C300ADDB81 /* URLComponentStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLComponentStub.swift; sourceTree = "<group>"; };
 		ACE6F1F424B1D32D00ADBFF3 /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
+		ACED27A124EEF3AF00F1FB7F /* APIConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConstants.swift; sourceTree = "<group>"; };
 		ACF52A1724BBD01E00997F69 /* FavoritesTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesTableViewDataSource.swift; sourceTree = "<group>"; };
 		ACFB93AD24D48EAE00EF48D9 /* PersistentStoreCoordinatorDestroyStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStoreCoordinatorDestroyStub.swift; sourceTree = "<group>"; };
 		ACFB93AF24D48EE100EF48D9 /* PersistentStoreCoordinatorAddStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStoreCoordinatorAddStub.swift; sourceTree = "<group>"; };
@@ -320,6 +324,7 @@
 		AC7A8C7F24A7D83A00DB48B9 /* URLProvider */ = {
 			isa = PBXGroup;
 			children = (
+				ACED27A024EEF39000F1FB7F /* API */,
 				ACBFFEBE24C7A9DA0094EDA1 /* UrlValueProvider.swift */,
 				AC7A8C7D24A7D7FA00DB48B9 /* UrlProvider.swift */,
 				AC7A8C8024A7D85000DB48B9 /* UrlProviderImplementation.swift */,
@@ -607,6 +612,15 @@
 				AC0BC3D024B9FD28002AC135 /* FavoriteRecipe.swift */,
 			);
 			path = NSManagedObjects;
+			sourceTree = "<group>";
+		};
+		ACED27A024EEF39000F1FB7F /* API */ = {
+			isa = PBXGroup;
+			children = (
+				AC15578024EDC82C000491E5 /* APIKey.swift */,
+				ACED27A124EEF3AF00F1FB7F /* APIConstants.swift */,
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 		ACF27ECB24CF7DA7006B0F97 /* URL */ = {
@@ -924,6 +938,7 @@
 				ACBFFEBD24C787E60094EDA1 /* AlamofireNetworkRequest.swift in Sources */,
 				ACFDAE4824BCFEAD001B719F /* CoreDataManager.swift in Sources */,
 				AC55245324AE6E98002E56BE /* RecipeTableViewDelegateHandler.swift in Sources */,
+				ACED27A224EEF3AF00F1FB7F /* APIConstants.swift in Sources */,
 				ACFDAE4A24BE00A0001B719F /* FoodDataManager.swift in Sources */,
 				ACAF6AAE24A0D70A00F7E7A9 /* SearchViewController.swift in Sources */,
 				AC7A8C8B24A7DCCB00DB48B9 /* RecipeNetworkManager.swift in Sources */,
@@ -938,6 +953,7 @@
 				ACE32CCD24CE108800ADDB81 /* URLComponentImplementation.swift in Sources */,
 				ACA3DCC324CF2B360066CC62 /* ContextProvider.swift in Sources */,
 				AC7A8C8124A7D85000DB48B9 /* UrlProviderImplementation.swift in Sources */,
+				AC15578124EDC82C000491E5 /* APIKey.swift in Sources */,
 				AC01A00024AE845000D79D6B /* RecipeTableViewDataSource.swift in Sources */,
 				AC58682F24B1206600CE9874 /* SettingsTableViewController.swift in Sources */,
 				ACAF6AB024A0D71800F7E7A9 /* FavoritesTableViewController.swift in Sources */,

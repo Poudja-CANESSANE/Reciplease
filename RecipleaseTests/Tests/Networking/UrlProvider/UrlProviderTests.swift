@@ -32,7 +32,7 @@ class UrlProviderTests: XCTestCase {
 
         let url = urlProvider.getUrlString(forFood: foodName, fromMinIndex: 0, toMaxIndex: 50)
 
-        XCTAssertEqual(url, "https://api.edamam.com/search?app_id=18ef1ba0&app_key=a6dd1b7f5987808e49bd2019a1f5468d&q=Potato&from=0&to=50&diet=balanced&diet=high-protein&diet=low-fat&diet=low-carb&health=vegan&health=vegetarian&health=peanut-free&health=tree-nut-free&health=alcohol-free&health=immuno-supportive&health=sugar-conscious&calories=300-1000&time=0-30") // swiftlint:disable:this line_length
+        XCTAssertEqual(url, "https://api.edamam.com/search?app_id=\(APP_ID)&app_key=\(APP_KEY)&q=Potato&from=0&to=50&diet=balanced&diet=high-protein&diet=low-fat&diet=low-carb&health=vegan&health=vegetarian&health=peanut-free&health=tree-nut-free&health=alcohol-free&health=immuno-supportive&health=sugar-conscious&calories=300-1000&time=0-30") // swiftlint:disable:this line_length
     }
 
     func testGivenUrlProviderWithURLComponentStub_WhenGetUrl_ThenShouldReturnNil() {
