@@ -10,11 +10,11 @@ import XCTest
 @testable import Reciplease
 
 class NetworkServiceTests: XCTestCase {
-    // MARK: Test fetchRecipeImage(urlString: String, completion: @escaping (Result<Data, NetworkError>) -> Void)
+    // MARK: Test fetchData(urlString: String, completion: @escaping (Result<Data, NetworkError>) -> Void)
 
     func testFetchRecipeImage_ShouldFail_IfError() {
         let networkService = getNetworkServiceWithFakeNetworkRequest(data: nil, response: nil, error: FakeResponseData.error)
-        networkService.fetchRecipeImage(urlString: url) { result in
+        networkService.fetchData(urlString: url) { result in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.getError)
             } else { XCTFail() }
@@ -23,7 +23,7 @@ class NetworkServiceTests: XCTestCase {
 
     func testFetchRecipeImage_ShouldFail_IfNoData() {
         let networkService = getNetworkServiceWithFakeNetworkRequest(data: nil, response: nil, error: nil)
-        networkService.fetchRecipeImage(urlString: url) { result in
+        networkService.fetchData(urlString: url) { result in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.noData)
             } else { XCTFail() }
@@ -32,7 +32,7 @@ class NetworkServiceTests: XCTestCase {
 
     func testFetchRecipeImage_ShouldFail_IfNoResponse() {
         let networkService = getNetworkServiceWithFakeNetworkRequest(data: FakeResponseData.recipeCorrectImageData, response: nil, error: nil)
-        networkService.fetchRecipeImage(urlString: url) { result in
+        networkService.fetchData(urlString: url) { result in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.noResponse)
             }
@@ -42,7 +42,7 @@ class NetworkServiceTests: XCTestCase {
     func testFetchRecipeImage_ShouldFail_IfIncorrectResponse() {
         let networkService = getNetworkServiceWithFakeNetworkRequest(
             data: FakeResponseData.recipeCorrectImageData, response: FakeResponseData.responseKO, error: nil)
-        networkService.fetchRecipeImage(urlString: url) { result in
+        networkService.fetchData(urlString: url) { result in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.badStatusCode)
             } else { XCTFail() }
@@ -52,7 +52,7 @@ class NetworkServiceTests: XCTestCase {
     func testFetchRecipeImage_ShouldSucceed_IfNoErrorAndCorrectResponseAndCorrectData() {
         let networkService = getNetworkServiceWithFakeNetworkRequest(
             data: FakeResponseData.recipeCorrectImageData, response: FakeResponseData.responseOK, error: nil)
-        networkService.fetchRecipeImage(urlString: url) { result in
+        networkService.fetchData(urlString: url) { result in
             let data = try! result.get()
             XCTAssertEqual(data, FakeResponseData.recipeCorrectImageData)
         }
@@ -60,11 +60,11 @@ class NetworkServiceTests: XCTestCase {
 
     
 
-    // MARK: Test fetchRecipes(urlString: String, completion: @escaping (Result<RecipeResult, NetworkError>) -> Void)
+    // MARK: Test fetchDecodedData<T: Codable>(urlString: String, completion: @escaping (Result<T, NetworkError>) -> Void)
 
     func testFetchRecipes_ShouldFail_IfError() {
         let networkService = getNetworkServiceWithFakeNetworkRequest(data: nil, response: nil, error: FakeResponseData.error)
-        networkService.fetchRecipes(urlString: url) { result in
+        networkService.fetchDecodedData(urlString: url) { (result: RecipeFetchingResult) in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.getError)
             } else { XCTFail() }
@@ -73,7 +73,7 @@ class NetworkServiceTests: XCTestCase {
 
     func testFetchRecipes_ShouldFail_IfNoData() {
         let networkService = getNetworkServiceWithFakeNetworkRequest(data: nil, response: nil, error: nil)
-        networkService.fetchRecipes(urlString: url) { result in
+        networkService.fetchDecodedData(urlString: url) { (result: RecipeFetchingResult) in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.noData)
             } else { XCTFail() }
@@ -82,7 +82,7 @@ class NetworkServiceTests: XCTestCase {
 
     func testFetchRecipes_ShouldFail_IfNoResponse() {
         let networkService = getNetworkServiceWithFakeNetworkRequest(data: FakeResponseData.recipeCorrectData, response: nil, error: nil)
-        networkService.fetchRecipes(urlString: url) { result in
+        networkService.fetchDecodedData(urlString: url) { (result: RecipeFetchingResult) in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.noResponse)
             } else { XCTFail() }
@@ -92,7 +92,7 @@ class NetworkServiceTests: XCTestCase {
     func testFetchRecipes_ShouldFail_IfIncorrectResponse() {
         let networkService = getNetworkServiceWithFakeNetworkRequest(
             data: FakeResponseData.recipeCorrectData, response: FakeResponseData.responseKO, error: nil)
-        networkService.fetchRecipes(urlString: url) { result in
+        networkService.fetchDecodedData(urlString: url) { (result: RecipeFetchingResult) in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.badStatusCode)
             } else { XCTFail() }
@@ -102,7 +102,7 @@ class NetworkServiceTests: XCTestCase {
     func testFetchRecipes_ShouldFail_IfIncorrectData() {
         let networkService = getNetworkServiceWithFakeNetworkRequest(
             data: FakeResponseData.incorrectData, response: FakeResponseData.responseOK, error: nil)
-        networkService.fetchRecipes(urlString: url) { result in
+        networkService.fetchDecodedData(urlString: url) { (result: RecipeFetchingResult) in
             if case .failure(let networkError) = result {
                 XCTAssertEqual(networkError, NetworkError.cannotDecodeData)
             } else { XCTFail() }
@@ -112,7 +112,7 @@ class NetworkServiceTests: XCTestCase {
     func testFetchRecipes_ShouldFail_IfNoErrorAndCorrectResponseAndCorrectData() {
         let networkService = getNetworkServiceWithFakeNetworkRequest(
             data: FakeResponseData.recipeCorrectData, response: FakeResponseData.responseOK, error: nil)
-        networkService.fetchRecipes(urlString: url) { result in
+        networkService.fetchDecodedData(urlString: url) { (result: RecipeFetchingResult) in
             if case .success(let recipes) = result {
                 XCTAssertEqual(recipes, self.correctRecipes)
             } else { XCTFail() }
@@ -122,6 +122,8 @@ class NetworkServiceTests: XCTestCase {
 
 
     // MARK: Tools
+
+    private typealias RecipeFetchingResult =  Result<RecipeResult, NetworkError>
 
     private let url = "http://openclassrooms.com"
 

@@ -13,6 +13,7 @@ class RecipeNetworkManager {
 
     typealias RecipeCompletion = (Result<[RecipeObject], NetworkError>) -> Void
     typealias RecipeImageCompletion = (Result<Data, NetworkError>) -> Void
+    typealias RecipeFetchingResult = Result<RecipeResult, NetworkError>
 
 
 
@@ -44,11 +45,9 @@ class RecipeNetworkManager {
         guard let urlString = urlProvider.getUrlString(
             forFood: foods,
             fromMinIndex: minIndex,
-            toMaxIndex: maxIndex) else {
-            return completion(.failure(.cannotGetUrl))
-        }
+            toMaxIndex: maxIndex) else { return completion(.failure(.cannotGetUrl)) }
 
-        networkService.fetchRecipes(urlString: urlString) { [weak self] result in
+        networkService.fetchDecodedData(urlString: urlString) { [weak self] (result: RecipeFetchingResult) in
             guard let self = self else { return }
             switch result {
             case .failure(let networkError):
@@ -62,7 +61,7 @@ class RecipeNetworkManager {
 
     ///Returns by the completion parameter the downloaded Data corresponding to the recipe's image from the given url
     func getRecipeImage(fromImageUrlString imageUrlString: String, completion: @escaping RecipeImageCompletion) {
-        networkService.fetchRecipeImage(urlString: imageUrlString) { result in
+        networkService.fetchData(urlString: imageUrlString) { result in
             switch result {
             case .failure(let networkError):
                 completion(.failure(networkError))
