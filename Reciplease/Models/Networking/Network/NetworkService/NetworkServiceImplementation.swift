@@ -21,14 +21,14 @@ class NetworkServiceImplementation: NetworkService {
 
     // MARK: Methods
 
-    ///Returns by the completion parameter the downloaded RecipeResult from the given URL
-    func fetchRecipes(urlString: String, completion: @escaping (Result<RecipeResult, NetworkError>) -> Void) {
+    ///Returns by the completion parameter the downloaded data decoded in the given type from the given URL
+    func fetchDecodedData<T: Codable>(urlString: String, completion: @escaping (Result<T, NetworkError>) -> Void) {
         networkRequest.download(urlString: urlString) { result in
             switch result {
-            case .failure(let networError):
-                completion(.failure(networError))
+            case .failure(let networkError):
+                completion(.failure(networkError))
             case .success(let data):
-                guard let responseJSON = try? JSONDecoder().decode(RecipeResult.self, from: data) else {
+                guard let responseJSON = try? JSONDecoder().decode(T.self, from: data) else {
                     return completion(.failure(.cannotDecodeData))
                 }
 
@@ -38,10 +38,10 @@ class NetworkServiceImplementation: NetworkService {
     }
 
     ///Returns by the completion parameter the downloaded Data from the given URL
-    func fetchRecipeImage(urlString: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
+    func fetchData(urlString: String, completion: @escaping (Result<Data, NetworkError>) -> Void) {
         networkRequest.download(urlString: urlString) { result in
             switch result {
-            case .failure(let networError): completion(.failure(networError))
+            case .failure(let networkError): completion(.failure(networkError))
             case .success(let data): completion(.success(data))
             }
         }

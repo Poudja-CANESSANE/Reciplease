@@ -9,6 +9,6 @@
 import Foundation
 
 protocol NetworkService {
-    func fetchRecipes(urlString: String, completion: @escaping (Result<RecipeResult, NetworkError>) -> Void)
-    func fetchRecipeImage(urlString: String, completion: @escaping (Result<Data, NetworkError>) -> Void)
+    func fetchDecodedData<T: Codable>(urlString: String, completion: @escaping (Result<T, NetworkError>) -> Void)
+    func fetchData(urlString: String, completion: @escaping (Result<Data, NetworkError>) -> Void)
 }
